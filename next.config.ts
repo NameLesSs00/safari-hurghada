@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
-  output: process.env.VERCEL ? undefined : "standalone",
+  ...(process.env.STANDALONE === "true" ? { output: "standalone" as const } : {}),
   async redirects() {
     return [
       {
