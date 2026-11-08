@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #1e232a;
+  --color-brand-orange: #f36f21;
+  --color-brand-orange-hover: #df5d10;
+  --color-brand-dark: #1e232a;
+  --color-brand-text: #2d333a;
+  --color-brand-muted: #535764;
+  --color-whatsapp: #25d366;
+  --color-deep-ocean: #004560;
+  --color-ocean: #006993;
+  --color-muted: #535764;
+  --color-footer-title: #09355d;
+  --color-footer-text: #16181e;
+  --color-footer-bg: #087393;
+  --color-faq-accent: #69dd84;
+  --color-faq-box: #f5f9ff;
+  --color-hero-accent: #f36f21;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand-orange: var(--color-brand-orange);
+  --color-brand-orange-hover: var(--color-brand-orange-hover);
+  --color-brand-dark: var(--color-brand-dark);
+  --color-brand-text: var(--color-brand-text);
+  --color-brand-muted: var(--color-brand-muted);
+  --color-whatsapp: var(--color-whatsapp);
+  --font-sans: var(--font-roboto);
+  --font-montez: var(--font-montez);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+  overflow-x: clip;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-roboto), Arial, Helvetica, sans-serif;
+  overflow-x: clip;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+}

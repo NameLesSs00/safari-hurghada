@@ -1,0 +1,467 @@
+{
+  "NotFound": {
+    "title": "404",
+    "subtitle": "Page Not Found",
+    "description": "Oops! The page you are looking for doesn't exist, has been removed, or is temporarily unavailable.",
+    "backToHome": "Back to Home"
+  },
+  "Header": {
+    "logoHome": "Logoipsum home",
+    "openCart": "Open cart",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "english": "English",
+    "french": "French",
+    "german": "German",
+    "polish": "Polish"
+  },
+  "Navigation": {
+    "home": "Home",
+    "trips": "Tours",
+    "categories": "Categories",
+    "destinations": "Destinations",
+    "blogs": "Blog",
+    "faq": "FAQs",
+    "contact": "Contact",
+    "gallery": "Gallery",
+    "about": "About Us",
+    "allDestinations": "All Destinations",
+    "allCategories": "All Categories"
+  },
+  "Hero": {
+    "ariaLabel": "Featured Hurghada safari and travel experiences",
+    "titlePart1": "Adventure Starts",
+    "titlePart2": "in",
+    "titleHighlight": "Hurghada",
+    "description": "Desert safaris, sea trips, snorkeling, diving and unforgettable excursions — discover the best of Hurghada with Safari Hurghada.",
+    "ctaExplore": "Explore Trips",
+    "ctaWhatsapp": "Contact on WhatsApp",
+    "highlights": {
+      "rating": {
+        "title": "Top-rated experiences",
+        "description": "Loved by thousands of travelers"
+      },
+      "price": {
+        "title": "Best local prices",
+        "description": "Great value, no hidden fees"
+      },
+      "support": {
+        "title": "Instant booking support",
+        "description": "Quick, friendly & reliable"
+      }
+    }
+  },
+  "Categories": {
+    "subtitle": "EXPLORE BY CATEGORY",
+    "title": "Find Your Next Adventure",
+    "description": "From thrilling desert safaris to amazing Red Sea experiences, explore a wide range of trips in and around Hurghada.",
+    "loading": "Loading categories...",
+    "error": "Failed to load categories",
+    "goTo": "Go to {destination}",
+    "exploreTrips": "Explore Trips"
+  },
+  "Tours": {
+    "eyebrow": "OUR BEST-SELLING TRIPS",
+    "titlePrefix": "Most Popular Trips in",
+    "titleHighlight": "Hurghada",
+    "subtitle": "The top-rated experiences our guests love the most.",
+    "title": "Most Popular Trips in Hurghada",
+    "featuredTrip": "Featured Trip",
+    "from": "From",
+    "perPerson": "per person",
+    "viewMore": "View More",
+    "loadingFilters": "Loading filters...",
+    "loadingTours": "Loading tours...",
+    "noTours": "No tours available at the moment.",
+    "bookNow": "Book Now",
+    "addToCart": "Add to Cart",
+    "saveTrip": "Save trip",
+    "unsaveTrip": "Remove from saved trips"
+  },
+  "PopularDestinations": {
+    "eyebrow": "TOP DESTINATIONS",
+    "titlePrefix": "Discover Amazing",
+    "titleHighlight": "Places",
+    "subtitle": "Explore the must-visit destinations in and around Hurghada.",
+    "title": "Discover Amazing Places",
+    "viewMore": "View More",
+    "loading": "Loading popular destinations...",
+    "exploreTrips": "Explore Trips"
+  },
+  "WhyUs": {
+    "eyebrow": "WHY CHOOSE SAFARI HURGHADA",
+    "titlePrefix": "More Than a Trip — A Better",
+    "titleHighlight": "Experience",
+    "subtitle": "Here's why travelers choose us for their adventures in Hurghada.",
+    "features": {
+      "localExperts": {
+        "title": "Local Experts",
+        "description": "A friendly, experienced team who know Hurghada inside out."
+      },
+      "handpicked": {
+        "title": "Handpicked Trips",
+        "description": "Carefully selected experiences for all travel styles and ages."
+      },
+      "support": {
+        "title": "Fast Support",
+        "description": "Quick and helpful assistance before, during, and after your trip."
+      },
+      "value": {
+        "title": "Great Value",
+        "description": "Top experiences at fair, local prices — no hidden fees."
+      }
+    }
+  },
+  "Gallery": {
+    "eyebrow": "OUR GALLERY",
+    "titlePrefix": "Moments from Our",
+    "titleHighlight": "Adventures",
+    "subtitle": "Real experiences, real travelers, real memories in Hurghada.",
+    "title": "Moments from Our Adventures",
+    "viewMore": "View More",
+    "loading": "Loading gallery..."
+  },
+  "Blogs": {
+    "eyebrow": "LATEST BLOGS",
+    "titlePrefix": "Travel Tips, Guides &",
+    "titleHighlight": "Inspiration",
+    "subtitle": "Useful tips, local insights and travel ideas for your next trip to Hurghada.",
+    "title": "Travel Tips, Guides & Inspiration",
+    "viewMore": "View More",
+    "readMore": "Read More",
+    "error": "Failed to load blogs. Please try again later.",
+    "empty": "No blogs available at the moment."
+  },
+  "FAQ": {
+    "eyebrow": "FAQS",
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find quick answers to the most common questions about our trips and services.",
+    "viewAll": "View All FAQs →"
+  },
+  "Footer": {
+    "companyDescription": "Your trusted travel partner in Hurghada for desert safaris, sea trips, snorkeling, diving and unforgettable excursions across Egypt.",
+    "quickLinks": "Quick Links",
+    "tripCategories": "Trip Categories",
+    "contactUs": "Contact Us",
+    "address": "Hurghada, Red Sea, Egypt",
+    "chatOnWhatsApp": "Chat on WhatsApp",
+    "privacyPolicy": "Privacy Policy",
+    "termsConditions": "Terms & Conditions",
+    "poweredBy": "Powered By",
+    "allRightsReserved": "All rights reserved."
+  },
+  "DestinationsPage": {
+    "hero": {
+      "subtitle": "Explore Egypt",
+      "title": "Discover Destinations That Inspire Every Journey",
+      "imageAlt": "Hurghada destination word art"
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "destinations": "Destinations"
+    },
+    "card": {
+      "trips": "{count} Trips",
+      "tripsSingular": "{count} Trip",
+      "destinationAlt": "{name} destination"
+    }
+  },
+  "TripsPage": {
+    "hero": {
+      "subtitle": "Explore Egypt",
+      "title": "Find Your Next Adventure"
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "explore": "Explore"
+    },
+    "toolbar": {
+      "tripsFound": "{count} Trips Found",
+      "tripFound": "{count} Trip Found",
+      "filter": "Filter",
+      "searchPlaceholder": "Search"
+    },
+    "sidebar": {
+      "filterTitle": "Filter",
+      "clearAll": "Clear all filter",
+      "destination": "Destination",
+      "anyDestination": "Any Destination",
+      "priceRange": "Price Range",
+      "min": "Min",
+      "max": "Max",
+      "to": "To",
+      "tripsTypes": "Trips Types",
+      "allTrips": "All Trips"
+    },
+    "grid": {
+      "error": "Failed to load trips. Please try again later.",
+      "noTripsTitle": "No trips found",
+      "noTripsDescription": "Try adjusting your filters to see more results."
+    },
+    "mobileFilters": {
+      "title": "Filters",
+      "applyButton": "Apply Filters"
+    },
+    "showMore": {
+      "loading": "Loading...",
+      "button": "Show More"
+    }
+  },
+  "GalleryPage": {
+    "hero": {
+      "subtitle": "Travel Moments",
+      "title": "Explore Egypt Through Our Lens",
+      "imageAlt": "Camera with travel photos"
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "gallery": "Gallery"
+    },
+    "states": {
+      "loading": "Loading gallery...",
+      "error": "Failed to load gallery images.",
+      "empty": "No images available yet."
+    },
+    "seeMore": "See More"
+  },
+  "BlogsPage": {
+    "hero": {
+      "subtitle": "Explore Articles",
+      "title": "Discover Stories, Guides & Travel Tips",
+      "imageAlt": "Discover Stories, Guides & Travel Tips"
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "blogs": "Blogs"
+    },
+    "search": {
+      "placeholder": "Search"
+    },
+    "tags": {
+      "label": "Popular tags:",
+      "all": "All",
+      "sea": "Sea",
+      "safari": "Safari",
+      "history": "History"
+    },
+    "grid": {
+      "error": "Failed to load blogs. Please try again later.",
+      "empty": "No articles found matching your search.",
+      "seeMore": "See More"
+    }
+  },
+  "AboutPage": {
+    "hero": {
+      "subtitle": "Our Story",
+      "title": "Discover Egypt with People Who Know It Best",
+      "imageAlt": "Airplane window view above the clouds"
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "about": "About Us"
+    },
+    "intro": {
+      "title": "Your Journey Begins With Us",
+      "description": "We create unforgettable travel experiences that bring you closer to the heart of Egypt. From crystal-clear Red Sea adventures and thrilling desert safaris to iconic historical landmarks and scenic Nile cruises, every journey is carefully designed to inspire, excite, and leave you with memories that last a lifetime."
+    },
+    "company": {
+      "title": "About Our Company",
+      "imageAlt": "Egypt travel collage",
+      "description": {
+        "part1": "We believe that travel is more than just visiting places it's about stories, moments, and memories that last a lifetime.",
+        "part2": "Our team is made up of local experts and travel enthusiasts who know every hidden gem, every perfect timing, and every detail that turns a trip into an experience."
+      }
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "To provide authentic, safe, and inspiring travel experiences that allow every visitor to explore Egypt with confidence, comfort, and unforgettable memories."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description": "To become Egypt's most trusted travel platform by connecting travelers with extraordinary destinations, exceptional service, and meaningful cultural experiences."
+    },
+    "offers": {
+      "title": "What We Offer?",
+      "items": {
+        "seaTrips": {
+          "title": "Sea Trips",
+          "description": "Snorkeling, islands, crystal-clear waters, and relaxation."
+        },
+        "desertSafari": {
+          "title": "Desert Safari",
+          "description": "Adventure, culture, and unforgettable desert views"
+        },
+        "historicalTours": {
+          "title": "Historical Tours",
+          "description": "Explore Egypt's ancient wonders with expert guides"
+        }
+      }
+    }
+  },
+  "ContactPage": {
+    "hero": {
+      "subtitle": "Get in Touch",
+      "title": "Let's Start Your Next Adventure",
+      "description": "Whether you're planning your dream vacation, looking for the perfect tour, or simply have a question, our team is here to help. Reach out to us, and let's create unforgettable memories together.",
+      "imageAlt": "Get in touch"
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "contact": "Contact Us"
+    },
+    "form": {
+      "title": "Have questions? Feel free to write us",
+      "description": "Have a question or need more information about our products? Fill out the form below and we'll get back to you as soon as possible.",
+      "fields": {
+        "name": {
+          "label": "Your name",
+          "placeholder": "Enter Name"
+        },
+        "whatsapp": {
+          "label": "WhatsApp Number",
+          "placeholder": "Enter your WhatsApp Number"
+        },
+        "message": {
+          "label": "Message",
+          "placeholder": "Write your message"
+        }
+      },
+      "submit": "Send Message"
+    },
+    "info": {
+      "location": {
+        "label": "Location",
+        "value": "Hurghada, Red Sea, Egypt"
+      },
+      "phone": {
+        "label": "Call Us"
+      },
+      "email": {
+        "label": "Email"
+      }
+    },
+    "map": {
+      "title": "Hurghada, Egypt location map"
+    },
+    "social": {
+      "title": "Follow Us",
+      "links": {
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "x": "X"
+      }
+    }
+  },
+  "CartPage": {
+    "header": {
+      "title": "Booking Cart",
+      "description": "Review your selected tours before payment"
+    },
+    "loading": {
+      "label": "Loading cart"
+    },
+    "item": {
+      "remove": "Remove",
+      "removeAria": "Remove {name} from cart",
+      "travelers": "{count, plural, one {# Traveler} other {# Travelers}}",
+      "perPerson": "per person"
+    },
+    "summary": {
+      "title": "Booking summary",
+      "empty": "Your cart is empty.",
+      "package": "Package",
+      "adult": "Adult",
+      "child": "Child",
+      "total": "Total",
+      "removeAria": "Remove {name} from booking summary",
+      "checkout": "Proceed to check out →"
+    },
+    "empty": {
+      "title": "Your cart is currently empty",
+      "description": "Looks like you haven't added any trips yet. Discover our latest offers and start planning your next adventure!",
+      "button": "Explore Trips"
+    }
+  },
+  "CheckoutPage": {
+    "empty": {
+      "title": "Your cart is empty",
+      "description": "Please go back and select a trip to book.",
+      "cta": "Explore trips"
+    },
+    "form": {
+      "billing": {
+        "title": "Billing Details",
+        "fields": {
+          "firstName": {
+            "label": "First Name *",
+            "placeholder": "First Name"
+          },
+          "lastName": {
+            "label": "Last Name *",
+            "placeholder": "Last Name"
+          },
+          "nationality": {
+            "label": "Nationality *",
+            "placeholder": "Select Nationality (e.g. EG, US, GB)"
+          },
+          "email": {
+            "label": "Email address *",
+            "placeholder": "Email Address"
+          },
+          "phone": {
+            "label": "Phone Number *",
+            "placeholder": "Phone Number"
+          },
+          "hotelName": {
+            "label": "Hotel Name (Optional)",
+            "placeholder": "Hotel Name"
+          },
+          "roomNo": {
+            "label": "Room Number (Optional)",
+            "placeholder": "Room Number"
+          }
+        }
+      },
+      "coupon": {
+        "title": "Coupon",
+        "placeholder": "Enter coupon Number",
+        "apply": "Apply",
+        "applying": "Applying...",
+        "success": "Coupon applied! You saved {amount}",
+        "invalid": "Invalid coupon code"
+      },
+      "payment": {
+        "title": "Payment Method",
+        "bookNowPayLater": "Book Now Pay later"
+      },
+      "submit": {
+        "confirm": "Confirm Booking",
+        "confirming": "Confirming...",
+        "error": "Failed to confirm booking. Please try again."
+      },
+      "nationalityFallback": "Not specified"
+    },
+    "summary": {
+      "empty": "Your cart is empty.",
+      "title": "Tour Details",
+      "travelerCount": "No. of Travellers:",
+      "package": "Package",
+      "travelers": "Traveller(s):",
+      "adult": "Adult",
+      "child": "Child",
+      "subtotal": "Subtotal:",
+      "discount": "Discount:",
+      "total": "Total:"
+    }
+  },
+  "CheckoutSuccessPage": {
+    "imageAlt": "Booking successful",
+    "title": "Booking Created Successfully!",
+    "description": "Thank you for choosing us. We have received your booking details and will get in touch shortly.",
+    "backHome": "Back to Home"
+  }
+}

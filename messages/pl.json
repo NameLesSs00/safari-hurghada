@@ -1,0 +1,467 @@
+{
+  "NotFound": {
+    "title": "404",
+    "subtitle": "Nie znaleziono strony",
+    "description": "Ups! Strona, której szukasz, nie istnieje, została usunięta lub jest tymczasowo niedostępna.",
+    "backToHome": "Wróć do strony głównej"
+  },
+  "Header": {
+    "logoHome": "Strona główna Logoipsum",
+    "openCart": "Otwórz koszyk",
+    "openMenu": "Otwórz menu",
+    "closeMenu": "Zamknij menu"
+  },
+  "LocaleSwitcher": {
+    "label": "Zmień język",
+    "english": "Angielski",
+    "french": "Francuski",
+    "german": "Niemiecki",
+    "polish": "Polski"
+  },
+  "Navigation": {
+    "home": "Strona główna",
+    "trips": "Wycieczki",
+    "categories": "Kategorie",
+    "destinations": "Destynacje",
+    "blogs": "Blog",
+    "faq": "FAQ",
+    "contact": "Kontakt",
+    "gallery": "Galeria",
+    "about": "O nas",
+    "allDestinations": "Wszystkie destynacje",
+    "allCategories": "Wszystkie kategorie"
+  },
+  "Hero": {
+    "ariaLabel": "Wybrane safari i wycieczki w Hurghadzie",
+    "titlePart1": "Przygoda zaczyna się",
+    "titlePart2": "w",
+    "titleHighlight": "Hurghadzie",
+    "description": "Pustynne safari, rejsy morskie, snorkeling, nurkowanie i niezapomniane wycieczki — odkryj to, co najlepsze w Hurghadzie z Safari Hurghada.",
+    "ctaExplore": "Odkryj wycieczki",
+    "ctaWhatsapp": "Napisz na WhatsApp",
+    "highlights": {
+      "rating": {
+        "title": "Najwyżej oceniane atrakcje",
+        "description": "Uwielbiane przez tysiące podróżników"
+      },
+      "price": {
+        "title": "Najlepsze lokalne ceny",
+        "description": "Świetna wartość, bez ukrytych opłat"
+      },
+      "support": {
+        "title": "Natychmiastowe wsparcie",
+        "description": "Szybkie, przyjazne i niezawodne"
+      }
+    }
+  },
+  "Categories": {
+    "subtitle": "ODKRYWAJ WEDŁUG KATEGORII",
+    "title": "Znajdź swoją kolejną przygodę",
+    "description": "Od ekscytujących pustynnych safari po niesamowite atrakcje Morza Czerwonego — odkryj szeroki wybór wycieczek w Hurghadzie i okolicach.",
+    "loading": "Ładowanie kategorii...",
+    "error": "Nie udało się załadować kategorii",
+    "goTo": "Przejdź do {destination}",
+    "exploreTrips": "Odkryj wycieczki"
+  },
+  "Tours": {
+    "eyebrow": "NASZE NAJPOPULARNIEJSZE WYCIECZKI",
+    "titlePrefix": "Najpopularniejsze wycieczki w",
+    "titleHighlight": "Hurghadzie",
+    "subtitle": "Najwyżej oceniane atrakcje, które nasi goście uwielbiają najbardziej.",
+    "title": "Najpopularniejsze wycieczki w Hurghadzie",
+    "featuredTrip": "Wyróżniona wycieczka",
+    "from": "Od",
+    "perPerson": "za osobę",
+    "viewMore": "Zobacz więcej",
+    "loadingFilters": "Ładowanie filtrów...",
+    "loadingTours": "Ładowanie wycieczek...",
+    "noTours": "Brak dostępnych wycieczek w tej chwili.",
+    "bookNow": "Zarezerwuj teraz",
+    "addToCart": "Dodaj do koszyka",
+    "saveTrip": "Zapisz wycieczkę",
+    "unsaveTrip": "Usuń z zapisanych"
+  },
+  "PopularDestinations": {
+    "eyebrow": "NAJLEPSZE DESTYNACJE",
+    "titlePrefix": "Odkryj niezwykłe",
+    "titleHighlight": "Miejsca",
+    "subtitle": "Odkryj najważniejsze miejsca do odwiedzenia w Hurghadzie i okolicach.",
+    "title": "Odkryj niezwykłe Miejsca",
+    "viewMore": "Zobacz więcej",
+    "loading": "Ładowanie popularnych destynacji...",
+    "exploreTrips": "Odkryj wycieczki"
+  },
+  "WhyUs": {
+    "eyebrow": "DLACZEGO SAFARI HURGHADA",
+    "titlePrefix": "Więcej niż wycieczka — Lepsze",
+    "titleHighlight": "Doświadczenie",
+    "subtitle": "Oto dlaczego podróżnicy wybierają nas na swoje przygody w Hurghadzie.",
+    "features": {
+      "localExperts": {
+        "title": "Lokalni eksperci",
+        "description": "Przyjazny, doświadczony zespół, który zna Hurghadę od podszewki."
+      },
+      "handpicked": {
+        "title": "Starannie dobrane wycieczki",
+        "description": "Wyselekcjonowane atrakcje dla każdego stylu podróżowania i wieku."
+      },
+      "support": {
+        "title": "Szybkie wsparcie",
+        "description": "Szybka i pomocna obsługa przed, w trakcie i po Twojej podróży."
+      },
+      "value": {
+        "title": "Świetna wartość",
+        "description": "Najlepsze atrakcje w uczciwych, lokalnych cenach — bez ukrytych opłat."
+      }
+    }
+  },
+  "Gallery": {
+    "eyebrow": "NASZA GALERIA",
+    "titlePrefix": "Chwile z naszych",
+    "titleHighlight": "Przygód",
+    "subtitle": "Prawdziwe doświadczenia, prawdziwi podróżnicy, prawdziwe wspomnienia w Hurghadzie.",
+    "title": "Chwile z naszych Przygód",
+    "viewMore": "Zobacz więcej",
+    "loading": "Ładowanie galerii..."
+  },
+  "Blogs": {
+    "eyebrow": "NAJNOWSZE BLOGI",
+    "titlePrefix": "Wskazówki, przewodniki i",
+    "titleHighlight": "Inspiracja",
+    "subtitle": "Przydatne wskazówki, lokalne porady i pomysły na podróż do Hurghady.",
+    "title": "Wskazówki, przewodniki i Inspiracja",
+    "viewMore": "Zobacz więcej",
+    "readMore": "Czytaj więcej",
+    "error": "Nie udało się załadować blogów. Spróbuj ponownie później.",
+    "empty": "Brak dostępnych artykułów w tej chwili."
+  },
+  "FAQ": {
+    "eyebrow": "FAQS",
+    "title": "Często zadawane pytania",
+    "subtitle": "Znajdź szybkie odpowiedzi na najczęstsze pytania dotyczące naszych wycieczek i usług.",
+    "viewAll": "Zobacz wszystkie FAQ →"
+  },
+  "Footer": {
+    "companyDescription": "Twój zaufany partner podróży w Hurghadzie: safari na pustyni, rejsy morskie, nurkowanie z rurką i butlą oraz niezapomniane wycieczki po całym Egipcie.",
+    "quickLinks": "Szybkie linki",
+    "tripCategories": "Kategorie wycieczek",
+    "contactUs": "Skontaktuj się z nami",
+    "address": "Hurghada, Morze Czerwone, Egipt",
+    "chatOnWhatsApp": "Napisz na WhatsApp",
+    "privacyPolicy": "Polityka prywatności",
+    "termsConditions": "Regulamin",
+    "poweredBy": "Obsługiwane przez",
+    "allRightsReserved": "Wszelkie prawa zastrzeżone."
+  },
+  "DestinationsPage": {
+    "hero": {
+      "subtitle": "Odkryj Egipt",
+      "title": "Odkryj destynacje, które inspirują każdą podróż",
+      "imageAlt": "Grafika słowna destynacji Hurghada"
+    },
+    "breadcrumb": {
+      "home": "Strona główna",
+      "destinations": "Destynacje"
+    },
+    "card": {
+      "trips": "{count} wycieczki",
+      "tripsSingular": "{count} wycieczka",
+      "destinationAlt": "Destynacja {name}"
+    }
+  },
+  "TripsPage": {
+    "hero": {
+      "subtitle": "Odkryj Egipt",
+      "title": "Znajdź swoją następną przygodę"
+    },
+    "breadcrumb": {
+      "home": "Strona główna",
+      "explore": "Eksploruj"
+    },
+    "toolbar": {
+      "tripsFound": "Znaleziono {count} wycieczki",
+      "tripFound": "Znaleziono {count} wycieczkę",
+      "filter": "Filtruj",
+      "searchPlaceholder": "Szukaj"
+    },
+    "sidebar": {
+      "filterTitle": "Filtruj",
+      "clearAll": "Wyczyść wszystkie filtry",
+      "destination": "Destynacja",
+      "anyDestination": "Dowolna destynacja",
+      "priceRange": "Przedział cenowy",
+      "min": "Min",
+      "max": "Maks",
+      "to": "Do",
+      "tripsTypes": "Rodzaje wycieczek",
+      "allTrips": "Wszystkie wycieczki"
+    },
+    "grid": {
+      "error": "Nie udało się załadować wycieczek. Spróbuj ponownie później.",
+      "noTripsTitle": "Nie znaleziono wycieczek",
+      "noTripsDescription": "Spróbuj dostosować filtry, aby zobaczyć więcej wyników."
+    },
+    "mobileFilters": {
+      "title": "Filtry",
+      "applyButton": "Zastosuj filtry"
+    },
+    "showMore": {
+      "loading": "Ładowanie...",
+      "button": "Pokaż więcej"
+    }
+  },
+  "GalleryPage": {
+    "hero": {
+      "subtitle": "Chwile podróży",
+      "title": "Odkryj Egipt przez nasz obiektyw",
+      "imageAlt": "Aparat fotograficzny ze zdjęciami z podróży"
+    },
+    "breadcrumb": {
+      "home": "Strona główna",
+      "gallery": "Galeria"
+    },
+    "states": {
+      "loading": "Ładowanie galerii...",
+      "error": "Nie udało się załadować zdjęć galerii.",
+      "empty": "Brak dostępnych zdjęć."
+    },
+    "seeMore": "Zobacz więcej"
+  },
+  "BlogsPage": {
+    "hero": {
+      "subtitle": "Odkryj artykuły",
+      "title": "Odkryj historie, przewodniki i wskazówki podróżnicze",
+      "imageAlt": "Odkryj historie, przewodniki i wskazówki podróżnicze"
+    },
+    "breadcrumb": {
+      "home": "Strona główna",
+      "blogs": "Blogi"
+    },
+    "search": {
+      "placeholder": "Szukaj"
+    },
+    "tags": {
+      "label": "Popularne tagi:",
+      "all": "Wszystkie",
+      "sea": "Morze",
+      "safari": "Safari",
+      "history": "Historia"
+    },
+    "grid": {
+      "error": "Nie udało się załadować blogów. Spróbuj ponownie później.",
+      "empty": "Nie znaleziono artykułów pasujących do wyszukiwania.",
+      "seeMore": "Zobacz więcej"
+    }
+  },
+  "AboutPage": {
+    "hero": {
+      "subtitle": "Nasza historia",
+      "title": "Odkryj Egipt z ludźmi, którzy znają go najlepiej",
+      "imageAlt": "Widok z okna samolotu ponad chmurami"
+    },
+    "breadcrumb": {
+      "home": "Strona główna",
+      "about": "O nas"
+    },
+    "intro": {
+      "title": "Twoja podróż zaczyna się z nami",
+      "description": "Tworzymy niezapomniane doświadczenia podróżnicze, które przybliżają Cię do serca Egiptu. Od krystalicznych przygód nad Morzem Czerwonym i ekscytujących safari po pustyni, przez kultowe zabytki historyczne po malownicze rejsy Nilem — każda podróż jest starannie zaprojektowana, aby inspirować, ekscytować i pozostawiać wspomnienia na całe życie."
+    },
+    "company": {
+      "title": "O naszej firmie",
+      "imageAlt": "Kolaż z podróży po Egipcie",
+      "description": {
+        "part1": "Wierzymy, że podróżowanie to coś więcej niż tylko odwiedzanie miejsc — to historia, chwile i wspomnienia, które trwają całe życie.",
+        "part2": "Nasz zespół składa się z lokalnych ekspertów i entuzjastów podróży, którzy znają każdy ukryty skarb, każdy idealny moment i każdy szczegół, który zamienia wycieczkę w doświadczenie."
+      }
+    },
+    "mission": {
+      "title": "Nasza misja",
+      "description": "Zapewniać autentyczne, bezpieczne i inspirujące doświadczenia podróżnicze, które pozwalają każdemu odwiedzającemu odkrywać Egipt z pewnością siebie, komfortem i niezapomnianymi wspomnieniami."
+    },
+    "vision": {
+      "title": "Nasza wizja",
+      "description": "Zostać najbardziej zaufaną platformą podróżniczą w Egipcie, łącząc podróżników z niezwykłymi destynacjami, wyjątkową obsługą i znaczącymi doświadczeniami kulturowymi."
+    },
+    "offers": {
+      "title": "Co oferujemy?",
+      "items": {
+        "seaTrips": {
+          "title": "Wycieczki morskie",
+          "description": "Snorkeling, wyspy, krystalicznie czyste wody i relaks."
+        },
+        "desertSafari": {
+          "title": "Safari na pustyni",
+          "description": "Przygoda, kultura i niezapomniane widoki pustyni"
+        },
+        "historicalTours": {
+          "title": "Wycieczki historyczne",
+          "description": "Odkryj starożytne cuda Egiptu z ekspertami przewodnikami"
+        }
+      }
+    }
+  },
+  "ContactPage": {
+    "hero": {
+      "subtitle": "Skontaktuj się z nami",
+      "title": "Zacznijmy Twoją następną przygodę",
+      "description": "Niezależnie od tego, czy planujesz wymarzone wakacje, szukasz idealnej wycieczki, czy po prostu masz pytanie — nasz zespół jest tutaj, aby Ci pomóc. Skontaktuj się z nami i razem stwórzmy niezapomniane wspomnienia.",
+      "imageAlt": "Skontaktuj się z nami"
+    },
+    "breadcrumb": {
+      "home": "Strona główna",
+      "contact": "Kontakt"
+    },
+    "form": {
+      "title": "Masz pytania? Napisz do nas",
+      "description": "Masz pytanie lub potrzebujesz więcej informacji o naszych produktach? Wypełnij poniższy formularz, a odezwiemy się jak najszybciej.",
+      "fields": {
+        "name": {
+          "label": "Twoje imię",
+          "placeholder": "Wpisz imię"
+        },
+        "whatsapp": {
+          "label": "Numer WhatsApp",
+          "placeholder": "Wpisz swój numer WhatsApp"
+        },
+        "message": {
+          "label": "Wiadomość",
+          "placeholder": "Napisz swoją wiadomość"
+        }
+      },
+      "submit": "Wyślij wiadomość"
+    },
+    "info": {
+      "location": {
+        "label": "Lokalizacja",
+        "value": "Hurghada, Morze Czerwone, Egipt"
+      },
+      "phone": {
+        "label": "Zadzwoń do nas"
+      },
+      "email": {
+        "label": "E-mail"
+      }
+    },
+    "map": {
+      "title": "Mapa lokalizacji Hurghada, Egipt"
+    },
+    "social": {
+      "title": "Obserwuj nas",
+      "links": {
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "x": "X"
+      }
+    }
+  },
+  "CartPage": {
+    "header": {
+      "title": "Koszyk rezerwacji",
+      "description": "Sprawdź wybrane wycieczki przed płatnością"
+    },
+    "loading": {
+      "label": "Ładowanie koszyka"
+    },
+    "item": {
+      "remove": "Usuń",
+      "removeAria": "Usuń {name} z koszyka",
+      "travelers": "{count, plural, one {# podróżnik} other {# podróżników}}",
+      "perPerson": "za osobę"
+    },
+    "summary": {
+      "title": "Podsumowanie rezerwacji",
+      "empty": "Twój koszyk jest pusty.",
+      "package": "Pakiet",
+      "adult": "Dorosły",
+      "child": "Dziecko",
+      "total": "Łącznie",
+      "removeAria": "Usuń {name} z podsumowania rezerwacji",
+      "checkout": "Przejdź do kasy →"
+    },
+    "empty": {
+      "title": "Twój koszyk jest obecnie pusty",
+      "description": "Wygląda na to, że nie dodałeś jeszcze żadnych wycieczek. Odkryj nasze najnowsze oferty i zacznij planować kolejną przygodę!",
+      "button": "Odkryj wycieczki"
+    }
+  },
+  "CheckoutPage": {
+    "empty": {
+      "title": "Twój koszyk jest pusty",
+      "description": "Wróć i wybierz wycieczkę do zarezerwowania.",
+      "cta": "Odkryj wycieczki"
+    },
+    "form": {
+      "billing": {
+        "title": "Dane do faktury",
+        "fields": {
+          "firstName": {
+            "label": "Imię *",
+            "placeholder": "Imię"
+          },
+          "lastName": {
+            "label": "Nazwisko *",
+            "placeholder": "Nazwisko"
+          },
+          "nationality": {
+            "label": "Narodowość *",
+            "placeholder": "Wybierz narodowość (np. PL, US, GB)"
+          },
+          "email": {
+            "label": "Adres e-mail *",
+            "placeholder": "Adres e-mail"
+          },
+          "phone": {
+            "label": "Numer telefonu *",
+            "placeholder": "Numer telefonu"
+          },
+          "hotelName": {
+            "label": "Nazwa hotelu (Opcjonalnie)",
+            "placeholder": "Nazwa hotelu"
+          },
+          "roomNo": {
+            "label": "Numer pokoju (Opcjonalnie)",
+            "placeholder": "Numer pokoju"
+          }
+        }
+      },
+      "coupon": {
+        "title": "Kupon",
+        "placeholder": "Wpisz numer kuponu",
+        "apply": "Zastosuj",
+        "applying": "Stosowanie...",
+        "success": "Kupon zastosowany! Zaoszczędziłeś {amount}",
+        "invalid": "Nieprawidłowy kod kuponu"
+      },
+      "payment": {
+        "title": "Metoda płatności",
+        "bookNowPayLater": "Zarezerwuj teraz, zapłać później"
+      },
+      "submit": {
+        "confirm": "Potwierdź rezerwację",
+        "confirming": "Potwierdzanie...",
+        "error": "Nie udało się potwierdzić rezerwacji. Spróbuj ponownie."
+      },
+      "nationalityFallback": "Nie podano"
+    },
+    "summary": {
+      "empty": "Twój koszyk jest pusty.",
+      "title": "Szczegóły wycieczki",
+      "travelerCount": "Liczba podróżników:",
+      "package": "Pakiet",
+      "travelers": "Podróżnik(-cy):",
+      "adult": "Dorosły",
+      "child": "Dziecko",
+      "subtotal": "Suma częściowa:",
+      "discount": "Zniżka:",
+      "total": "Łącznie:"
+    }
+  },
+  "CheckoutSuccessPage": {
+    "imageAlt": "Rezerwacja udana",
+    "title": "Rezerwacja utworzona pomyślnie!",
+    "description": "Dziękujemy za wybranie nas. Otrzymaliśmy Twoje dane rezerwacji i wkrótce się z Tobą skontaktujemy.",
+    "backHome": "Powrót do strony głównej"
+  }
+}
