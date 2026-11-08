@@ -2,7 +2,36 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  output: process.env.VERCEL ? undefined : "standalone",
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/en",
+        permanent: false,
+      },
+      {
+        source: "/destinations",
+        destination: "/Destinations",
+        permanent: false,
+      },
+      {
+        source: "/:locale(en|de|fr|pl)/destinations",
+        destination: "/:locale/Destinations",
+        permanent: false,
+      },
+      {
+        source: "/about",
+        destination: "/About",
+        permanent: false,
+      },
+      {
+        source: "/:locale(en|de|fr|pl)/about",
+        destination: "/:locale/About",
+        permanent: false,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
