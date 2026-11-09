@@ -24,17 +24,28 @@ function cleanText(value: string) {
 }
 
 function cleanLocalizedText(values: TripFormValues["name"]) {
+  if (typeof values === "string") {
+    const text = cleanText(values);
+    return { en: text, fr: text, ru: text, ro: text };
+  }
+  const en = cleanText(values.en || "");
   return {
-    en: cleanText(values.en),
-    fr: cleanText(values.fr),
-    ru: cleanText(values.ru),
-    ro: cleanText(values.ro),
+    en: en,
+    fr: cleanText(values.fr || en),
+    ru: cleanText(values.ru || en),
+    ro: cleanText(values.ro || en),
   };
 }
 
 function cleanLocalizedList(values: TripFormValues["highlights"]) {
   return values
-    .map(cleanLocalizedText)
+    .map((item) => {
+      if (typeof item === "string") {
+        const text = cleanText(item);
+        return { en: text, fr: text, ru: text, ro: text };
+      }
+      return cleanLocalizedText(item);
+    })
     .filter((item) => item.en || item.fr || item.ru || item.ro);
 }
 

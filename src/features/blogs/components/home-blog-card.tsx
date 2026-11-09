@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { AppImage } from "@/src/shared/components/app-image";
 import { Calendar, ArrowRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { generateSlug } from "@/src/features/tours/utils/slugify";
@@ -27,23 +28,19 @@ export function HomeBlogCard({ blog, fallbackDate }: HomeBlogCardProps) {
 
   return (
     <Link
-      href={`/${locale}/blogs/${generateSlug(blog.id, blog.title)}`}
+      href={`/blogs/${generateSlug(blog.id, blog.title)}`}
       className="group block select-none h-full w-full"
     >
       <article className="flex h-full flex-col overflow-hidden rounded-[24px] bg-white border border-gray-100 shadow-[0_8px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_40px_rgba(15,23,42,0.12)] transition-all duration-300">
         {/* Blog Image */}
         <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-gray-100">
-          {blog.imageUrl ? (
-            <Image
-              src={blog.imageUrl}
-              alt={blog.title}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-            />
-          ) : (
-            <div className="h-full w-full bg-gradient-to-br from-gray-100 to-gray-200" />
-          )}
+          <AppImage
+            src={blog.imageUrl}
+            alt={blog.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          />
         </div>
 
         {/* Content Body */}
@@ -61,7 +58,7 @@ export function HomeBlogCard({ blog, fallbackDate }: HomeBlogCardProps) {
 
           {/* Description snippet */}
           <p className="mb-6 line-clamp-2 text-xs sm:text-[13.5px] leading-relaxed text-[#64748B]">
-            {cleanSnippet || "Discover insider travel ideas and tips for your next adventure in Hurghada."}
+            {cleanSnippet || t("defaultDescription")}
           </p>
 
           {/* Read More Link */}

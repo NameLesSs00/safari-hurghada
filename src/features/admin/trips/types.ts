@@ -58,12 +58,12 @@ export type Trip = {
 };
 
 export type TripTranslations = {
-  name: LocalizedText;
-  description: LocalizedText;
-  highlights: LocalizedText[];
-  includes: LocalizedText[];
-  excludes: LocalizedText[];
-  whatToBring: LocalizedText[];
+  name: LocalizedText | string;
+  description: LocalizedText | string;
+  highlights: (LocalizedText | string)[];
+  includes: (LocalizedText | string)[];
+  excludes: (LocalizedText | string)[];
+  whatToBring: (LocalizedText | string)[];
 };
 
 export type TripFormValues = TripTranslations & {

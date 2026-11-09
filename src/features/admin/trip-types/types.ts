@@ -22,7 +22,7 @@ export type TripTypeNames = {
 
 export type TripTypeFormValues = {
   id?: number;
-  name: TripTypeNames;
+  name: TripTypeNames | string;
   image: File | null;
 };
 

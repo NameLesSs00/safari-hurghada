@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -18,14 +18,12 @@ export function TripsPage() {
   const searchParams = useSearchParams();
   const t = useTranslations("TripsPage");
 
-  // Seed initial filter from URL query param (e.g. from Destinations page)
-  const initialDestinationId = searchParams.get("destinationId")
-    ? Number(searchParams.get("destinationId"))
-    : undefined;
+  // Seed initial filter from URL query param (e.g. from Destinations page or Footer)
+  const destParam = searchParams.get("destinationId");
+  const typeParam = searchParams.get("typeId") || searchParams.get("tripTypeId");
 
-  const initialTypeId = searchParams.get("typeId")
-    ? Number(searchParams.get("typeId"))
-    : undefined;
+  const initialDestinationId = destParam ? Number(destParam) : undefined;
+  const initialTypeId = typeParam ? Number(typeParam) : undefined;
 
   // Filter state
   const [filters, setFilters] = useState<{
@@ -49,7 +47,7 @@ export function TripsPage() {
   // Sync destinationId and typeId from URL whenever they change
   useEffect(() => {
     const destId = searchParams.get("destinationId");
-    const typeId = searchParams.get("typeId");
+    const typeId = searchParams.get("typeId") || searchParams.get("tripTypeId");
     setFilters((prev) => ({
       ...prev,
       destinationId: destId ? Number(destId) : undefined,
@@ -85,114 +83,118 @@ export function TripsPage() {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-[#FAFAFA]">
       <TripsHero />
-      <TripsBreadcrumb />
 
-      <section className="bg-white py-8 lg:py-16">
-        <div className="mx-auto w-full px-5 md:px-8 lg:max-w-[1400px] lg:px-10">
-          <div className="flex flex-col items-start gap-8 lg:flex-row lg:gap-10">
-            {/* Desktop Sidebar */}
-            <div className="hidden lg:block">
-              <TripsSidebar
-                filters={filters}
-                setFilters={setFilters}
-                onClearFilters={clearFilters}
-              />
-            </div>
+      <main className="mx-auto w-full max-w-[1680px] px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
+        <TripsBreadcrumb />
 
-            {/* Mobile Filters Overlay */}
-            {isMobileFiltersOpen && (
-              <div className="fixed inset-0 z-50 flex justify-end bg-black/50 lg:hidden">
-                <div className="h-full w-[85%] max-w-sm overflow-y-auto bg-white p-6 shadow-xl">
-                  <div className="mb-6 flex items-center justify-between">
-                    <h2 className="text-xl font-bold text-[#003A5A]">
-                      {t("mobileFilters.title")}
-                    </h2>
-                    <button
-                      onClick={() => setIsMobileFiltersOpen(false)}
-                      className="rounded-full bg-gray-100 p-2 text-gray-600 transition-colors hover:bg-gray-200"
-                    >
-                      <X size={20} />
-                    </button>
-                  </div>
-                  <TripsSidebar
-                    filters={filters}
-                    setFilters={setFilters}
-                    onClearFilters={clearFilters}
-                  />
-                  <div className="mt-8">
-                    <button
-                      onClick={() => setIsMobileFiltersOpen(false)}
-                      className="w-full rounded-full bg-[#003A5A] py-3 text-center font-semibold text-white transition-colors hover:bg-[#004d78]"
-                    >
-                      {t("mobileFilters.applyButton")}
-                    </button>
-                  </div>
+        <div className="flex flex-col items-start gap-8 lg:flex-row lg:gap-8 xl:gap-10">
+          {/* Desktop Sidebar (Sticky) */}
+          <div className="hidden lg:block lg:sticky lg:top-28">
+            <TripsSidebar
+              filters={filters}
+              setFilters={setFilters}
+              onClearFilters={clearFilters}
+            />
+          </div>
+
+          {/* Mobile Filters Overlay */}
+          {isMobileFiltersOpen && (
+            <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-xs lg:hidden">
+              <div className="h-full w-[85%] max-w-sm overflow-y-auto bg-white p-6 shadow-2xl">
+                <div className="mb-6 flex items-center justify-between border-b border-gray-100 pb-4">
+                  <h2 className="text-lg font-extrabold text-[#1E232A]">
+                    {t("mobileFilters.title")}
+                  </h2>
+                  <button
+                    onClick={() => setIsMobileFiltersOpen(false)}
+                    className="flex size-9 items-center justify-center rounded-full bg-slate-100 text-[#1E232A] transition-colors hover:bg-slate-200 cursor-pointer"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+                <TripsSidebar
+                  filters={filters}
+                  setFilters={setFilters}
+                  onClearFilters={clearFilters}
+                />
+                <div className="mt-8">
+                  <button
+                    onClick={() => setIsMobileFiltersOpen(false)}
+                    className="w-full rounded-full bg-[#F36F21] py-3.5 text-center text-sm font-bold text-white shadow-md transition-all hover:bg-[#df5d10] active:scale-98 cursor-pointer"
+                  >
+                    {t("mobileFilters.applyButton")}
+                  </button>
                 </div>
               </div>
-            )}
-
-            {/* Main Content */}
-            <div className="w-full lg:flex-1">
-              <TripsToolbar
-                totalCount={trips?.length || 0}
-                searchItem={searchInput}
-                setSearchItem={setSearchInput}
-                onOpenMobileFilters={() => setIsMobileFiltersOpen(true)}
-              />
-              <TripsGrid trips={paginatedTrips} isLoading={isLoading} error={error} />
-              
-              {/* Pagination */}
-              {!isLoading && !error && trips.length > 0 && totalPages > 1 && (
-                <div className="mt-10 flex items-center justify-center gap-4 pt-4">
-                  <button
-                    onClick={() => {
-                      setCurrentPage((p) => Math.max(1, p - 1));
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    disabled={currentPage === 1}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 text-gray-600 transition-colors hover:bg-gray-50 disabled:opacity-50 disabled:hover:bg-transparent"
-                  >
-                    <ChevronLeft size={20} />
-                  </button>
-                  <div className="flex items-center gap-2">
-                    {[...Array(totalPages)].map((_, i) => {
-                      const page = i + 1;
-                      return (
-                        <button
-                          key={page}
-                          onClick={() => {
-                            setCurrentPage(page);
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                          }}
-                          className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition-colors ${
-                            currentPage === page
-                              ? "bg-[#003A5A] text-white"
-                              : "text-gray-600 hover:bg-gray-100"
-                          }`}
-                        >
-                          {page}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  <button
-                    onClick={() => {
-                      setCurrentPage((p) => Math.min(totalPages, p + 1));
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    disabled={currentPage === totalPages}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 text-gray-600 transition-colors hover:bg-gray-50 disabled:opacity-50 disabled:hover:bg-transparent"
-                  >
-                    <ChevronRight size={20} />
-                  </button>
-                </div>
-              )}
             </div>
+          )}
+
+          {/* Main Grid Content */}
+          <div className="w-full lg:flex-1">
+            <TripsToolbar
+              totalCount={trips?.length || 0}
+              searchItem={searchInput}
+              setSearchItem={setSearchInput}
+              onOpenMobileFilters={() => setIsMobileFiltersOpen(true)}
+            />
+            <TripsGrid
+              trips={paginatedTrips}
+              isLoading={isLoading}
+              error={error}
+              onResetFilters={clearFilters}
+            />
+            
+            {/* Pagination */}
+            {!isLoading && !error && trips.length > 0 && totalPages > 1 && (
+              <div className="mt-12 flex items-center justify-center gap-2 pt-6">
+                <button
+                  onClick={() => {
+                    setCurrentPage((p) => Math.max(1, p - 1));
+                    window.scrollTo({ top: 380, behavior: "smooth" });
+                  }}
+                  disabled={currentPage === 1}
+                  className="flex size-10 items-center justify-center rounded-full border border-gray-200 bg-white text-[#1E232A] shadow-xs transition-colors hover:border-gray-300 hover:bg-gray-50 disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <div className="flex items-center gap-1.5">
+                  {[...Array(totalPages)].map((_, i) => {
+                    const page = i + 1;
+                    return (
+                      <button
+                        key={page}
+                        onClick={() => {
+                          setCurrentPage(page);
+                          window.scrollTo({ top: 380, behavior: "smooth" });
+                        }}
+                        className={`flex size-10 items-center justify-center rounded-full text-xs font-bold transition-all cursor-pointer ${
+                          currentPage === page
+                            ? "bg-[#F36F21] text-white shadow-md shadow-orange-500/20"
+                            : "border border-gray-200 bg-white text-[#1E232A] shadow-xs hover:border-gray-300 hover:bg-gray-50"
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    );
+                  })}
+                </div>
+                <button
+                  onClick={() => {
+                    setCurrentPage((p) => Math.min(totalPages, p + 1));
+                    window.scrollTo({ top: 380, behavior: "smooth" });
+                  }}
+                  disabled={currentPage === totalPages}
+                  className="flex size-10 items-center justify-center rounded-full border border-gray-200 bg-white text-[#1E232A] shadow-xs transition-colors hover:border-gray-300 hover:bg-gray-50 disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+            )}
           </div>
         </div>
-      </section>
-    </>
+      </main>
+    </div>
   );
 }

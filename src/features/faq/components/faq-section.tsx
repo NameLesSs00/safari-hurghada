@@ -9,45 +9,6 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { useQuestionsQuery, type Question } from "@/src/features/faq/api/get-questions";
 
-const DEFAULT_FAQS: Question[] = [
-  {
-    id: 1,
-    text: "What types of tours and activities do you offer in Hurghada?",
-    answer:
-      "We offer a wide range of experiences in Hurghada, including diving trips, snorkeling excursions, desert safaris, boat trips, island tours, and many other exciting activities.",
-  },
-  {
-    id: 2,
-    text: "Do I need diving experience to join a diving trip?",
-    answer:
-      "No. We offer diving experiences for both beginners and experienced divers. Beginners receive professional guidance and a safety briefing before entering the water.",
-  },
-  {
-    id: 3,
-    text: "What is included in your desert safari tours?",
-    answer:
-      "Depending on the safari you choose, the experience can include transportation, desert activities, a Bedouin village visit, traditional food, and an exciting desert adventure. The exact inclusions are listed with each tour.",
-  },
-  {
-    id: 4,
-    text: "Can I book a private tour or excursion?",
-    answer:
-      "Yes. Private tours can be arranged for individuals, couples, families, and groups. Contact us to discuss your preferred activity, schedule, and requirements.",
-  },
-  {
-    id: 5,
-    text: "How can I book a tour in Hurghada?",
-    answer:
-      "Booking is easy. Choose your preferred tour and contact us with your desired date and number of participants. We will confirm the availability and provide you with all the necessary information.",
-  },
-  {
-    id: 6,
-    text: "Can I cancel or change my booking?",
-    answer:
-      "Yes, you can cancel or reschedule easily. Most tours offer free changes when requested in advance. Contact our 24/7 support team via WhatsApp for immediate assistance.",
-  },
-];
-
 function FaqSkeleton() {
   return (
     <div className="flex flex-col gap-3">
@@ -67,9 +28,18 @@ export function FaqSection() {
   const t = useTranslations("FAQ");
   const { data: questions, isLoading } = useQuestionsQuery({ pageSize: 6 });
 
-  // Use API questions if available; otherwise smoothly fallback to default questions
+  const defaultQuestions: Question[] = [
+    { id: 1, text: t("defaults.q1"), answer: t("defaults.a1") },
+    { id: 2, text: t("defaults.q2"), answer: t("defaults.a2") },
+    { id: 3, text: t("defaults.q3"), answer: t("defaults.a3") },
+    { id: 4, text: t("defaults.q4"), answer: t("defaults.a4") },
+    { id: 5, text: t("defaults.q5"), answer: t("defaults.a5") },
+    { id: 6, text: t("defaults.q6"), answer: t("defaults.a6") },
+  ];
+
+  // Use API questions if available; otherwise smoothly fallback to localized default questions
   const activeQuestions: Question[] =
-    questions && questions.length > 0 ? questions : DEFAULT_FAQS;
+    questions && questions.length > 0 ? questions : defaultQuestions;
 
   function toggleItem(id: number) {
     setOpenItems((current) => {
@@ -97,9 +67,9 @@ export function FaqSection() {
               className="relative w-full max-w-[460px] lg:max-w-none"
               style={{
                 maskImage:
-                  "radial-gradient(ellipse at center, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%)",
+                  "radial-gradient(ellipse at center, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%)",
                 WebkitMaskImage:
-                  "radial-gradient(ellipse at center, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%)",
+                  "radial-gradient(ellipse at center, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%)",
               }}
             >
               <Image
@@ -107,7 +77,7 @@ export function FaqSection() {
                 alt="Frequently Asked Questions Illustration"
                 width={560}
                 height={500}
-                className="h-auto w-full select-none object-contain pointer-events-none mix-blend-multiply"
+                className="h-auto w-full select-none object-contain pointer-events-none"
                 priority={false}
               />
             </div>
@@ -215,7 +185,7 @@ export function FaqSection() {
             {/* View All FAQs Link */}
             <div className="mt-7 flex justify-start">
               <Link
-                href={`/${locale}/faq`}
+                href="/faq"
                 className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-6 py-2.5 text-sm font-bold text-[#1E232A] shadow-sm transition-all hover:border-[#F36F21] hover:text-[#F36F21] hover:shadow-md active:scale-95"
               >
                 {t("viewAll")}

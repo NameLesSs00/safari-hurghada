@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { Sparkles, ShieldCheck, Zap, Compass, ArrowLeft } from "lucide-react";
 
 export function AuthCard({
   children,
@@ -12,59 +14,120 @@ export function AuthCard({
   subtitle: string;
 }) {
   return (
-    <section className="grid min-h-full bg-[#f5f9ff] px-5 py-8 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-0 lg:py-0">
-      <div className="relative hidden overflow-hidden bg-[var(--color-deep-ocean)] lg:block">
+    <section className="grid min-h-screen w-full bg-[#FAFAFA] lg:grid-cols-[1.1fr_0.9fr]">
+      {/* ─── Left Side: Visual Hero Image & Branding ─── */}
+      <div className="relative hidden overflow-hidden lg:flex lg:flex-col lg:justify-between p-12 xl:p-16 text-white min-h-screen">
+        {/* Real Hero Image */}
         <Image
-          src="/Hero/boat.webp"
-          alt="Luxury yacht experience"
+          src="/Hero/Hero.png"
+          alt="SunnySide Tours Red Sea Experience"
           fill
           priority
-          sizes="50vw"
-          className="object-cover opacity-75"
+          sizes="55vw"
+          className="object-cover"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(0,69,96,0.88),rgba(0,105,147,0.48))]" />
-        <div className="relative z-10 flex h-full flex-col justify-between p-12 text-white">
-          <div className="flex items-center justify-center">
-            <div className="flex h-40 w-40 items-center justify-center rounded-full bg-white p-4 shadow-xl">
-              <Image
-                src="/Logo.png"
-                alt="SunnySide Tours Admin"
-                width={120}
-                height={26}
-                unoptimized
-                className="h-auto w-[120px]"
-              />
-            </div>
+
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1E232A]/95 via-[#1E232A]/65 to-[#1E232A]/40" />
+
+        {/* Top: Logo & Badge */}
+        <div className="relative z-10 flex items-center justify-between">
+          <Link href="/" className="inline-block transition-opacity hover:opacity-90">
+            <Image
+              src="/Logo_white.png"
+              alt="SunnySide Tours"
+              width={180}
+              height={40}
+              priority
+              className="h-auto w-[160px]"
+            />
+          </Link>
+
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3.5 py-1 text-xs font-bold tracking-wide text-white backdrop-blur-md border border-white/20">
+            <ShieldCheck size={13} className="text-[#F36F21]" />
+            <span>Admin Workspace</span>
+          </span>
+        </div>
+
+        {/* Bottom Content: Headline, Text & Trust Chips */}
+        <div className="relative z-10 max-w-[540px]">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#F36F21]/20 px-3.5 py-1 text-xs font-bold text-[#F36F21] border border-[#F36F21]/30 backdrop-blur-md">
+            <Sparkles size={13} />
+            <span>Management Portal</span>
           </div>
-          <div className="max-w-[520px]">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-white/72">
-              Admin workspace
-            </p>
-            <h1 className="text-5xl font-bold leading-[1.05]">
-              Manage travel experiences with clarity.
-            </h1>
-            <p className="mt-5 text-lg leading-[1.7] text-white/78">
-              Secure access for keeping tours, content, and daily operations in
-              one calm dashboard.
-            </p>
+
+          <h1 className="text-4xl xl:text-5xl font-black leading-[1.1] tracking-tight">
+            Manage unforgettable Red Sea travel experiences.
+          </h1>
+
+          <p className="mt-4 text-base xl:text-lg leading-relaxed text-white/80">
+            Secure administration console for tour itineraries, real-time booking vouchers, customer reviews, and daily excursions operations.
+          </p>
+
+          {/* Micro Feature Pills */}
+          <div className="mt-8 flex flex-wrap items-center gap-3 text-xs font-semibold text-white/90">
+            <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 backdrop-blur-md border border-white/10">
+              <Zap size={13} className="text-[#F36F21]" />
+              <span>Real-Time Bookings</span>
+            </span>
+            <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 backdrop-blur-md border border-white/10">
+              <Compass size={13} className="text-[#00A3C4]" />
+              <span>Tour Moderation</span>
+            </span>
+            <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 backdrop-blur-md border border-white/10">
+              <ShieldCheck size={13} className="text-emerald-400" />
+              <span>Encrypted Session</span>
+            </span>
           </div>
         </div>
       </div>
 
-      <div className="flex items-center justify-center lg:min-h-screen">
-        <div className="w-full max-w-[440px] rounded-lg border border-black/5 bg-white p-6 shadow-[0_20px_60px_rgba(0,69,96,0.12)] sm:p-8">
-          <div className="mb-8">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-ocean)]">
-              {eyebrow}
-            </p>
-            <h2 className="text-3xl font-bold leading-tight text-[var(--color-deep-ocean)]">
-              {title}
-            </h2>
-            <p className="mt-3 text-base leading-[1.7] text-[var(--color-muted)]">
-              {subtitle}
-            </p>
+      {/* ─── Right Side: Auth Form Card ─── */}
+      <div className="flex min-h-screen flex-col items-center justify-center p-6 sm:p-10 lg:p-12">
+        <div className="w-full max-w-[440px]">
+          
+          {/* Mobile Logo (only shown on small screens when left banner is hidden) */}
+          <div className="mb-8 flex items-center justify-center lg:hidden">
+            <Link href="/">
+              <Image
+                src="/Logo.png"
+                alt="SunnySide Tours"
+                width={160}
+                height={35}
+                className="h-auto w-[150px]"
+              />
+            </Link>
           </div>
-          {children}
+
+          {/* White Elevated Form Card */}
+          <div className="rounded-3xl border border-slate-100 bg-white p-7 sm:p-9 shadow-[0_12px_40px_rgba(0,0,0,0.06)]">
+            <div className="mb-7">
+              <div className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-orange-50 px-3 py-1 text-xs font-bold text-[#F36F21] border border-orange-200/60">
+                <Sparkles size={12} />
+                <span>{eyebrow}</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E232A]">
+                {title}
+              </h2>
+              <p className="mt-2 text-xs sm:text-sm text-slate-500 leading-relaxed">
+                {subtitle}
+              </p>
+            </div>
+
+            {children}
+          </div>
+
+          {/* Back to Home Link */}
+          <div className="mt-6 text-center">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-[#F36F21] transition-colors"
+            >
+              <ArrowLeft size={13} />
+              <span>Back to public website</span>
+            </Link>
+          </div>
+
         </div>
       </div>
     </section>

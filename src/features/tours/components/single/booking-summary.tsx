@@ -1,5 +1,6 @@
- import Image from "next/image";
-import { CalendarDays } from "lucide-react";
+import Image from "next/image";
+import { AppImage } from "@/src/shared/components/app-image";
+import { CalendarDays, AlertCircle, ShieldCheck, Zap } from "lucide-react";
 import type { Trip } from "@/src/features/tours/types/trip";
 import { formatPrice } from "@/src/features/tours/utils/format-price";
 
@@ -20,86 +21,109 @@ export function BookingSummary({
     trip.images.find((img) => img.isPrimary) ?? trip.images[0];
 
   const formattedDate = selectedDate
-    ? selectedDate.toLocaleDateString("en-GB", {
+    ? selectedDate.toLocaleDateString("en-US", {
+        weekday: "short",
         day: "numeric",
-        month: "numeric",
+        month: "short",
         year: "numeric",
       })
-    : "—";
+    : null;
 
   const adultSubtotal = adultCount * trip.adultPrice;
   const childSubtotal = childCount * trip.childPrice;
   const total = adultSubtotal + childSubtotal;
 
   return (
-    <div className="flex flex-col gap-5 rounded-2xl bg-[#F5F9FC] p-5">
-      <h3 className="text-base font-bold text-[#111827]">Booking summary</h3>
+    <div className="flex flex-col gap-4 rounded-2xl bg-slate-50 border border-slate-100 p-5">
+      <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400">
+        Booking Summary
+      </h3>
 
       {/* Trip card row */}
-      <div className="flex items-start gap-4">
-        {primaryImage && (
-          <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl">
-            <Image
-              src={primaryImage.imageUrl}
-              alt={trip.name}
-              fill
-              className="object-cover"
-              sizes="64px"
-            />
-          </div>
-        )}
-        <div className="flex flex-col gap-1">
-          <p className="text-sm font-semibold text-[#111827] leading-snug">
+      <div className="flex items-start gap-3">
+        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-slate-200/60 bg-slate-100 shadow-xs">
+          <AppImage
+            src={primaryImage?.imageUrl}
+            alt={trip.name}
+            fill
+            className="object-cover"
+            sizes="56px"
+          />
+        </div>
+        <div className="flex flex-col gap-0.5 min-w-0">
+          <p className="text-sm font-bold text-[#1E232A] leading-snug line-clamp-2">
             {trip.name}
           </p>
-          <div className="flex items-center gap-1.5 text-xs text-[#6B7280]">
-            <CalendarDays size={13} />
-            <span>{formattedDate}</span>
-          </div>
+          <span className="text-xs text-slate-500 font-medium">
+            {trip.destinationInfo?.name || "Hurghada"}
+          </span>
         </div>
       </div>
 
-      {/* Package lines */}
-      <div className="flex flex-col gap-2">
-        <p className="text-xs font-semibold uppercase tracking-wide text-[#9CA3AF]">
-          Package
-        </p>
+      {/* Date banner */}
+      {formattedDate ? (
+        <div className="flex items-center gap-2 rounded-xl bg-orange-50 border border-orange-200/70 px-3.5 py-2 text-xs font-bold text-[#F36F21]">
+          <CalendarDays size={14} className="shrink-0" />
+          <span>{formattedDate}</span>
+        </div>
+      ) : (
+        <div className="flex items-center gap-2 rounded-xl bg-amber-50 border border-amber-200/70 px-3 py-2 text-xs font-semibold text-amber-700">
+          <AlertCircle size={14} className="shrink-0" />
+          <span>Please select a date on the calendar</span>
+        </div>
+      )}
 
-        <div className="flex items-center justify-between text-sm text-[#374151]">
+      {/* Package lines */}
+      <div className="flex flex-col gap-2 pt-1">
+        <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600">
           <span>
-            Adult: {adultCount} x{" "}
-            {trip.adultPrice === 0 ? "Contact us for price" : formatPrice(trip.adultPrice, trip.currencyName)}
+            Adult: {adultCount} ×{" "}
+            {trip.adultPrice === 0 ? "Free / Custom" : formatPrice(trip.adultPrice, trip.currencyName)}
           </span>
-          <span className="font-semibold">
-            {trip.adultPrice === 0 ? "Contact us for price" : formatPrice(adultSubtotal, trip.currencyName)}
+          <span className="font-bold text-[#1E232A]">
+            {trip.adultPrice === 0 ? "Contact us" : formatPrice(adultSubtotal, trip.currencyName)}
           </span>
         </div>
 
         {trip.childPrice > 0 && childCount > 0 && (
-          <div className="flex items-center justify-between text-sm text-[#374151]">
+          <div className="flex items-center justify-between text-xs sm:text-sm text-slate-600">
             <span>
-              Child: {childCount} x{" "}
-              {trip.childPrice === 0 ? "Contact us for price" : formatPrice(trip.childPrice, trip.currencyName)}
+              Child: {childCount} × {formatPrice(trip.childPrice, trip.currencyName)}
             </span>
-            <span className="font-semibold">
-              {trip.childPrice === 0 ? "Contact us for price" : formatPrice(childSubtotal, trip.currencyName)}
+            <span className="font-bold text-[#1E232A]">
+              {formatPrice(childSubtotal, trip.currencyName)}
             </span>
           </div>
         )}
       </div>
 
-      <div className="h-px w-full bg-gray-200" />
+      <div className="h-px w-full bg-slate-200/70" />
 
       {/* Total */}
-      <div className="flex items-center justify-between">
-        <span className="font-bold text-[#111827]">Total</span>
-        <span className="text-lg font-bold text-[#10B981]">
-          {(trip.adultPrice === 0 && adultCount > 0) || (trip.childPrice === 0 && childCount > 0)
-            ? total > 0
-              ? `${formatPrice(total, trip.currencyName)} + Contact us for price`
-              : "Contact us for price"
-            : formatPrice(total, trip.currencyName)}
-        </span>
+      <div className="flex items-baseline justify-between">
+        <span className="font-bold text-[#1E232A]">Total Due</span>
+        <div className="flex flex-col items-end">
+          <span className="text-xl font-black text-emerald-600">
+            {(trip.adultPrice === 0 && adultCount > 0) || (trip.childPrice === 0 && childCount > 0)
+              ? total > 0
+                ? `${formatPrice(total, trip.currencyName)} + Contact us`
+                : "Contact us"
+              : formatPrice(total, trip.currencyName)}
+          </span>
+          <span className="text-[10px] text-slate-400">All taxes &amp; fees included</span>
+        </div>
+      </div>
+
+      {/* Trust badges */}
+      <div className="flex flex-col gap-1.5 pt-2 border-t border-slate-200/50 text-[11px] text-slate-500">
+        <div className="flex items-center gap-1.5">
+          <Zap size={12} className="text-[#F36F21] shrink-0" />
+          <span>Instant reservation confirmation</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <ShieldCheck size={12} className="text-emerald-600 shrink-0" />
+          <span>Free cancellation up to 24h before</span>
+        </div>
       </div>
     </div>
   );

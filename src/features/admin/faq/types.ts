@@ -22,8 +22,8 @@ export type FaqTranslations = {
 
 export type FaqFormValues = {
   id?: number;
-  text: FaqTranslations;
-  answer: FaqTranslations;
+  text: FaqTranslations | string;
+  answer: FaqTranslations | string;
 };
 
 export type FaqListParams = {

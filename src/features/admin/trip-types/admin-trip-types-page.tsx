@@ -15,7 +15,7 @@ import {
 import { FormEvent, type ReactNode, useMemo, useState } from "react";
 
 import { getImageUrl } from "@/src/shared/config/api";
-import { adminLanguageOptions } from "@/src/features/admin/shared/languages";
+import { AppImage } from "@/src/shared/components/app-image";
 import {
   useCreateTripTypeMutation,
   useDeleteTripTypeMutation,
@@ -30,21 +30,10 @@ import type {
   TripTypeNames,
 } from "@/src/features/admin/trip-types/types";
 
-const languages = adminLanguageOptions;
-
 const pageSizes = [6, 10, 20];
 
 function getErrorText(error: unknown, fallback: string) {
   return error instanceof Error ? error.message : fallback;
-}
-
-function getEmptyNames(): TripTypeNames {
-  return {
-    en: "",
-    fr: "",
-    ru: "",
-    ro: "",
-  };
 }
 
 export function AdminTripTypesPage() {
@@ -114,24 +103,9 @@ export function AdminTripTypesPage() {
       </div>
 
       <section className="rounded-lg border border-black/5 bg-white p-4 shadow-[0_12px_30px_rgba(0,69,96,0.08)]">
-        <div className="grid gap-3 sm:grid-cols-[1fr_150px] lg:w-[380px]">
+        <div className="flex sm:w-[180px]">
           <select
-            className="h-11 rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
-            onChange={(event) => {
-              setPageNumber(1);
-              setLanguage(event.target.value as TripTypeLanguage);
-            }}
-            value={language}
-          >
-            {languages.map((item) => (
-              <option key={item.value} value={item.value}>
-                {item.label}
-              </option>
-            ))}
-          </select>
-
-          <select
-            className="h-11 rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
+            className="h-11 w-full rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
             onChange={(event) => {
               setPageNumber(1);
               setPageSize(Number(event.target.value));
@@ -194,42 +168,37 @@ export function AdminTripTypesPage() {
         {!queryError && tripTypes.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[560px] border-collapse text-left">
-              <thead className="bg-[#f5f9ff] text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
+              <thead className="bg-slate-50 border-b border-black/5 text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
                 <tr>
-                  <th className="px-4 py-3 w-[70px]">Image</th>
-                  <th className="px-4 py-3">Name</th>
-                  <th className="px-4 py-3">ID</th>
-                  <th className="px-4 py-3 text-right">Actions</th>
+                  <th className="px-4 py-3.5 w-[140px]">Image</th>
+                  <th className="px-4 py-3.5">Name</th>
+                  <th className="px-4 py-3.5 w-24">ID</th>
+                  <th className="px-4 py-3.5 text-right w-28">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-black/5">
                 {tripTypes.map((tripType) => (
-                  <tr key={tripType.id}>
-                    <td className="px-4 py-4">
-                      {tripType.imageUrl ? (
-                        <div className="relative h-10 w-10 overflow-hidden rounded-md border border-black/10 bg-black/5">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            alt={tripType.name}
-                            className="h-full w-full object-cover"
-                            src={getImageUrl(tripType.imageUrl)}
-                          />
-                        </div>
-                      ) : (
-                        <div className="grid h-10 w-10 place-items-center rounded-md border border-black/10 bg-black/5 text-[var(--color-muted)]">
-                          <ImageIcon size={18} />
-                        </div>
-                      )}
+                  <tr key={tripType.id} className="transition hover:bg-slate-50/60">
+                    <td className="px-4 py-3.5 align-middle">
+                      <div className="relative h-18 w-28 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-slate-100 shadow-xs">
+                        <AppImage
+                          alt={tripType.name}
+                          className="size-full object-cover transition-transform duration-300 hover:scale-105"
+                          fill
+                          src={getImageUrl(tripType.imageUrl)}
+                          unoptimized
+                        />
+                      </div>
                     </td>
-                    <td className="px-4 py-4">
-                      <p className="text-sm font-bold text-[var(--color-deep-ocean)]">
+                    <td className="px-4 py-3.5 align-middle">
+                      <p className="text-base font-bold text-[var(--color-deep-ocean)]">
                         {tripType.name}
                       </p>
                     </td>
-                    <td className="px-4 py-4 text-sm font-semibold text-[var(--foreground)]">
+                    <td className="px-4 py-3.5 align-middle text-sm font-semibold text-[var(--foreground)]">
                       {tripType.id}
                     </td>
-                    <td className="px-4 py-4">
+                    <td className="px-4 py-3.5 align-middle">
                       <div className="flex justify-end gap-2">
                         <button
                           aria-label={`Edit ${tripType.name}`}
@@ -324,61 +293,12 @@ function TripTypeFormPanel({
   onClose: () => void;
   tripType?: TripType;
 }) {
-  const isEdit = mode === "edit";
-  const translationsQuery = useTripTypeTranslationsQuery(
-    isEdit ? (tripType?.id ?? null) : null,
-  );
-  const title = isEdit ? (tripType?.name ?? "Trip type") : "Add trip type";
-
-  if (isEdit && translationsQuery.isLoading) {
-    return (
-      <TripTypeModalFrame
-        eyebrow="Edit trip type"
-        onClose={onClose}
-        title={title}
-      >
-        <div className="grid min-h-[240px] place-items-center p-5 text-[var(--color-deep-ocean)]">
-          <div className="flex items-center gap-3 text-sm font-semibold">
-            <Loader2 className="animate-spin" size={20} />
-            <span>Loading translations</span>
-          </div>
-        </div>
-      </TripTypeModalFrame>
-    );
-  }
-
-  if (isEdit && translationsQuery.error) {
-    return (
-      <TripTypeModalFrame
-        eyebrow="Edit trip type"
-        onClose={onClose}
-        title={title}
-      >
-        <div className="space-y-4 p-5">
-          <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {getErrorText(
-              translationsQuery.error,
-              "Unable to load trip type translations.",
-            )}
-          </p>
-          <button
-            className="h-10 rounded-lg border border-black/10 px-4 text-sm font-bold text-[var(--color-deep-ocean)] transition hover:border-[var(--color-ocean)]"
-            onClick={() => void translationsQuery.refetch()}
-            type="button"
-          >
-            Try again
-          </button>
-        </div>
-      </TripTypeModalFrame>
-    );
-  }
-
-  const initialNames = translationsQuery.data ?? getEmptyNames();
+  const initialName = mode === "edit" ? (tripType?.name ?? "") : "";
 
   return (
     <TripTypeFormFields
-      initialNames={initialNames}
-      key={`${mode}-${tripType?.id ?? "new"}-${Object.values(initialNames).join("|")}`}
+      initialName={initialName}
+      key={`${mode}-${tripType?.id ?? "new"}`}
       mode={mode}
       onClose={onClose}
       tripType={tripType}
@@ -387,19 +307,19 @@ function TripTypeFormPanel({
 }
 
 function TripTypeFormFields({
-  initialNames,
+  initialName,
   mode,
   onClose,
   tripType,
 }: {
-  initialNames: TripTypeNames;
+  initialName: string;
   mode: "create" | "edit";
   onClose: () => void;
   tripType?: TripType;
 }) {
   const createMutation = useCreateTripTypeMutation();
   const updateMutation = useUpdateTripTypeMutation();
-  const [name, setName] = useState(initialNames);
+  const [name, setName] = useState(initialName);
   const [image, setImage] = useState<File | null>(null);
   const [fieldError, setFieldError] = useState("");
 
@@ -407,29 +327,18 @@ function TripTypeFormFields({
   const submitMutation = isEdit ? updateMutation : createMutation;
   const submitError = getErrorText(submitMutation.error, "");
 
-  function updateName(language: TripTypeLanguage, value: string) {
-    setName((current) => ({
-      ...current,
-      [language]: value,
-    }));
-  }
-
-  function hasBlankValues(values: TripTypeNames) {
-    return languages.some((item) => !values[item.value].trim());
-  }
-
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setFieldError("");
 
-    if (hasBlankValues(name)) {
-      setFieldError("All translated names are required.");
+    if (!name.trim()) {
+      setFieldError("Trip type name is required.");
       return;
     }
 
     const values: TripTypeFormValues = {
       id: tripType?.id,
-      name,
+      name: name.trim(),
       image,
     };
 
@@ -447,22 +356,19 @@ function TripTypeFormFields({
       title={isEdit ? (tripType?.name ?? "Trip type") : "Add trip type"}
     >
       <form className="space-y-5 p-5" onSubmit={handleSubmit}>
-        <div className="grid gap-4 md:grid-cols-2">
-          {languages.map((item) => (
-            <label className="block" key={item.value}>
-              <span className="mb-2 block text-sm font-semibold text-[var(--color-deep-ocean)]">
-                Name.{item.displayCode}{" "}
-                <span className="text-red-600">*</span>
-              </span>
-              <input
-                className="h-11 w-full rounded-lg border border-black/10 px-3 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
-                onChange={(event) => updateName(item.value, event.target.value)}
-                placeholder={`${item.label} name`}
-                required
-                value={name[item.value]}
-              />
-            </label>
-          ))}
+        <div>
+          <label className="block">
+            <span className="mb-2 block text-sm font-semibold text-[var(--color-deep-ocean)]">
+              Trip Type Name <span className="text-red-600">*</span>
+            </span>
+            <input
+              className="h-11 w-full rounded-lg border border-black/10 px-3 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
+              onChange={(event) => setName(event.target.value)}
+              placeholder="e.g. Desert Safari, Sea Trips, Historical"
+              required
+              value={name}
+            />
+          </label>
         </div>
 
         <label className="block">

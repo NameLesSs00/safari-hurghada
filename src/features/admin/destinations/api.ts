@@ -16,10 +16,11 @@ function buildDestinationFormData(values: DestinationFormValues) {
     formData.append("Id", String(values.id));
   }
 
-  formData.append("Name.En", values.names.en.trim());
-  formData.append("Name.Fr", values.names.fr.trim());
-  formData.append("Name.Ru", values.names.ru.trim());
-  formData.append("Name.Ro", values.names.ro.trim());
+  const englishName = (values.name || values.names?.en || "").trim();
+  formData.append("Name.En", englishName);
+  formData.append("Name.Fr", englishName);
+  formData.append("Name.Ru", englishName);
+  formData.append("Name.Ro", englishName);
   formData.append("IsFeatured", String(values.isFeatured));
 
   if (values.imageFile) {

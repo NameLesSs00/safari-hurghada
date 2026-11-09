@@ -170,7 +170,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex min-h-screen flex-1 bg-[#f5f9ff]">
+    <div className="flex min-h-screen flex-1 bg-[#FAFAFA]">
       <aside className="hidden w-[280px] shrink-0 border-r border-black/5 bg-white px-5 py-6 lg:flex lg:flex-col">
         <AdminSidebar
           isLoggingOut={logoutMutation.isPending}
@@ -237,9 +237,9 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
 function AdminSessionLoader() {
   return (
-    <main className="grid min-h-screen flex-1 place-items-center bg-[#f5f9ff] text-[var(--color-deep-ocean)]">
+    <main className="grid min-h-screen flex-1 place-items-center bg-[#FAFAFA] text-[var(--color-deep-ocean)]">
       <div className="flex items-center gap-3 text-base font-semibold">
-        <Loader2 className="animate-spin" size={22} />
+        <Loader2 className="animate-spin text-[var(--color-ocean)]" size={22} />
         <span>Checking session</span>
       </div>
     </main>
@@ -291,8 +291,8 @@ function AdminSidebar({
             <Link
               className={`flex h-11 items-center gap-3 rounded-lg px-3 text-sm font-semibold transition ${
                 isActive
-                  ? "bg-[var(--color-ocean)] text-white"
-                  : "text-[var(--color-muted)] hover:bg-[#f5f9ff] hover:text-[var(--color-deep-ocean)]"
+                  ? "bg-[var(--color-ocean)] text-white shadow-sm shadow-orange-500/20"
+                  : "text-[var(--color-muted)] hover:bg-orange-50/60 hover:text-[var(--color-ocean)]"
               }`}
               href={item.href}
               key={item.href}

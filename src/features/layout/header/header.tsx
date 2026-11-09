@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarCheck, ChevronDown, Menu, X } from "lucide-react";
+import { CalendarCheck, Check, ChevronDown, Heart, MapPin, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -11,8 +11,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { navItems } from "@/src/features/layout/constants/navigation";
 import { CartIcon } from "@/src/shared/components/icons";
 import { useCartStore } from "@/src/store/use-cart-store";
+import { useSavedTripsStore } from "@/src/store/use-saved-trips-store";
 import { useDestinationsQuery } from "@/src/features/categories/api/get-destinations";
-import { useTripTypesQuery } from "@/src/features/categories/api/get-trip-types";
 import { locales, type AppLocale } from "@/src/i18n/locales";
 
 const LANGUAGE_INFO: Record<
@@ -20,10 +20,19 @@ const LANGUAGE_INFO: Record<
   { labelKey: "english" | "french" | "german" | "polish"; flagUrl: string; code: string }
 > = {
   en: { labelKey: "english", flagUrl: "https://flagcdn.com/gb.svg", code: "EN" },
-  fr: { labelKey: "french",  flagUrl: "https://flagcdn.com/fr.svg", code: "FR" },
-  de: { labelKey: "german",  flagUrl: "https://flagcdn.com/de.svg", code: "DE" },
-  pl: { labelKey: "polish",  flagUrl: "https://flagcdn.com/pl.svg", code: "PL" },
+  // fr: { labelKey: "french",  flagUrl: "https://flagcdn.com/fr.svg", code: "FR" },
+  // de: { labelKey: "german",  flagUrl: "https://flagcdn.com/de.svg", code: "DE" },
+  // pl: { labelKey: "polish",  flagUrl: "https://flagcdn.com/pl.svg", code: "PL" },
 };
+
+// Resilient default destinations in case API is offline or loading
+const DEFAULT_DESTINATIONS = [
+  { id: 2, name: "Hurghada" },
+  { id: 5, name: "Cairo" },
+  { id: 6, name: "Luxor" },
+  { id: 4, name: "Aswan" },
+  { id: 3, name: "Giza" },
+];
 
 // Animation Variants
 const containerVariants = {
@@ -31,19 +40,19 @@ const containerVariants = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.08,
+      staggerChildren: 0.06,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, x: -16 },
+  hidden: { opacity: 0, x: -12 },
   show: { opacity: 1, x: 0 },
 };
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<"destinations" | "categories" | null>(null);
+  const [activeDropdown, setActiveDropdown] = useState<"destinations" | null>(null);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [mobileOpenMenu, setMobileOpenMenu] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -54,10 +63,16 @@ export function Header() {
   const navT = useTranslations("Navigation");
   const localeT = useTranslations("LocaleSwitcher");
   const cartItemsCount = useCartStore((state) => state.items.length);
+  const savedTripsCount = useSavedTripsStore((state) => state.savedTripIds.length);
+  const [mounted, setMounted] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const langDropdownRef = useRef<HTMLDivElement>(null);
 
-  // Track window scroll to elevate sticky header with depth shadow
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Track window scroll to elevate sticky header with shadow
   useEffect(() => {
     function handleScroll() {
       setIsScrolled(window.scrollY > 8);
@@ -67,11 +82,12 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Fetch real destinations and categories for dropdowns
+  // Fetch destinations for dropdown
   const { data: destinations } = useDestinationsQuery(false);
-  const { data: tripTypes } = useTripTypesQuery();
+  const displayDestinations =
+    destinations && destinations.length > 0 ? destinations : DEFAULT_DESTINATIONS;
 
-  // Close dropdown on outside click
+  // Close dropdowns on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (
@@ -92,8 +108,7 @@ export function Header() {
   }, []);
 
   function getLocalizedHref(href: string) {
-    if (href === "/") return `/${locale}`;
-    return `/${locale}${href}`;
+    return href;
   }
 
   function getPathWithoutLocale(path: string) {
@@ -133,7 +148,7 @@ export function Header() {
         {/* Logo */}
         <Link
           href={getLocalizedHref("/")}
-          className="flex shrink-0 items-center"
+          className="flex shrink-0 items-center transition-transform hover:scale-[1.01] active:scale-98"
           aria-label={headerT("logoHome")}
         >
           <Image
@@ -147,7 +162,7 @@ export function Header() {
           />
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Desktop Primary Navigation */}
         <nav
           className="hidden items-center gap-6 xl:gap-8 lg:flex"
           aria-label="Primary"
@@ -167,18 +182,18 @@ export function Header() {
                         prev === item.menuType ? null : (item.menuType ?? null)
                       )
                     }
-                    className={`group relative flex h-14 items-center gap-1.5 text-[15px] xl:text-[16px] font-medium transition-colors ${
+                    className={`group relative flex h-14 items-center gap-1.5 text-[15px] xl:text-[16px] font-semibold transition-colors ${
                       isActive || isMenuOpen
-                        ? "text-[#1E232A]"
-                        : "text-[#4B5563] hover:text-[#1E232A]"
+                        ? "text-[#F36F21]"
+                        : "text-[#374151] hover:text-[#1E232A]"
                     }`}
                   >
                     <span>{navT(item.labelKey)}</span>
                     <ChevronDown
                       size={16}
-                      strokeWidth={2.2}
+                      strokeWidth={2.4}
                       className={`text-[#6B7280] transition-transform duration-200 ${
-                        isMenuOpen ? "rotate-180" : ""
+                        isMenuOpen ? "rotate-180 text-[#F36F21]" : "group-hover:text-[#1E232A]"
                       }`}
                     />
                     {isActive && (
@@ -189,61 +204,43 @@ export function Header() {
                     )}
                   </button>
 
-                  {/* Dropdown menu */}
+                  {/* Destinations Dropdown Card */}
                   <AnimatePresence>
                     {isMenuOpen && (
                       <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 8 }}
-                        transition={{ duration: 0.18 }}
-                        className="absolute left-0 top-full mt-1 w-60 overflow-hidden rounded-2xl border border-gray-100 bg-white p-2 shadow-xl z-50"
+                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                        transition={{ duration: 0.16, ease: "easeOut" }}
+                        className="absolute left-0 top-full mt-2 w-64 overflow-hidden rounded-2xl border border-gray-100 bg-white p-2 shadow-[0_12px_36px_rgba(15,23,42,0.1)] z-50"
                       >
-                        {item.menuType === "destinations" ? (
-                          <>
+                        <Link
+                          href={getLocalizedHref("/destinations")}
+                          className="flex items-center justify-between rounded-xl bg-orange-50/70 px-3.5 py-2.5 text-sm font-bold text-[#F36F21] transition-colors hover:bg-orange-100/70"
+                          onClick={() => setActiveDropdown(null)}
+                        >
+                          <span>{navT("allDestinations")}</span>
+                          <span className="text-base leading-none">&rarr;</span>
+                        </Link>
+                        <div className="my-1.5 h-px bg-gray-100" />
+                        <div className="flex flex-col gap-0.5">
+                          {displayDestinations.map((dest) => (
                             <Link
-                              href={getLocalizedHref("/Destinations")}
-                              className="flex items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold text-[#F36F21] transition-colors hover:bg-orange-50"
+                              key={dest.id}
+                              href={getLocalizedHref(`/trips?destinationId=${dest.id}`)}
                               onClick={() => setActiveDropdown(null)}
+                              className="group flex items-center justify-between rounded-xl px-3.5 py-2 text-sm font-medium text-[#374151] transition-all hover:bg-orange-50/60 hover:text-[#F36F21]"
                             >
-                              <span>{navT("allDestinations")}</span>
-                              <span>&rarr;</span>
-                            </Link>
-                            <div className="my-1 h-px bg-gray-100" />
-                            {destinations?.map((dest) => (
-                              <Link
-                                key={dest.id}
-                                href={getLocalizedHref(`/trips?destinationId=${dest.id}`)}
-                                onClick={() => setActiveDropdown(null)}
-                                className="flex items-center justify-between rounded-xl px-3 py-2 text-sm text-[#374151] transition-colors hover:bg-orange-50 hover:text-[#F36F21]"
-                              >
+                              <span className="flex items-center gap-2">
+                                <MapPin
+                                  size={14}
+                                  className="text-gray-400 transition-colors group-hover:text-[#F36F21]"
+                                />
                                 <span>{dest.name.trim()}</span>
-                              </Link>
-                            ))}
-                          </>
-                        ) : (
-                          <>
-                            <Link
-                              href={getLocalizedHref("/trips")}
-                              className="flex items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold text-[#F36F21] transition-colors hover:bg-orange-50"
-                              onClick={() => setActiveDropdown(null)}
-                            >
-                              <span>{navT("allCategories")}</span>
-                              <span>&rarr;</span>
+                              </span>
                             </Link>
-                            <div className="my-1 h-px bg-gray-100" />
-                            {tripTypes?.map((category) => (
-                              <Link
-                                key={category.id}
-                                href={getLocalizedHref(`/trips?typeId=${category.id}`)}
-                                onClick={() => setActiveDropdown(null)}
-                                className="flex items-center justify-between rounded-xl px-3 py-2 text-sm text-[#374151] transition-colors hover:bg-orange-50 hover:text-[#F36F21]"
-                              >
-                                <span>{category.name.trim()}</span>
-                              </Link>
-                            ))}
-                          </>
-                        )}
+                          ))}
+                        </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -255,10 +252,10 @@ export function Header() {
               <Link
                 key={item.label}
                 href={getLocalizedHref(item.href)}
-                className={`group relative flex h-14 items-center text-[15px] xl:text-[16px] font-medium transition-colors ${
+                className={`group relative flex h-14 items-center text-[15px] xl:text-[16px] font-semibold transition-colors ${
                   isActive
-                    ? "text-[#1E232A]"
-                    : "text-[#4B5563] hover:text-[#1E232A]"
+                    ? "text-[#F36F21]"
+                    : "text-[#374151] hover:text-[#1E232A]"
                 }`}
               >
                 <span>{navT(item.labelKey)}</span>
@@ -273,12 +270,13 @@ export function Header() {
           })}
         </nav>
 
-        {/* Right CTA cluster */}
+        {/* Right CTA Cluster */}
         <div className="flex shrink-0 items-center gap-2.5 sm:gap-3.5">
-          {/* Language Switcher Pill */}
+          {/* Language Switcher Pill (Temporarily hidden for English-only mode) */}
+          {/*
           <div className="relative" ref={langDropdownRef}>
             <button
-              className="flex h-10 items-center gap-2 rounded-full border border-gray-200 bg-white px-3 text-[#1E232A] shadow-sm transition hover:border-gray-300 sm:px-3.5"
+              className="flex h-10 items-center gap-2 rounded-full border border-gray-200 bg-white px-3 text-[#1E232A] shadow-xs transition hover:border-gray-300 hover:bg-gray-50/60 sm:px-3.5 cursor-pointer"
               type="button"
               aria-expanded={langDropdownOpen}
               aria-label={localeT("label")}
@@ -289,12 +287,12 @@ export function Header() {
                 alt={getLanguageName(locale)}
                 className="h-4 w-5 shrink-0 rounded-[3px] object-cover shadow-xs"
               />
-              <span className="text-xs font-bold uppercase tracking-wider">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#1E232A]">
                 {LANGUAGE_INFO[locale].code}
               </span>
               <ChevronDown
                 size={14}
-                strokeWidth={2.2}
+                strokeWidth={2.4}
                 className={`text-[#6B7280] transition-transform duration-200 ${
                   langDropdownOpen ? "rotate-180" : ""
                 }`}
@@ -304,11 +302,11 @@ export function Header() {
             <AnimatePresence>
               {langDropdownOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.18 }}
-                  className="absolute right-0 top-full mt-2 w-40 overflow-hidden rounded-2xl border border-gray-100 bg-white p-1.5 shadow-xl z-50"
+                  initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                  transition={{ duration: 0.16 }}
+                  className="absolute right-0 top-full mt-2 w-44 overflow-hidden rounded-2xl border border-gray-100 bg-white p-1.5 shadow-[0_12px_36px_rgba(15,23,42,0.12)] z-50"
                 >
                   <div className="flex flex-col gap-0.5">
                     {locales.map((l) => (
@@ -316,18 +314,23 @@ export function Header() {
                         key={l}
                         type="button"
                         onClick={() => handleLanguageSelect(l)}
-                        className={`flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold transition-colors ${
+                        className={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition-colors cursor-pointer ${
                           locale === l
                             ? "bg-orange-50 text-[#F36F21]"
-                            : "text-[#374151] hover:bg-gray-50"
+                            : "text-[#374151] hover:bg-gray-50 hover:text-[#1E232A]"
                         }`}
                       >
-                        <img
-                          src={LANGUAGE_INFO[l].flagUrl}
-                          alt={getLanguageName(l)}
-                          className="h-3.5 w-5 shrink-0 rounded-[2px] object-cover"
-                        />
-                        <span>{getLanguageName(l)}</span>
+                        <div className="flex items-center gap-2.5">
+                          <img
+                            src={LANGUAGE_INFO[l].flagUrl}
+                            alt={getLanguageName(l)}
+                            className="h-3.5 w-5 shrink-0 rounded-[2px] object-cover shadow-xs"
+                          />
+                          <span>{getLanguageName(l)}</span>
+                        </div>
+                        {locale === l && (
+                          <Check size={14} strokeWidth={2.5} className="text-[#F36F21]" />
+                        )}
                       </button>
                     ))}
                   </div>
@@ -335,11 +338,39 @@ export function Header() {
               )}
             </AnimatePresence>
           </div>
+          */}
 
-          {/* Cart Icon */}
+          {/* Saved Trips (Wishlist) Icon Pill */}
+          <Link
+            href={getLocalizedHref("/saved-trips")}
+            className="relative grid size-10 place-items-center rounded-full border border-gray-200 bg-white text-[#1E232A] shadow-xs transition hover:border-gray-300 hover:bg-gray-50/60 active:scale-95"
+            aria-label={headerT("openSavedTrips")}
+          >
+            <Heart
+              className={`size-5 transition-colors ${
+                mounted && savedTripsCount > 0
+                  ? "fill-[#F36F21] text-[#F36F21]"
+                  : "text-[#1E232A] fill-none stroke-[2]"
+              }`}
+            />
+            <AnimatePresence>
+              {mounted && savedTripsCount > 0 && (
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
+                  className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#F36F21] text-[11px] font-bold text-white shadow-xs"
+                >
+                  {savedTripsCount}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </Link>
+
+          {/* Cart Icon Pill */}
           <Link
             href={getLocalizedHref("/cart")}
-            className="relative grid size-10 place-items-center rounded-full border border-gray-200 bg-white text-[#1E232A] shadow-sm transition hover:border-gray-300"
+            className="relative grid size-10 place-items-center rounded-full border border-gray-200 bg-white text-[#1E232A] shadow-xs transition hover:border-gray-300 hover:bg-gray-50/60 active:scale-95"
             aria-label={headerT("openCart")}
           >
             <CartIcon className="size-5" />
@@ -349,7 +380,7 @@ export function Header() {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   exit={{ scale: 0 }}
-                  className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#F36F21] text-[11px] font-bold text-white shadow"
+                  className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#F36F21] text-[11px] font-bold text-white shadow-xs"
                 >
                   {cartItemsCount}
                 </motion.div>
@@ -360,15 +391,15 @@ export function Header() {
           {/* Book Now Button */}
           <Link
             href={getLocalizedHref("/trips")}
-            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-[#F36F21] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-[#df5d10] hover:shadow-lg active:scale-95"
+            className="hidden md:inline-flex items-center gap-2 rounded-full bg-[#F36F21] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-[#df5d10] hover:shadow-lg active:scale-95"
           >
             <CalendarCheck size={16} strokeWidth={2.3} />
-            <span>Book Now</span>
+            <span>{headerT("bookNow")}</span>
           </Link>
 
-          {/* Mobile hamburger menu toggle */}
+          {/* Mobile Hamburger Toggle */}
           <button
-            className="grid size-10 place-items-center rounded-full border border-gray-200 bg-white text-[#1E232A] sm:size-10 lg:hidden"
+            className="grid size-10 place-items-center rounded-full border border-gray-200 bg-white text-[#1E232A] sm:size-10 lg:hidden cursor-pointer transition hover:border-gray-300 active:scale-95"
             type="button"
             aria-label={isOpen ? headerT("closeMenu") : headerT("openMenu")}
             aria-controls="mobile-navigation"
@@ -388,8 +419,8 @@ export function Header() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="overflow-hidden border-t border-gray-100 bg-white lg:hidden"
+            transition={{ duration: 0.22, ease: "easeInOut" }}
+            className="overflow-hidden border-t border-gray-100 bg-white lg:hidden shadow-lg"
             aria-label="Mobile primary"
           >
             <motion.div
@@ -412,7 +443,7 @@ export function Header() {
                             prev === item.menuType ? null : (item.menuType ?? null)
                           )
                         }
-                        className={`flex min-h-11 w-full items-center justify-between text-base font-medium transition-colors ${
+                        className={`flex min-h-11 w-full items-center justify-between text-base font-semibold transition-colors ${
                           isActive || isMenuExpanded ? "text-[#F36F21]" : "text-[#374151]"
                         }`}
                       >
@@ -431,49 +462,27 @@ export function Header() {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.18 }}
                             className="flex flex-col gap-1 overflow-hidden pl-4 pb-2"
                           >
-                            {item.menuType === "destinations" ? (
-                              <>
-                                <Link
-                                  href={getLocalizedHref("/Destinations")}
-                                  onClick={() => setIsOpen(false)}
-                                  className="flex min-h-9 items-center text-sm font-semibold text-[#F36F21]"
-                                >
-                                  {navT("allDestinations")} &rarr;
-                                </Link>
-                                {destinations?.map((dest) => (
-                                  <Link
-                                    key={dest.id}
-                                    href={getLocalizedHref(`/trips?destinationId=${dest.id}`)}
-                                    onClick={() => setIsOpen(false)}
-                                    className="flex min-h-9 items-center text-sm text-[#4B5563]"
-                                  >
-                                    {dest.name.trim()}
-                                  </Link>
-                                ))}
-                              </>
-                            ) : (
-                              <>
-                                <Link
-                                  href={getLocalizedHref("/trips")}
-                                  onClick={() => setIsOpen(false)}
-                                  className="flex min-h-9 items-center text-sm font-semibold text-[#F36F21]"
-                                >
-                                  {navT("allCategories")} &rarr;
-                                </Link>
-                                {tripTypes?.map((category) => (
-                                  <Link
-                                    key={category.id}
-                                    href={getLocalizedHref(`/trips?typeId=${category.id}`)}
-                                    onClick={() => setIsOpen(false)}
-                                    className="flex min-h-9 items-center text-sm text-[#4B5563]"
-                                  >
-                                    {category.name.trim()}
-                                  </Link>
-                                ))}
-                              </>
-                            )}
+                            <Link
+                              href={getLocalizedHref("/destinations")}
+                              onClick={() => setIsOpen(false)}
+                              className="flex min-h-9 items-center text-sm font-bold text-[#F36F21]"
+                            >
+                              {navT("allDestinations")} &rarr;
+                            </Link>
+                            {displayDestinations.map((dest) => (
+                              <Link
+                                key={dest.id}
+                                href={getLocalizedHref(`/trips?destinationId=${dest.id}`)}
+                                onClick={() => setIsOpen(false)}
+                                className="flex min-h-9 items-center gap-2 text-sm text-[#4B5563] hover:text-[#F36F21] transition-colors"
+                              >
+                                <MapPin size={14} className="text-gray-400" />
+                                <span>{dest.name.trim()}</span>
+                              </Link>
+                            ))}
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -486,8 +495,8 @@ export function Header() {
                     <Link
                       href={getLocalizedHref(item.href)}
                       onClick={() => setIsOpen(false)}
-                      className={`flex min-h-11 items-center justify-between text-base font-medium transition-colors ${
-                        isActive ? "font-semibold text-[#F36F21]" : "text-[#374151]"
+                      className={`flex min-h-11 items-center justify-between text-base font-semibold transition-colors ${
+                        isActive ? "text-[#F36F21]" : "text-[#374151]"
                       }`}
                     >
                       <span>{navT(item.labelKey)}</span>
@@ -496,14 +505,33 @@ export function Header() {
                 );
               })}
 
+              {/* Mobile Saved Trips Link */}
+              <motion.div variants={itemVariants}>
+                <Link
+                  href={getLocalizedHref("/saved-trips")}
+                  onClick={() => setIsOpen(false)}
+                  className="flex min-h-11 items-center justify-between text-base font-semibold text-[#374151] hover:text-[#F36F21] transition-colors"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <Heart size={18} className={mounted && savedTripsCount > 0 ? "text-[#F36F21] fill-[#F36F21]" : "text-gray-400"} />
+                    <span>{headerT("openSavedTrips")}</span>
+                  </span>
+                  {mounted && savedTripsCount > 0 && (
+                    <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#F36F21] px-1.5 text-[11px] font-bold text-white">
+                      {savedTripsCount}
+                    </span>
+                  )}
+                </Link>
+              </motion.div>
+
               <div className="pt-3">
                 <Link
                   href={getLocalizedHref("/trips")}
                   onClick={() => setIsOpen(false)}
-                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#F36F21] py-3 text-sm font-semibold text-white shadow-md"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#F36F21] py-3 text-sm font-semibold text-white shadow-md active:scale-98 transition-transform"
                 >
                   <CalendarCheck size={16} strokeWidth={2.3} />
-                  <span>Book Now</span>
+                  <span>{headerT("bookNow")}</span>
                 </Link>
               </div>
             </motion.div>

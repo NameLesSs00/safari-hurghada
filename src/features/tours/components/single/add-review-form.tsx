@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Star } from "lucide-react";
+import { Star, Send } from "lucide-react";
 import { useCreateReviewMutation } from "@/src/features/tours/api/create-review";
 
 interface AddReviewFormProps { 
   tripId: number;
 }
-
 
 export function AddReviewForm({ tripId }: AddReviewFormProps) {
   const [rating, setRating] = useState(0);
@@ -18,7 +17,6 @@ export function AddReviewForm({ tripId }: AddReviewFormProps) {
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
     comment: "",
   });
 
@@ -32,16 +30,10 @@ export function AddReviewForm({ tripId }: AddReviewFormProps) {
       setMessage({ type: "error", text: "Please select a star rating before submitting." });
       return;
     }
-    
-    // Basic frontend validation for phone format (optional depending on API, but safe to check roughly)
-    const phoneRegex = /^[+]?[\d\s-]{7,15}$/;
-    if (!phoneRegex.test(formData.phone)) {
-      setMessage({ type: "error", text: "The phone number format is incorrect. Please enter a valid number." });
-      return;
-    }
 
     mutation.mutate({
       ...formData,
+      phone: "+201000000000", // dummy phone to satisfy API without requiring or showing phone
       tripId,
       rate: rating,
     }, {
@@ -50,7 +42,6 @@ export function AddReviewForm({ tripId }: AddReviewFormProps) {
           firstName: "",
           lastName: "",
           email: "",
-          phone: "",
           comment: "",
         });
         setRating(0);
@@ -63,56 +54,61 @@ export function AddReviewForm({ tripId }: AddReviewFormProps) {
   };
 
   return (
-    <div className="mt-12 rounded-2xl bg-white p-6 shadow-[0px_4px_20px_rgba(0,0,0,0.04)] lg:p-8">
-      <h3 className="mb-2 text-xl font-bold text-[#111827]">Add Review</h3>
-      <p className="mb-6 text-sm text-[#6B7280]">
-        Your email address will not be published. Required fields are marked{" "}
-        <span className="text-[#EF4444]">*</span>
+    <div className="rounded-2xl bg-slate-50/60 p-6 sm:p-7 border border-slate-100">
+      <h3 className="text-lg font-bold text-[#1E232A]">Share Your Experience</h3>
+      <p className="mt-1 mb-6 text-xs sm:text-sm text-slate-500">
+        Your feedback helps fellow travelers find the best excursions. Required fields are marked{" "}
+        <span className="text-[#EF4444] font-bold">*</span>
       </p>
 
       {message && (
-        <div className={`mb-6 rounded-lg p-4 text-sm font-medium ${
+        <div className={`mb-6 rounded-2xl p-4 text-sm font-medium ${
           message.type === "error" 
-            ? "bg-[#FEF2F2] text-[#EF4444] border border-[#FCA5A5]" 
-            : "bg-[#F0FDF4] text-[#16A34A] border border-[#86EFAC]"
+            ? "bg-rose-50 text-rose-600 border border-rose-200" 
+            : "bg-emerald-50 text-emerald-700 border border-emerald-200"
         }`}>
           {message.text}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         {/* Rating Select */}
         <div>
-          <p className="mb-2 text-sm font-semibold text-[#374151]">
-            Review <span className="text-[#EF4444]">*</span>
-          </p>
-          <div className="flex items-center gap-1">
+          <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-500">
+            Your Overall Rating <span className="text-[#EF4444]">*</span>
+          </label>
+          <div className="flex items-center gap-1.5">
             {[1, 2, 3, 4, 5].map((star) => (
               <button
                 key={star}
                 type="button"
-                className="transition-transform hover:scale-110"
+                className="transition-transform hover:scale-110 cursor-pointer focus:outline-none"
                 onClick={() => setRating(star)}
                 onMouseEnter={() => setHoverRating(star)}
                 onMouseLeave={() => setHoverRating(0)}
               >
                 <Star
-                  size={24}
+                  size={26}
                   className={`${
                     star <= (hoverRating || rating)
                       ? "fill-[#F59E0B] text-[#F59E0B]"
-                      : "fill-gray-200 text-gray-200"
+                      : "fill-slate-200 text-slate-200"
                   } transition-colors`}
                 />
               </button>
             ))}
+            {rating > 0 && (
+              <span className="ml-3 text-xs font-bold text-[#1E232A]">
+                {rating === 5 ? "Excellent (5/5)" : rating === 4 ? "Very Good (4/5)" : `${rating}/5`}
+              </span>
+            )}
           </div>
         </div>
 
         {/* Inputs */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-[#374151]">
+            <label className="text-xs font-semibold text-slate-600">
               First Name <span className="text-[#EF4444]">*</span>
             </label>
             <input
@@ -120,11 +116,12 @@ export function AddReviewForm({ tripId }: AddReviewFormProps) {
               required
               value={formData.firstName}
               onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-[#003A5A]"
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none transition-all focus:border-[#F36F21] focus:ring-2 focus:ring-[#F36F21]/20"
+              placeholder="e.g. John"
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-[#374151]">
+            <label className="text-xs font-semibold text-slate-600">
               Last Name <span className="text-[#EF4444]">*</span>
             </label>
             <input
@@ -132,57 +129,50 @@ export function AddReviewForm({ tripId }: AddReviewFormProps) {
               required
               value={formData.lastName}
               onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-[#003A5A]"
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none transition-all focus:border-[#F36F21] focus:ring-2 focus:ring-[#F36F21]/20"
+              placeholder="e.g. Doe"
             />
           </div>
-          <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-[#374151]">
-              Email <span className="text-[#EF4444]">*</span>
+          <div className="flex flex-col gap-1.5 sm:col-span-2">
+            <label className="text-xs font-semibold text-slate-600">
+              Email Address <span className="text-[#EF4444]">*</span>
             </label>
             <input
               type="email"
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-[#003A5A]"
-            />
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-[#374151]">
-              Phone <span className="text-[#EF4444]">*</span>
-            </label>
-            <input
-              type="tel"
-              required
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-[#003A5A]"
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none transition-all focus:border-[#F36F21] focus:ring-2 focus:ring-[#F36F21]/20"
+              placeholder="e.g. john@example.com"
             />
           </div>
         </div>
 
         {/* Comment textarea */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-[#374151]">
-            Comment <span className="text-[#EF4444]">*</span>
+          <label className="text-xs font-semibold text-slate-600">
+            Your Review <span className="text-[#EF4444]">*</span>
           </label>
           <textarea
             required
-            placeholder="Text..."
+            placeholder="Write about what you enjoyed the most, the guide, boat trip, or transfer experience..."
             value={formData.comment}
             onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
-            rows={5}
-            className="w-full resize-none rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-[#003A5A]"
+            rows={4}
+            className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition-all focus:border-[#F36F21] focus:ring-2 focus:ring-[#F36F21]/20"
           />
         </div>
 
-        <button
-          type="submit"
-          disabled={mutation.isPending}
-          className="mt-2 w-full max-w-[200px] rounded-full border border-[#003A5A] px-6 py-3 font-semibold text-[#003A5A] transition-colors hover:bg-[#003A5A] hover:text-white disabled:opacity-50"
-        >
-          {mutation.isPending ? "Submitting..." : "Submit Review"}
-        </button>
+        <div>
+          <button
+            type="submit"
+            disabled={mutation.isPending}
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#F36F21] px-6 py-3 text-sm font-bold text-white shadow-md shadow-orange-500/20 transition-all hover:bg-[#d95c12] active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+          >
+            <Send size={15} />
+            <span>{mutation.isPending ? "Submitting Review..." : "Submit Review"}</span>
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function AdminNotFound() {
   return (
-    <main className="grid min-h-screen flex-1 place-items-center bg-[#f5f9ff] px-5 text-center">
+    <main className="grid min-h-screen flex-1 place-items-center bg-[#FAFAFA] px-5 text-center">
       <div className="max-w-[460px]">
         <p className="text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-ocean)]">
           404

@@ -5,45 +5,51 @@ import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
 import { routing } from "@/src/i18n/routing";
+import { LocalBusinessJsonLd } from "@/src/components/json-ld";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const isDe = locale === 'de';
 
-  const titleText = isDe 
-    ? "SunnySide Tours - Gemeinsam Erinnerungen schaffen | Ägypten Reisen & Tourismus"
-    : "SunnySide Tours - Create Memories Together | Egypt Travel & Tourism";
-    
-  const descriptionText = isDe
-    ? "Schaffen Sie gemeinsam mit SunnySide Tours Erinnerungen. Entdecken Sie die besten Reiseziele, Touren und Erlebnisse Ägyptens. Buchen Sie noch heute Ihr Ägypten-Abenteuer mit fachkundigen Führern."
-    : "Create Memories Together with SunnySide Tours. Explore Egypt's best destinations, tours, and travel experiences. Book your Egyptian adventure today with expert guides and unforgettable journeys.";
+  const titles: Record<string, string> = {
+    en: "Safari Hurghada - Excursions & Desert Tours | #1 Rated Tour Operator",
+  };
+
+  const descriptions: Record<string, string> = {
+    en: "Safari Hurghada - #1 Rated Tour Operator in Hurghada. Best prices for VIP Desert Safaris, Quad Biking, Orange Bay Island, Submarine & Diving Excursions. Book your adventure now!",
+  };
+
+  const titleText = titles[locale] || titles.en;
+  const descriptionText = descriptions[locale] || descriptions.en;
+
+  const ogLocales: Record<string, { locale: string; alternate?: string[] }> = {
+    en: { locale: "en_US" },
+  };
+
+  const ogLocaleInfo = ogLocales[locale] || ogLocales.en;
 
   return {
     title: {
       default: titleText,
-      template: "%s | SunnySide Tours",
+      template: "%s | Safari Hurghada",
     },
     description: descriptionText,
     keywords: [
-      "Egypt tours",
-      "Egypt travel",
-      "SunnySide Tours",
-      "Egyptian tourism",
-      "Red Sea tours",
-      "Pyramids tours",
-      "Luxor trips",
-      "Cairo tours",
-      "Egypt vacation packages",
-      "desert safari Egypt",
-      "Nile cruise",
+      "Safari Hurghada",
+      "Hurghada desert safari",
+      "quad bike Hurghada",
+      "Hurghada excursions",
+      "Orange Bay island",
+      "Red Sea diving",
+      "Sea Scope submarine",
+      "dolphin show Hurghada",
+      "Luxor day trip from Hurghada",
+      "Cairo day trip from Hurghada",
       "Hurghada tours",
-      "Sharm El Sheikh",
       "Egypt travel guide",
-      "Egyptian adventures",
     ],
-    authors: [{ name: "SunnySide Tours" }],
-    creator: "SunnySide Tours",
-    publisher: "SunnySide Tours",
+    authors: [{ name: "Safari Hurghada" }],
+    creator: "Safari Hurghada",
+    publisher: "Safari Hurghada",
     formatDetection: {
       email: false,
       address: false,
@@ -51,10 +57,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
     openGraph: {
       type: "website",
-      locale: isDe ? "de_DE" : "en_US",
-      alternateLocale: isDe ? ["en_US"] : ["de_DE"],
-      url: "https://sunnyside-tours.com",
-      siteName: "SunnySide Tours",
+      locale: ogLocaleInfo.locale,
+      alternateLocale: ogLocaleInfo.alternate,
+      url: "https://safarihurghada.net",
+      siteName: "Safari Hurghada",
       title: titleText,
       description: descriptionText,
       images: [
@@ -62,7 +68,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
           url: "/og-image.jpg",
           width: 1200,
           height: 630,
-          alt: "SunnySide Tours - Egypt Travel Experiences",
+          alt: "Safari Hurghada - Excursions & Desert Tours",
         },
       ],
     },
@@ -109,5 +115,10 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
 
-  return <NextIntlClientProvider>{children}</NextIntlClientProvider>;
+  return (
+    <NextIntlClientProvider>
+      <LocalBusinessJsonLd />
+      {children}
+    </NextIntlClientProvider>
+  );
 }

@@ -81,16 +81,16 @@ export function LoginPage() {
             />
             <button
               aria-label={showPassword ? "Hide password" : "Show password"}
-              className="absolute bottom-0 right-1 grid size-12 place-items-center text-[var(--color-muted)] transition hover:text-[var(--color-ocean)]"
+              className="absolute bottom-0 right-1 grid size-12 place-items-center text-slate-400 transition hover:text-[#F36F21]"
               onClick={() => setShowPassword((current) => !current)}
               type="button"
             >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
             </button>
           </div>
           <div className="mt-3 flex justify-end">
             <Link
-              className="text-sm font-semibold text-[var(--color-ocean)] transition hover:text-[var(--color-deep-ocean)]"
+              className="text-xs font-bold text-[#F36F21] transition hover:underline"
               href="/admin/forgot-password"
             >
               Forgot password?
@@ -99,22 +99,22 @@ export function LoginPage() {
         </div>
 
         {serverError ? (
-          <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-xs font-semibold text-rose-600">
             {serverError}
           </p>
         ) : null}
 
         <button
-          className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-ocean)] px-5 text-base font-bold text-white transition hover:bg-[var(--color-deep-ocean)] disabled:cursor-not-allowed disabled:opacity-70"
+          className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[#F36F21] px-5 text-sm font-bold text-white shadow-lg shadow-orange-500/25 transition-all hover:bg-[#d95c12] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
           disabled={loginMutation.isPending}
           type="submit"
         >
           {loginMutation.isPending ? (
-            <Loader2 className="animate-spin" size={20} />
+            <Loader2 className="animate-spin" size={18} />
           ) : (
-            <LogIn size={20} />
+            <LogIn size={18} />
           )}
-          <span>Sign in</span>
+          <span>Sign in to Dashboard</span>
         </button>
       </form>
     </AuthCard>

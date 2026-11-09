@@ -7,7 +7,6 @@ import {
   Loader2,
   Mail,
   MessageSquareText,
-  Phone,
   Search,
   Star,
   Trash2,
@@ -243,7 +242,7 @@ export function AdminReviewsPage() {
 
         {!queryError && reviews.length > 0 ? (
           <div>
-            <div className="hidden grid-cols-[minmax(220px,0.85fr)_minmax(280px,1.2fr)_minmax(220px,1fr)_minmax(150px,0.65fr)_96px] gap-4 bg-[#f5f9ff] px-4 py-3 text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)] xl:grid">
+            <div className="hidden grid-cols-[minmax(220px,0.85fr)_minmax(280px,1.2fr)_minmax(220px,1fr)_minmax(150px,0.65fr)_96px] gap-4 border-b border-black/5 bg-slate-50 px-4 py-3 text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)] xl:grid">
               <span>Customer</span>
               <span>Comment</span>
               <span>Trip</span>
@@ -325,7 +324,7 @@ function ReviewRow({
     <div className="grid gap-4 px-4 py-4 xl:grid-cols-[minmax(220px,0.85fr)_minmax(280px,1.2fr)_minmax(220px,1fr)_minmax(150px,0.65fr)_96px] xl:items-center">
       <div className="min-w-0">
         <div className="flex items-center gap-3">
-          <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-[#e8f5f9] text-[var(--color-ocean)]">
+          <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-orange-50 text-[var(--color-ocean)]">
             <User size={19} />
           </span>
           <div className="min-w-0">
@@ -488,7 +487,6 @@ function ReviewDetailsPanel({
             <div className="mt-4 space-y-3">
               <InfoItem label="Name" value={getReviewerName(review)} />
               <IconInfoItem icon={Mail} label="Email" value={review.email || "-"} />
-              <IconInfoItem icon={Phone} label="Phone" value={review.phone || "-"} />
               <InfoItem label="Review ID" value={String(review.id)} />
             </div>
           </div>

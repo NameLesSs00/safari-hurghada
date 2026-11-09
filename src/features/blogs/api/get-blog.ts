@@ -11,9 +11,10 @@ interface BlogResponse {
   data: Blog;
 }
 
-async function fetchBlog(id: number, locale: AppLocale): Promise<Blog> {
+export async function fetchBlog(id: number, locale: AppLocale): Promise<Blog> {
   const response = await fetch(getApiUrl(`/api/Blogs/${id}`), {
     headers: getLanguageHeaders(locale),
+    next: { revalidate: 60 },
   });
 
   if (!response.ok) throw new Error("Failed to fetch blog");

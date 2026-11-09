@@ -46,10 +46,11 @@ export async function getTripTypeById(
 
 export async function createTripType(values: TripTypeFormValues) {
   const formData = new FormData();
-  formData.append("Name.En", values.name.en);
-  formData.append("Name.Fr", values.name.fr);
-  formData.append("Name.Ru", values.name.ru);
-  formData.append("Name.Ro", values.name.ro);
+  const englishName = (typeof values.name === "string" ? values.name : values.name.en).trim();
+  formData.append("Name.En", englishName);
+  formData.append("Name.Fr", englishName);
+  formData.append("Name.Ru", englishName);
+  formData.append("Name.Ro", englishName);
   if (values.image) {
     formData.append("Image", values.image);
   }
@@ -69,10 +70,11 @@ export async function createTripType(values: TripTypeFormValues) {
 export async function updateTripType(values: TripTypeFormValues) {
   const formData = new FormData();
   if (values.id) formData.append("Id", String(values.id));
-  formData.append("Name.En", values.name.en);
-  formData.append("Name.Fr", values.name.fr);
-  formData.append("Name.Ru", values.name.ru);
-  formData.append("Name.Ro", values.name.ro);
+  const englishName = (typeof values.name === "string" ? values.name : values.name.en).trim();
+  formData.append("Name.En", englishName);
+  formData.append("Name.Fr", englishName);
+  formData.append("Name.Ru", englishName);
+  formData.append("Name.Ro", englishName);
   if (values.image) {
     formData.append("Image", values.image);
   }

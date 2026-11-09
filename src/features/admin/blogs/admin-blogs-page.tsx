@@ -13,6 +13,7 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+import { AppImage } from "@/src/shared/components/app-image";
 import { FormEvent, type ReactNode, useMemo, useState } from "react";
 
 import { getBlogImageUrl } from "@/src/features/admin/blogs/api";
@@ -193,7 +194,7 @@ export function AdminBlogsPage() {
         {!queryError && blogs.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[920px] border-collapse text-left">
-              <thead className="bg-[#f5f9ff] text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
+              <thead className="bg-slate-50 border-b border-black/5 text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
                 <tr>
                   <th className="px-4 py-3">Blog</th>
                   <th className="px-4 py-3">Content</th>
@@ -314,19 +315,14 @@ function BlogThumb({ blog }: { blog: Blog }) {
   const imageUrl = getBlogImageUrl(blog.imageUrl);
 
   return (
-    <div className="grid h-14 w-20 shrink-0 place-items-center overflow-hidden rounded-lg bg-[#eef4f8]">
-      {imageUrl ? (
-        <Image
-          alt={`${blog.title} blog`}
-          className="size-full object-cover"
-          height={56}
-          src={imageUrl}
-          unoptimized
-          width={80}
-        />
-      ) : (
-        <ImageOff className="text-[var(--color-muted)]" size={20} />
-      )}
+    <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded-lg bg-slate-100">
+      <AppImage
+        alt={`${blog.title} blog`}
+        className="size-full object-cover"
+        fill
+        src={imageUrl}
+        unoptimized
+      />
     </div>
   );
 }
@@ -595,7 +591,7 @@ function BlogFormFields({
             <p className="text-sm font-bold text-[var(--color-deep-ocean)]">
               Main image
             </p>
-            <div className="mt-3 grid h-32 place-items-center overflow-hidden rounded-lg bg-[#eef4f8]">
+            <div className="mt-3 grid h-32 place-items-center overflow-hidden rounded-lg bg-slate-100">
               {blogImageUrl ? (
                 <Image
                   alt={`${blog?.title ?? "Blog"} current`}
@@ -789,7 +785,7 @@ function SectionEditor({
       </label>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-[180px_1fr]">
-        <div className="grid h-24 place-items-center overflow-hidden rounded-lg bg-[#eef4f8]">
+        <div className="grid h-24 place-items-center overflow-hidden rounded-lg bg-slate-100">
           {imageUrl ? (
             <Image
               alt={`${section.title || "Section"} current`}

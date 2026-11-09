@@ -118,11 +118,11 @@ export function CategoriesSection() {
               {t("subtitle")}
             </span>
 
-            {/* Title with Clean Outward-Fanning Sparks on "Adventure" */}
+            {/* Title with Clean Outward-Fanning Sparks */}
             <h2 className="relative mt-2.5 inline-block text-3xl font-extrabold tracking-tight text-[#1E232A] sm:text-4xl lg:text-[46px] leading-tight">
-              <span>Find Your Next </span>
-              <span className="relative inline-block">
-                Adventure
+              <span>{t("titlePrefix")} </span>
+              <span className="relative inline-block text-[#1E232A]">
+                {t("titleHighlight")}
                 {/* 3 Sparks fanning outward to the right */}
                 <svg
                   className="absolute top-0 sm:top-1 -right-7 sm:-right-8 size-6 sm:size-7 text-[#F36F21]"
@@ -156,14 +156,14 @@ export function CategoriesSection() {
           <button
             onClick={() => scrollRef.current?.scrollBy({ left: -320, behavior: "smooth" })}
             className="absolute -left-2 sm:-left-3 lg:-left-5 top-1/2 z-20 flex size-10 sm:size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#1E232A] shadow-xl border border-gray-100 transition hover:scale-105 active:scale-95"
-            aria-label="Scroll left"
+            aria-label={t("scrollLeft")}
           >
             <ChevronLeft size={20} strokeWidth={2.2} />
           </button>
           <button
             onClick={() => scrollRef.current?.scrollBy({ left: 320, behavior: "smooth" })}
             className="absolute -right-2 sm:-right-3 lg:-right-5 top-1/2 z-20 flex size-10 sm:size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#1E232A] shadow-xl border border-gray-100 transition hover:scale-105 active:scale-95"
-            aria-label="Scroll right"
+            aria-label={t("scrollRight")}
           >
             <ChevronRight size={20} strokeWidth={2.2} />
           </button>

@@ -1,7 +1,7 @@
 import { getApiLanguage, type AppLocale } from "@/src/i18n/locales";
 
-export const API_BASE_URL = "https://sunnytour.premiumasp.net/";
-
+export const API_BASE_URL = "https://hurghadsfariback.premiumasp.net/";
+//
 export function getApiUrl(path = "") {
   const baseUrl = API_BASE_URL.endsWith("/")
     ? API_BASE_URL

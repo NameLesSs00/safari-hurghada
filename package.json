@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "start:iis": "node server.js",
+    "clean:media": "node scripts/bulk-delete-media.mjs",
     "lint": "eslint"
   },
   "dependencies": {

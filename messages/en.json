@@ -8,8 +8,10 @@
   "Header": {
     "logoHome": "Logoipsum home",
     "openCart": "Open cart",
+    "openSavedTrips": "Saved trips",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "bookNow": "Book Now"
   },
   "LocaleSwitcher": {
     "label": "Change language",
@@ -61,7 +63,11 @@
     "loading": "Loading categories...",
     "error": "Failed to load categories",
     "goTo": "Go to {destination}",
-    "exploreTrips": "Explore Trips"
+    "exploreTrips": "Explore Trips",
+    "titlePrefix": "Find Your Next",
+    "titleHighlight": "Adventure",
+    "scrollLeft": "Scroll left",
+    "scrollRight": "Scroll right"
   },
   "Tours": {
     "eyebrow": "OUR BEST-SELLING TRIPS",
@@ -79,7 +85,9 @@
     "bookNow": "Book Now",
     "addToCart": "Add to Cart",
     "saveTrip": "Save trip",
-    "unsaveTrip": "Remove from saved trips"
+    "unsaveTrip": "Remove from saved trips",
+    "contactForPrice": "Contact for price",
+    "defaultDescription": "Experience an unforgettable adventure with guided excursions in Hurghada."
   },
   "PopularDestinations": {
     "eyebrow": "TOP DESTINATIONS",
@@ -133,13 +141,50 @@
     "viewMore": "View More",
     "readMore": "Read More",
     "error": "Failed to load blogs. Please try again later.",
-    "empty": "No blogs available at the moment."
+    "empty": "No blogs available at the moment.",
+    "defaultDescription": "Discover insider travel ideas and tips for your next adventure in Hurghada."
   },
   "FAQ": {
     "eyebrow": "FAQS",
     "title": "Frequently Asked Questions",
     "subtitle": "Find quick answers to the most common questions about our trips and services.",
-    "viewAll": "View All FAQs →"
+    "viewAll": "View All FAQs →",
+    "defaults": {
+      "q1": "What types of tours and activities do you offer in Hurghada?",
+      "a1": "We offer a wide range of experiences in Hurghada, including diving trips, snorkeling excursions, desert safaris, boat trips, island tours, and many other exciting activities.",
+      "q2": "Do I need diving experience to join a diving trip?",
+      "a2": "No. We offer diving experiences for both beginners and experienced divers. Beginners receive professional guidance and a safety briefing before entering the water.",
+      "q3": "What is included in your desert safari tours?",
+      "a3": "Depending on the safari you choose, the experience can include transportation, desert activities, a Bedouin village visit, traditional food, and an exciting desert adventure. The exact inclusions are listed with each tour.",
+      "q4": "Can I book a private tour or excursion?",
+      "a4": "Yes. Private tours can be arranged for individuals, couples, families, and groups. Contact us to discuss your preferred activity, schedule, and requirements.",
+      "q5": "How can I book a tour in Hurghada?",
+      "a5": "Booking is easy. Choose your preferred tour and contact us with your desired date and number of participants. We will confirm the availability and provide you with all the necessary information.",
+      "q6": "Can I cancel or change my booking?",
+      "a6": "Yes, you can cancel or reschedule easily. Most tours offer free changes when requested in advance. Contact our 24/7 support team via WhatsApp for immediate assistance."
+    }
+  },
+  "FaqPage": {
+    "breadcrumb": {
+      "home": "Home",
+      "faq": "FAQs"
+    },
+    "hero": {
+      "eyebrow": "HELP & ADVICE",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about our desert safaris, Red Sea trips, bookings, payments, and cancellations."
+    },
+    "search": {
+      "placeholder": "Search questions, bookings, safaris...",
+      "noResults": "No questions found matching",
+      "clearSearch": "Clear search"
+    },
+    "support": {
+      "eyebrow": "STILL HAVE QUESTIONS?",
+      "title": "Can't find the answer you're looking for?",
+      "subtitle": "Our local Hurghada travel specialists are available 24/7 on WhatsApp to help with custom itineraries, hotel pickups, or booking questions.",
+      "button": "Chat on WhatsApp"
+    }
   },
   "Footer": {
     "companyDescription": "Your trusted travel partner in Hurghada for desert safaris, sea trips, snorkeling, diving and unforgettable excursions across Egypt.",
@@ -148,16 +193,23 @@
     "contactUs": "Contact Us",
     "address": "Hurghada, Red Sea, Egypt",
     "chatOnWhatsApp": "Chat on WhatsApp",
-    "privacyPolicy": "Privacy Policy",
     "termsConditions": "Terms & Conditions",
     "poweredBy": "Powered By",
-    "allRightsReserved": "All rights reserved."
+    "allRightsReserved": "All rights reserved.",
+    "categories": {
+      "desertSafari": "Desert Safari",
+      "seaTrips": "Sea Trips",
+      "snorkeling": "Snorkeling",
+      "scubaDiving": "Scuba Diving",
+      "waterSports": "Water Sports",
+      "historicalTours": "Historical Tours"
+    }
   },
   "DestinationsPage": {
     "hero": {
-      "subtitle": "Explore Egypt",
-      "title": "Discover Destinations That Inspire Every Journey",
-      "imageAlt": "Hurghada destination word art"
+      "subtitle": "From the turquoise waters of Hurghada and the Red Sea to the timeless wonders of Cairo, Luxor, and Aswan — discover your next unforgettable journey.",
+      "title": "Explore Egypt's Most Iconic Destinations",
+      "imageAlt": "Egypt travel destinations"
     },
     "breadcrumb": {
       "home": "Home",
@@ -166,17 +218,19 @@
     "card": {
       "trips": "{count} Trips",
       "tripsSingular": "{count} Trip",
-      "destinationAlt": "{name} destination"
+      "destinationAlt": "{name} destination",
+      "exploreTours": "Explore Tours"
     }
   },
   "TripsPage": {
     "hero": {
-      "subtitle": "Explore Egypt",
-      "title": "Find Your Next Adventure"
+      "subtitle": "From Red Sea snorkeling, scuba diving, and desert safaris to timeless historical journeys across Cairo, Luxor, and Aswan — book your next adventure today.",
+      "title": "Unforgettable Egypt Tours & Excursions",
+      "imageAlt": "Egypt tours and pyramids landscape"
     },
     "breadcrumb": {
       "home": "Home",
-      "explore": "Explore"
+      "explore": "Tours"
     },
     "toolbar": {
       "tripsFound": "{count} Trips Found",
@@ -212,9 +266,9 @@
   },
   "GalleryPage": {
     "hero": {
-      "subtitle": "Travel Moments",
-      "title": "Explore Egypt Through Our Lens",
-      "imageAlt": "Camera with travel photos"
+      "title": "Capturing Egypt Through Our Travelers' Eyes",
+      "subtitle": "From the timeless golden pyramids of Giza and ancient temples of Luxor to the vibrant coral reefs of Hurghada — explore real, unfiltered memories captured across our unforgettable Egyptian adventures.",
+      "imageAlt": "Panoramic view of the majestic Pyramids of Giza under a clear Egyptian sky"
     },
     "breadcrumb": {
       "home": "Home",
@@ -224,14 +278,13 @@
       "loading": "Loading gallery...",
       "error": "Failed to load gallery images.",
       "empty": "No images available yet."
-    },
-    "seeMore": "See More"
+    }
   },
   "BlogsPage": {
     "hero": {
-      "subtitle": "Explore Articles",
-      "title": "Discover Stories, Guides & Travel Tips",
-      "imageAlt": "Discover Stories, Guides & Travel Tips"
+      "subtitle": "Discover handpicked travel stories, insider Hurghada tips, desert safari guides, and Red Sea adventures crafted by local experts.",
+      "title": "Inspiring Stories & Local Guides for Egypt",
+      "imageAlt": "Safari Hurghada Travel Stories & Guides"
     },
     "breadcrumb": {
       "home": "Home",
@@ -249,8 +302,9 @@
     },
     "grid": {
       "error": "Failed to load blogs. Please try again later.",
-      "empty": "No articles found matching your search.",
-      "seeMore": "See More"
+      "empty": "No articles available at the moment.",
+      "seeMore": "See More",
+      "viewMore": "View More Articles"
     }
   },
   "AboutPage": {
@@ -463,5 +517,58 @@
     "title": "Booking Created Successfully!",
     "description": "Thank you for choosing us. We have received your booking details and will get in touch shortly.",
     "backHome": "Back to Home"
+  },
+  "BlogDetail": {
+    "breadcrumb": {
+      "home": "Home",
+      "blogs": "Blogs"
+    },
+    "meta": {
+      "minRead": "min read"
+    },
+    "toc": {
+      "title": "In this article",
+      "intro": "Introduction"
+    },
+    "share": {
+      "title": "Share this article",
+      "copyLink": "Copy link",
+      "copied": "Copied!",
+      "backToBlogs": "Back to all articles"
+    },
+    "cta": {
+      "title": "Planning a trip?",
+      "subtitle": "Ask our local team for advice or custom itineraries.",
+      "button": "Chat on WhatsApp"
+    },
+    "related": {
+      "title": "You might also like",
+      "viewAll": "View all articles"
+    },
+    "error": {
+      "title": "Article could not be loaded",
+      "back": "Back to all articles"
+    }
+  },
+  "SavedTripsPage": {
+    "breadcrumb": {
+      "home": "Home",
+      "savedTrips": "Saved Trips"
+    },
+    "hero": {
+      "eyebrow": "Your Personal Wishlist",
+      "title": "Saved Adventures & Tours",
+      "subtitle": "Keep track of your favorite Hurghada excursions, Red Sea boat trips, and Egyptian cultural tours all in one place — ready whenever you are to book."
+    },
+    "actions": {
+      "savedCount": "{count, plural, =1 {1 Saved Trip} other {# Saved Trips}}",
+      "clearAll": "Clear All",
+      "exploreMore": "Explore More Tours"
+    },
+    "empty": {
+      "title": "No Saved Trips Yet",
+      "description": "Tap the heart icon on any tour or excursion while browsing to save your favorite adventures here for easy comparison and booking.",
+      "button": "Explore All Tours"
+    }
   }
 }

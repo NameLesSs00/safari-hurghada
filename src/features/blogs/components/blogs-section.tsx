@@ -192,7 +192,7 @@ export function BlogsSection() {
           className="mt-12 sm:mt-14 flex justify-center"
         >
           <Link
-            href={`/${locale}/blogs`}
+            href="/blogs"
             className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-7 py-3 text-sm font-bold text-[#1E232A] shadow-sm transition-all hover:border-[#F36F21] hover:text-[#F36F21] hover:shadow-md active:scale-95"
           >
             <span>{t("viewMore")}</span>

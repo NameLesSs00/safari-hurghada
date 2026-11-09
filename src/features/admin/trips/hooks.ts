@@ -6,6 +6,7 @@ import {
   createTrip,
   deactivateTrip,
   deleteTripImage,
+  getTripById,
   getTripByMarker,
   getTrips,
   getTripsByType,
@@ -23,6 +24,14 @@ export function useTripsQuery(params: TripListParams) {
   return useQuery({
     queryKey: [...tripsQueryKey, params],
     queryFn: () => getTrips(params),
+  });
+}
+
+export function useTripQuery(id: number | null, language: TripLanguage = "en") {
+  return useQuery({
+    enabled: Boolean(id),
+    queryKey: [...tripsQueryKey, "detail", id, language],
+    queryFn: () => getTripById(id as number, language),
   });
 }
 

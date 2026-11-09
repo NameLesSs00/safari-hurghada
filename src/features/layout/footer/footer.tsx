@@ -10,6 +10,7 @@ import {
   FacebookIcon,
   InstagramIcon,
   TikTokIcon,
+  TripAdvisorIcon,
   WhatsAppIcon,
   YoutubeIcon,
 } from "@/src/shared/components/icons";
@@ -22,15 +23,15 @@ export function Footer() {
   const { data: tripTypes } = useTripTypesQuery();
 
   function getLocalizedHref(href: string) {
-    if (href === "/") return `/${locale}`;
-    return `/${locale}${href}`;
+    return href;
   }
 
   // Quick navigation items
   const quickLinks = [
     { label: navT("home"), href: "/" },
     { label: navT("trips"), href: "/trips" },
-    { label: navT("destinations"), href: "/Destinations" },
+    { label: navT("destinations"), href: "/destinations" },
+    { label: navT("gallery"), href: "/gallery" },
     { label: navT("blogs"), href: "/blogs" },
     { label: navT("faq"), href: "/faq" },
     { label: navT("contact"), href: "/contact-us" },
@@ -38,12 +39,12 @@ export function Footer() {
 
   // Default fallback trip categories
   const defaultCategories = [
-    { id: 5, name: "Desert Safari" },
-    { id: 4, name: "Sea Trips" },
-    { id: 4, name: "Snorkeling" },
-    { id: 10, name: "Scuba Diving" },
-    { id: 12, name: "Water Sports" },
-    { id: 6, name: "Historical Tours" },
+    { id: 5, name: footerT("categories.desertSafari") },
+    { id: 4, name: footerT("categories.seaTrips") },
+    { id: 4, name: footerT("categories.snorkeling") },
+    { id: 10, name: footerT("categories.scubaDiving") },
+    { id: 12, name: footerT("categories.waterSports") },
+    { id: 6, name: footerT("categories.historicalTours") },
   ];
 
   const categoriesToDisplay =
@@ -52,9 +53,15 @@ export function Footer() {
       : defaultCategories;
 
   return (
-    <footer className="relative w-full overflow-hidden" style={{ backgroundColor: "#13171D" }}>
+    <footer className="relative w-full">
       {/* Top Dual-Wave Transition Ribbon (bridges smoothly from #F9FAF4 with zero seams) */}
-      <div className="w-full overflow-hidden leading-none select-none pointer-events-none">
+      <div
+        className="relative z-10 w-full overflow-hidden leading-none select-none pointer-events-none -mt-1 sm:-mt-1.5"
+        style={{
+          background:
+            "linear-gradient(to bottom, #F9FAF4 0%, #F9FAF4 25%, #13171D 65%, #13171D 100%)",
+        }}
+      >
         <svg
           viewBox="0 0 1440 140"
           fill="none"
@@ -62,29 +69,34 @@ export function Footer() {
           preserveAspectRatio="none"
           className="w-full h-16 sm:h-24 md:h-28 lg:h-36 block"
         >
-          {/* Base: Solid Dark Footer #13171D covers full background */}
-          <rect width="1440" height="140" fill="#13171D" />
-
-          {/* Cyan Layer: swells thicker on the right side */}
+          {/* Cream Top Layer: starts above visible edge (Y=-10) and overlaps down under orange (Y=42) */}
           <path
-            d="M0 0H1440V66C1280 82 1120 44 940 66C760 88 580 36 360 72C220 92 100 56 0 54V0Z"
-            fill="#00A3C4"
+            d="M-10 -10H1450V42C1280 54 1120 22 940 48C760 74 580 24 360 60C220 80 100 46 -10 44Z"
+            fill="#F9FAF4"
           />
 
-          {/* Orange Layer: swells bold & thick on the left wave */}
+          {/* Orange Ribbon: starts at top curve, overlaps under cyan down to Y=62 */}
           <path
-            d="M0 0H1440V34C1280 54 1120 22 940 48C760 74 580 24 360 60C220 80 100 46 0 44V0Z"
+            d="M-10 22C100 24 220 54 360 36C580 6 760 62 940 36C1120 12 1280 42 1450 22V62C1280 82 1120 44 940 66C760 88 580 36 360 72C220 92 100 56 -10 54Z"
             fill="#F36F21"
           />
 
-          {/* Cream Top Layer: seamlessly matches FAQ section background #F9FAF4 */}
+          {/* Cyan Ribbon: starts at middle curve, overlaps under dark wave down to Y=82 */}
           <path
-            d="M0 0H1440V22C1280 42 1120 12 940 36C760 62 580 6 360 36C220 54 100 24 0 22V0Z"
-            fill="#F9FAF4"
+            d="M-10 44C100 46 220 80 360 60C580 24 760 74 940 48C1120 22 1280 54 1450 34V82C1280 98 1120 60 940 82C760 104 580 52 360 88C220 108 100 72 -10 70Z"
+            fill="#00A3C4"
+          />
+
+          {/* Solid Dark Wave #13171D: single solid layer extending past bottom with bleed (Y=160) */}
+          <path
+            d="M-10 54C100 56 220 92 360 72C580 36 760 88 940 66C1120 44 1280 82 1450 66V160H-10Z"
+            fill="#13171D"
           />
         </svg>
       </div>
 
+      {/* Main Dark Footer Body Container (solid #13171D matches the bottom of the wave ribbon) */}
+      <div className="relative w-full overflow-hidden" style={{ backgroundColor: "#13171D" }}>
       {/* Desert Camels & Palm Silhouette (FooterImage.svg) positioned up in the mid-right */}
       <div className="absolute right-0 bottom-24 sm:bottom-28 md:bottom-32 lg:bottom-36 w-[300px] sm:w-[420px] lg:w-[500px] pointer-events-none select-none z-0 opacity-25 sm:opacity-35">
         <Image
@@ -119,47 +131,37 @@ export function Footer() {
             {/* Circular Social Buttons */}
             <div className="flex items-center gap-2.5">
               <Link
-                href="https://www.facebook.com/people/SunnySide-Tours/61590996990350"
+                href="https://www.tripadvisor.com/Attraction_Review-g297549-d25306692-Reviews-Safari_Hurghada-Hurghada_Red_Sea_and_Sinai.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TripAdvisor"
+                className="size-9 rounded-full bg-white/10 hover:bg-[#00AA6C] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
+              >
+                <TripAdvisorIcon className="size-4.5" />
+              </Link>
+
+              <Link
+                href="https://www.facebook.com/SafariHurghada/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="size-9 rounded-full bg-white/10 hover:bg-[#F36F21] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
+                className="size-9 rounded-full bg-white/10 hover:bg-[#1877F2] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
               >
                 <FacebookIcon className="size-4" />
               </Link>
 
               <Link
-                href="https://www.instagram.com/sunny_side_tours"
+                href="https://www.instagram.com/safarihurghada/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="size-9 rounded-full bg-white/10 hover:bg-[#F36F21] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
+                className="size-9 rounded-full bg-white/10 hover:bg-[#E4405F] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
               >
                 <InstagramIcon className="size-4" />
               </Link>
 
               <Link
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="YouTube"
-                className="size-9 rounded-full bg-white/10 hover:bg-[#F36F21] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
-              >
-                <YoutubeIcon className="size-4" />
-              </Link>
-
-              <Link
-                href="https://tiktok.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="TikTok"
-                className="size-9 rounded-full bg-white/10 hover:bg-[#F36F21] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
-              >
-                <TikTokIcon className="size-4" />
-              </Link>
-
-              <Link
-                href="https://wa.me/201093943595"
+                href="https://wa.me/201099466832"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
@@ -217,34 +219,34 @@ export function Footer() {
                 <span className="flex size-7 sm:size-8 shrink-0 items-center justify-center rounded-full bg-[#F36F21] text-white shadow-sm">
                   <MapPin size={15} />
                 </span>
-                <span className="text-sm text-slate-300">{footerT("address")}</span>
+                <span className="text-sm text-slate-300">Al Kawthar Omar Ibn AlKhattab St. Bldg 136, Hurghada</span>
               </div>
 
               {/* Phone */}
               <a
-                href="tel:+201093943595"
+                href="tel:+201099466832"
                 className="group flex items-center gap-3 text-slate-300 transition-colors hover:text-white"
               >
                 <span className="flex size-7 sm:size-8 shrink-0 items-center justify-center rounded-full bg-[#F36F21] text-white shadow-sm transition-transform duration-200 group-hover:scale-105">
                   <Phone size={15} />
                 </span>
-                <span className="text-sm font-medium">+20 109 394 3595</span>
+                <span className="text-sm font-medium">+20 109 946 6832</span>
               </a>
 
               {/* Email */}
               <a
-                href="mailto:info@sunnyside-tours.com"
+                href="mailto:Safariihurghada@gmail.com"
                 className="group flex items-center gap-3 text-slate-300 transition-colors hover:text-white"
               >
                 <span className="flex size-7 sm:size-8 shrink-0 items-center justify-center rounded-full bg-[#F36F21] text-white shadow-sm transition-transform duration-200 group-hover:scale-105">
                   <Mail size={15} />
                 </span>
-                <span className="text-sm">info@sunnyside-tours.com</span>
+                <span className="text-sm">Safariihurghada@gmail.com</span>
               </a>
 
               {/* WhatsApp */}
               <a
-                href="https://wa.me/201093943595"
+                href="https://wa.me/201099466832"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-3 text-slate-300 transition-colors hover:text-[#25D366]"
@@ -261,16 +263,8 @@ export function Footer() {
         {/* Bottom Bar: Copyright & Links */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <p>
-            © {new Date().getFullYear()} SunnySide Tours. {footerT("allRightsReserved")}
+            © {new Date().getFullYear()} Safari Hurghada. {footerT("allRightsReserved")}
           </p>
-          <div className="flex items-center gap-4">
-            <Link
-              href={getLocalizedHref("/contact-us")}
-              className="hover:text-white transition-colors"
-            >
-              {footerT("privacyPolicy")}
-            </Link>
-          </div>
         </div>
       </div>
 
@@ -289,6 +283,7 @@ export function Footer() {
             fillOpacity="0.85"
           />
         </svg>
+      </div>
       </div>
     </footer>
   );

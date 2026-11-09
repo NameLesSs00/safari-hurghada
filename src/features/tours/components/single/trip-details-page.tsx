@@ -43,27 +43,29 @@ export function TripDetailsPage({ slug }: TripDetailsPageProps) {
 
   if (!tripId) {
     return (
-      <div className="flex min-h-[50vh] items-center justify-center">
-        <p className="text-xl text-red-500">Invalid trip URL</p>
+      <div className="flex min-h-[50vh] items-center justify-center bg-[#FAFAFA]">
+        <p className="text-xl font-semibold text-rose-500">Invalid trip URL</p>
       </div>
     );
   }
 
   if (isTripLoading || isReviewsLoading) {
     return (
-      <div className="flex min-h-[70vh] items-center justify-center">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#003A5A] border-t-transparent" />
+      <div className="flex min-h-[70vh] flex-col items-center justify-center gap-3 bg-[#FAFAFA]">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#F36F21] border-t-transparent" />
+        <p className="text-sm font-medium text-slate-500">Loading tour details...</p>
       </div>
     );
   }
 
   if (tripError || !trip) {
     return (
-      <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4">
-        <p className="text-xl text-red-500">Failed to load trip details</p>
+      <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 bg-[#FAFAFA] px-4 text-center">
+        <p className="text-xl font-bold text-slate-800">Unable to load tour details</p>
+        <p className="text-sm text-slate-500">Please check your internet connection or try again.</p>
         <button 
           onClick={() => window.location.reload()} 
-          className="rounded-full bg-[#003A5A] px-6 py-2 text-white"
+          className="rounded-full bg-[#F36F21] px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-orange-500/20 transition-all hover:bg-[#d95c12] cursor-pointer"
         >
           Try Again
         </button>
@@ -75,48 +77,44 @@ export function TripDetailsPage({ slug }: TripDetailsPageProps) {
     ? reviews.reduce((acc, r) => acc + r.rate, 0) / reviews.length
     : 0;
 
-  return (
-    <div className="min-h-screen bg-white">
-      <TripHeader tripName={trip.name} />
+  const destinationName = trip.destinationInfo?.name || "Hurghada";
 
-      <main className="mx-auto w-full px-5 pb-16 pt-6 md:px-8 lg:max-w-[1200px] lg:px-10">
+  return (
+    <div className="min-h-screen bg-[#FAFAFA]">
+      <TripHeader tripName={trip.name} destinationName={destinationName} />
+
+      <main className="mx-auto w-full max-w-[1440px] px-4 pb-20 pt-6 sm:px-6 lg:px-8">
+        {/* Top: Interactive Photo Showcase */}
         <TripGallery images={trip.images} />
 
-        <div className="mb-12 flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-12">
-          {/* Left Column: Title and Description */}
-          <div className="flex-1">
+        {/* 2-Column Layout: Content (Left) + Sticky Booking Sidebar (Right) */}
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
+          {/* Left Column: Full Tour Details */}
+          <div className="flex-1 min-w-0 flex flex-col gap-8">
             <TripTitle 
               trip={trip} 
               averageRating={averageRating} 
               totalReviews={reviews.length} 
             />
-            
-            <div className="mt-8">
-              <TripDescription description={trip.description} />
-            </div>
-          </div>
 
-          {/* Right Column: Booking Card */}
-          <aside className="w-full lg:w-[380px] shrink-0">
-            <TripBookingCard trip={trip} />
-          </aside>
-        </div>
+            <TripQuickInfo trip={trip} />
 
-        {/* Full Width Components */}
-        <div className="flex flex-col gap-10">
-          <TripInclusions 
-            includes={trip.includes} 
-            excludes={trip.excludes} 
-          />
-          
-          <TripQuickInfo trip={trip} />
-          
-          <TripHighlights highlights={trip.highlights} />
+            <TripDescription description={trip.description} />
 
-          <div className="mt-6">
-            <h2 className="mb-8 text-2xl font-bold text-[#111827]">Reviews</h2>
+            <TripHighlights highlights={trip.highlights} />
+
+            <TripInclusions 
+              includes={trip.includes} 
+              excludes={trip.excludes} 
+            />
+
             <TripReviews tripId={trip.id} reviews={reviews} />
           </div>
+
+          {/* Right Column: Sticky Booking Card */}
+          <aside className="w-full lg:w-[380px] xl:w-[420px] shrink-0 lg:sticky lg:top-24">
+            <TripBookingCard trip={trip} />
+          </aside>
         </div>
       </main>
     </div>

@@ -3,28 +3,31 @@
 import Link from "next/link";
 import { MoveLeft } from "lucide-react";
 import { useTranslations } from "next-intl";
+
 export default function NotFound() {
   const t = useTranslations("NotFound");
 
   return (
-    <main className="flex min-h-[70vh] flex-col items-center justify-center bg-[#F8FDFF] px-4 text-center">
-      <h1 className="text-9xl font-bold text-[#003A5A]">{t("title")}</h1>
-      <h2 className="mt-4 text-3xl font-semibold text-gray-800 md:text-4xl">
+    <div className="flex min-h-[70vh] flex-col items-center justify-center bg-[#FAFAFA] px-4 py-16 text-center">
+      <span className="font-serif text-8xl font-black tracking-tight text-[var(--color-ocean)] sm:text-9xl">
+        {t("title")}
+      </span>
+      <h1 className="mt-4 text-3xl font-bold tracking-tight text-[var(--color-deep-ocean)] sm:text-4xl">
         {t("subtitle")}
-      </h2>
-      <p className="mt-4 max-w-md text-gray-500">
+      </h1>
+      <p className="mt-3 max-w-md text-base text-[var(--color-muted)]">
         {t("description")}
       </p>
-      
-      <div className="mt-10">
+
+      <div className="mt-8">
         <Link
           href="/"
-          className="flex items-center gap-2 rounded-full bg-[#003A5A] px-8 py-3 font-semibold text-white transition-colors hover:bg-[#004d78]"
+          className="inline-flex items-center gap-2 rounded-full bg-[var(--color-ocean)] px-8 py-3.5 text-sm font-bold text-white shadow-lg shadow-orange-500/20 transition-all hover:bg-[var(--color-ocean-hover)] hover:shadow-orange-500/30"
         >
-          <MoveLeft size={20} />
+          <MoveLeft size={18} />
           <span>{t("backToHome")}</span>
         </Link>
       </div>
-    </main>
+    </div>
   );
 }

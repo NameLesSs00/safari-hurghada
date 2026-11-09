@@ -20,6 +20,7 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+import { AppImage } from "@/src/shared/components/app-image";
 import {
   FormEvent,
   type ReactNode,
@@ -31,7 +32,6 @@ import {
 
 import { useDestinationsQuery } from "@/src/features/admin/destinations/hooks";
 import type { Destination } from "@/src/features/admin/destinations/types";
-import { adminLanguageOptions } from "@/src/features/admin/shared/languages";
 import { useTripTypesQuery } from "@/src/features/admin/trip-types/hooks";
 import type { TripType } from "@/src/features/admin/trip-types/types";
 import { getTripImageUrl } from "@/src/features/admin/trips/api";
@@ -41,6 +41,7 @@ import {
   useDeleteTripImageMutation,
   useReactivateTripMutation,
   useSetPrimaryTripImageMutation,
+  useTripQuery,
   useTripTranslationsQuery,
   useTripsQuery,
   useUpdateTripMutation,
@@ -55,8 +56,6 @@ import type {
   TripTranslations,
 } from "@/src/features/admin/trips/types";
 import { tripLanguages } from "@/src/features/admin/trips/types";
-
-const languages = adminLanguageOptions;
 
 const pageSizes = [6, 10, 20];
 
@@ -76,9 +75,8 @@ const weekDays = [
 ];
 
 const formSteps = [
-  "Setup",
-  "Translations",
-  "Content",
+  "Setup & Pricing",
+  "Tour Content",
   "Images",
 ];
 
@@ -91,23 +89,14 @@ function getErrorText(error: unknown, fallback: string) {
   return error instanceof Error ? error.message : fallback;
 }
 
-function getEmptyLocalizedText(): LocalizedText {
-  return {
-    en: "",
-    fr: "",
-    ru: "",
-    ro: "",
-  };
-}
-
 function getEmptyTranslations(): TripTranslations {
   return {
-    name: getEmptyLocalizedText(),
-    description: getEmptyLocalizedText(),
-    highlights: [getEmptyLocalizedText()],
-    includes: [getEmptyLocalizedText()],
-    excludes: [getEmptyLocalizedText()],
-    whatToBring: [getEmptyLocalizedText()],
+    name: "",
+    description: "",
+    highlights: [""],
+    includes: [""],
+    excludes: [""],
+    whatToBring: [""],
   };
 }
 
@@ -134,12 +123,10 @@ function getDurationTypeValue(durationTypeName?: string) {
 function getInitialValues({
   destinations,
   trip,
-  translations,
   tripTypes,
 }: {
   destinations: Destination[];
   trip?: Trip;
-  translations?: TripTranslations;
   tripTypes: TripType[];
 }): TripFormValues {
   const destinationId =
@@ -162,8 +149,13 @@ function getInitialValues({
     durationType: getDurationTypeValue(trip?.durationTypeName),
     adultPrice: trip?.adultPrice ?? 0,
     childPrice: trip?.childPrice ?? 0,
-    availabilityDayNo: trip ? getDayNumbers(trip.availableDays) : [],
-    ...(translations ?? getEmptyTranslations()),
+    availabilityDayNo: trip ? getDayNumbers(trip.availableDays) : [0, 1, 2, 3, 4, 5, 6],
+    name: trip?.name ?? "",
+    description: trip?.description ?? "",
+    highlights: trip?.highlights?.length ? trip.highlights : [""],
+    includes: trip?.includes?.length ? trip.includes : [""],
+    excludes: trip?.excludes?.length ? trip.excludes : [""],
+    whatToBring: trip?.whatToBring?.length ? trip.whatToBring : [""],
   };
 }
 
@@ -183,20 +175,6 @@ function formatAvailableDays(days: string[]) {
   }
 
   return days.slice(0, 3).join(", ") + (days.length > 3 ? "..." : "");
-}
-
-function isCompleteLocalizedText(value: LocalizedText) {
-  return tripLanguages.every((language) => value[language].trim());
-}
-
-function isEmptyLocalizedText(value: LocalizedText) {
-  return tripLanguages.every((language) => !value[language].trim());
-}
-
-function hasPartialLocalizedItem(items: LocalizedText[]) {
-  return items.some(
-    (item) => !isEmptyLocalizedText(item) && !isCompleteLocalizedText(item),
-  );
 }
 
 export function AdminTripsPage() {
@@ -304,14 +282,14 @@ export function AdminTripsPage() {
       </div>
 
       <section className="rounded-lg border border-black/5 bg-white p-4 shadow-[0_12px_30px_rgba(0,69,96,0.08)]">
-        <div className="grid gap-3 lg:grid-cols-[1.1fr_160px_160px_150px]">
+        <div className="grid gap-3 lg:grid-cols-[1fr_200px_200px]">
           <form className="relative" onSubmit={handleSearch}>
             <Search
               className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-muted)]"
               size={18}
             />
             <input
-              className="h-11 w-full rounded-lg border border-black/10 bg-white pl-10 pr-4 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
+              className="h-11 w-full rounded-lg border border-black/10 bg-white pl-10 pr-4 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
               onChange={(event) => setDraftSearch(event.target.value)}
               placeholder="Search trips"
               type="search"
@@ -320,22 +298,7 @@ export function AdminTripsPage() {
           </form>
 
           <select
-            className="h-11 rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
-            onChange={(event) => {
-              setPageNumber(1);
-              setLanguage(event.target.value as TripLanguage);
-            }}
-            value={language}
-          >
-            {languages.map((item) => (
-              <option key={item.value} value={item.value}>
-                {item.label}
-              </option>
-            ))}
-          </select>
-
-          <select
-            className="h-11 rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
+            className="h-11 rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
             onChange={(event) => {
               setPageNumber(1);
               setDestinationId(event.target.value);
@@ -351,7 +314,7 @@ export function AdminTripsPage() {
           </select>
 
           <select
-            className="h-11 rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
+            className="h-11 rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
             onChange={(event) => {
               setPageNumber(1);
               setTypeId(event.target.value);
@@ -473,7 +436,7 @@ export function AdminTripsPage() {
 
         {!queryError && trips.length > 0 ? (
           <div>
-            <div className="hidden grid-cols-[minmax(220px,1.35fr)_minmax(120px,0.7fr)_minmax(100px,0.55fr)_minmax(140px,0.75fr)_minmax(125px,0.7fr)_minmax(100px,0.55fr)_88px] gap-3 bg-[#f5f9ff] px-4 py-3 text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)] xl:grid">
+            <div className="hidden grid-cols-[minmax(220px,1.35fr)_minmax(120px,0.7fr)_minmax(100px,0.55fr)_minmax(140px,0.75fr)_minmax(125px,0.7fr)_minmax(100px,0.55fr)_88px] gap-3 bg-slate-50 border-b border-black/5 px-4 py-3 text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)] xl:grid">
               <span>Trip</span>
               <span>Destination</span>
               <span>Type</span>
@@ -565,19 +528,14 @@ function TripThumb({ trip }: { trip: Trip }) {
   const imageUrl = image ? getTripImageUrl(image.imageUrl) : "";
 
   return (
-    <div className="grid size-16 shrink-0 place-items-center overflow-hidden rounded-lg bg-[#eef4f8]">
-      {imageUrl ? (
-        <Image
-          alt={`${trip.name} trip`}
-          className="size-full object-cover"
-          height={64}
-          src={imageUrl}
-          unoptimized
-          width={64}
-        />
-      ) : (
-        <ImageOff className="text-[var(--color-muted)]" size={22} />
-      )}
+    <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-slate-100">
+      <AppImage
+        alt={`${trip.name} trip`}
+        className="size-full object-cover"
+        fill
+        src={imageUrl}
+        unoptimized
+      />
     </div>
   );
 }
@@ -708,9 +666,9 @@ function TripFormPanel({
   tripTypes: TripType[];
 }) {
   const isEdit = mode === "edit";
-  const translationsQuery = useTripTranslationsQuery(isEdit ? (tripId ?? null) : null);
+  const tripQuery = useTripQuery(isEdit ? (tripId ?? null) : null, "en");
 
-  if (isOptionsLoading || (isEdit && translationsQuery.isLoading)) {
+  if (isOptionsLoading || (isEdit && tripQuery.isLoading)) {
     return (
       <TripModalFrame
         eyebrow={isEdit ? "Edit trip" : "New trip"}
@@ -719,7 +677,7 @@ function TripFormPanel({
       >
         <div className="grid min-h-[320px] place-items-center p-5 text-[var(--color-deep-ocean)]">
           <div className="flex items-center gap-3 text-sm font-semibold">
-            <Loader2 className="animate-spin" size={20} />
+            <Loader2 className="animate-spin text-[var(--color-ocean)]" size={20} />
             <span>Loading trip data</span>
           </div>
         </div>
@@ -727,7 +685,7 @@ function TripFormPanel({
     );
   }
 
-  if (isEdit && translationsQuery.error) {
+  if (isEdit && tripQuery.error) {
     return (
       <TripModalFrame
         eyebrow="Edit trip"
@@ -736,11 +694,11 @@ function TripFormPanel({
       >
         <div className="space-y-4 p-5">
           <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {getErrorText(translationsQuery.error, "Unable to load trip.")}
+            {getErrorText(tripQuery.error, "Unable to load trip.")}
           </p>
           <button
             className="h-10 rounded-lg border border-black/10 px-4 text-sm font-bold text-[var(--color-deep-ocean)] transition hover:border-[var(--color-ocean)]"
-            onClick={() => void translationsQuery.refetch()}
+            onClick={() => void tripQuery.refetch()}
             type="button"
           >
             Try again
@@ -750,10 +708,9 @@ function TripFormPanel({
     );
   }
 
-  const trip = translationsQuery.data?.trip;
+  const trip = tripQuery.data?.data;
   const initialValues = getInitialValues({
     destinations,
-    translations: translationsQuery.data?.translations,
     trip,
     tripTypes,
   });
@@ -830,30 +787,15 @@ function TripFormFields({
     }));
   }
 
-  function updateLocalizedField(
-    field: "name" | "description",
-    language: TripLanguage,
-    value: string,
-  ) {
-    setValues((current) => ({
-      ...current,
-      [field]: {
-        ...current[field],
-        [language]: value,
-      },
-    }));
-  }
-
   function updateListItem(
     field: "highlights" | "includes" | "excludes" | "whatToBring",
     index: number,
-    language: TripLanguage,
     value: string,
   ) {
     setValues((current) => ({
       ...current,
-      [field]: current[field].map((item, itemIndex) =>
-        itemIndex === index ? { ...item, [language]: value } : item,
+      [field]: (current[field] as any[]).map((item, itemIndex) =>
+        itemIndex === index ? value : item,
       ),
     }));
   }
@@ -863,7 +805,7 @@ function TripFormFields({
   ) {
     setValues((current) => ({
       ...current,
-      [field]: [...current[field], getEmptyLocalizedText()],
+      [field]: [...(current[field] as any[]), ""],
     }));
   }
 
@@ -874,9 +816,9 @@ function TripFormFields({
     setValues((current) => ({
       ...current,
       [field]:
-        current[field].length === 1
-          ? [getEmptyLocalizedText()]
-          : current[field].filter((_, itemIndex) => itemIndex !== index),
+        (current[field] as any[]).length === 1
+          ? [""]
+          : (current[field] as any[]).filter((_, itemIndex) => itemIndex !== index),
     }));
   }
 
@@ -895,6 +837,11 @@ function TripFormFields({
 
   function validateCurrentStep() {
     if (step === 0) {
+      const nameVal = typeof values.name === "string" ? values.name.trim() : (values.name?.en ?? "").trim();
+      if (!nameVal) {
+        return "Trip name is required.";
+      }
+
       if (!values.destinationId || !values.tripTypeId) {
         return "Destination and trip type are required.";
       }
@@ -913,22 +860,9 @@ function TripFormFields({
     }
 
     if (step === 1) {
-      if (
-        !isCompleteLocalizedText(values.name) ||
-        !isCompleteLocalizedText(values.description)
-      ) {
-        return "All translated names and descriptions are required.";
-      }
-    }
-
-    if (step === 2) {
-      if (
-        hasPartialLocalizedItem(values.highlights) ||
-        hasPartialLocalizedItem(values.includes) ||
-        hasPartialLocalizedItem(values.excludes) ||
-        hasPartialLocalizedItem(values.whatToBring)
-      ) {
-        return "Fill every language for each content item, or leave the whole item empty.";
+      const descVal = typeof values.description === "string" ? values.description.trim() : (values.description?.en ?? "").trim();
+      if (!descVal) {
+        return "Trip description is required.";
       }
     }
 
@@ -1045,15 +979,15 @@ function TripFormFields({
     >
       <form onSubmit={handleSubmit}>
         <div className="border-b border-black/5 bg-[#fbfdff] px-5 py-3">
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-2 sm:grid-cols-3">
             {formSteps.map((label, index) => (
               <button
                 className={`flex min-h-11 items-center gap-3 rounded-lg px-3 text-left text-xs font-bold transition ${
                   index === step
-                    ? "bg-[var(--color-deep-ocean)] text-white"
+                    ? "bg-[var(--color-ocean)] text-white shadow-sm shadow-orange-500/20"
                     : index < step
-                      ? "bg-[#e8f5f9] text-[var(--color-ocean)]"
-                      : "bg-[#f5f9ff] text-[var(--color-muted)]"
+                      ? "bg-orange-50 text-[var(--color-ocean)]"
+                      : "bg-slate-100 text-[var(--color-muted)]"
                 }`}
                 key={label}
                 onClick={() => {
@@ -1066,7 +1000,7 @@ function TripFormFields({
               >
                 <span
                   className={`grid size-6 shrink-0 place-items-center rounded-full text-[11px] ${
-                    index === step ? "bg-white/18" : "bg-white"
+                    index === step ? "bg-white/20" : "bg-white"
                   }`}
                 >
                   {index + 1}
@@ -1082,7 +1016,7 @@ function TripFormFields({
             <div className="rounded-lg border border-black/10 bg-white p-5">
               <div className="mb-5 flex flex-col gap-3 border-b border-black/5 pb-5 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-3">
-                  <span className="grid size-10 place-items-center rounded-lg bg-[#e8f5f9] text-[var(--color-ocean)]">
+                  <span className="grid size-10 place-items-center rounded-lg bg-orange-50 text-[var(--color-ocean)]">
                     <Route size={20} />
                   </span>
                   <div>
@@ -1090,7 +1024,7 @@ function TripFormFields({
                       Trip setup
                     </h3>
                     <p className="text-sm text-[var(--color-muted)]">
-                      Destination, timing, EUR pricing, and availability.
+                      Name, destination, timing, EUR pricing, and availability.
                     </p>
                   </div>
                 </div>
@@ -1120,22 +1054,16 @@ function TripFormFields({
           ) : null}
 
           {step === 1 ? (
-            <LanguageStep
-              onUpdate={updateLocalizedField}
+            <ContentStep
+              onAdd={addListItem}
+              onRemove={removeListItem}
+              onUpdateDescription={(desc) => updateValue("description", desc)}
+              onUpdateItem={updateListItem}
               values={values}
             />
           ) : null}
 
           {step === 2 ? (
-            <DetailsStep
-              onAdd={addListItem}
-              onRemove={removeListItem}
-              onUpdate={updateListItem}
-              values={values}
-            />
-          ) : null}
-
-          {step === 3 ? (
             <div className="grid gap-5">
               <ImagesStep
                 drafts={imageDrafts}
@@ -1219,8 +1147,25 @@ function BasicsStep({
   tripTypes: TripType[];
   values: TripFormValues;
 }) {
+  const tripName = typeof values.name === "string" ? values.name : (values.name?.en ?? "");
+
   return (
     <div className="space-y-5">
+      <div className="rounded-lg bg-[#f7fbfd] p-4">
+        <label className="block">
+          <span className="mb-2 block text-sm font-semibold text-[var(--color-deep-ocean)]">
+            Trip Name <span className="text-red-600">*</span>
+          </span>
+          <input
+            className="h-12 w-full rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
+            onChange={(event) => onUpdate("name", event.target.value)}
+            placeholder="e.g. Giftun Island Snorkeling & Lunch Cruise"
+            required
+            value={tripName}
+          />
+        </label>
+      </div>
+
       <div className="rounded-lg bg-[#f7fbfd] p-4">
         <div className="mb-4">
           <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
@@ -1237,7 +1182,7 @@ function BasicsStep({
               Destination
             </span>
             <select
-              className="h-12 w-full rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
+              className="h-12 w-full rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
               onChange={(event) =>
                 onUpdate("destinationId", Number(event.target.value))
               }
@@ -1257,7 +1202,7 @@ function BasicsStep({
               Trip type
             </span>
             <select
-              className="h-12 w-full rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
+              className="h-12 w-full rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
               onChange={(event) =>
                 onUpdate("tripTypeId", Number(event.target.value))
               }
@@ -1291,7 +1236,7 @@ function BasicsStep({
                 Start time
               </span>
               <input
-                className="h-12 w-full rounded-lg border border-black/10 bg-white px-3 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
+                className="h-12 w-full rounded-lg border border-black/10 bg-white px-3 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
                 onChange={(event) =>
                   onUpdate("timeFrom", `${event.target.value}:00`)
                 }
@@ -1305,7 +1250,7 @@ function BasicsStep({
                 Duration
               </span>
               <input
-                className="h-12 w-full rounded-lg border border-black/10 bg-white px-3 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
+                className="h-12 w-full rounded-lg border border-black/10 bg-white px-3 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
                 min="1"
                 onChange={(event) =>
                   onUpdate("durationValue", Number(event.target.value))
@@ -1320,7 +1265,7 @@ function BasicsStep({
                 Duration type
               </span>
               <select
-                className="h-12 w-full rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
+                className="h-12 w-full rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
                 onChange={(event) =>
                   onUpdate("durationType", Number(event.target.value))
                 }
@@ -1378,8 +1323,8 @@ function PriceInput({
       <span className="mb-2 block text-sm font-semibold text-[var(--color-deep-ocean)]">
         {label} <span className="text-xs font-normal text-[var(--color-muted)]">(0 = Contact us)</span>
       </span>
-      <div className="flex h-12 overflow-hidden rounded-lg border border-black/10 bg-white focus-within:border-[var(--color-ocean)] focus-within:ring-4 focus-within:ring-[rgba(0,105,147,0.12)]">
-        <span className="grid w-16 shrink-0 place-items-center border-r border-black/10 bg-[#eef7fa] text-sm font-bold text-[var(--color-ocean)]">
+      <div className="flex h-12 overflow-hidden rounded-lg border border-black/10 bg-white focus-within:border-[var(--color-ocean)] focus-within:ring-4 focus-within:ring-orange-500/15">
+        <span className="grid w-16 shrink-0 place-items-center border-r border-black/10 bg-orange-50 text-sm font-bold text-[var(--color-ocean)]">
           EUR
         </span>
         <input
@@ -1395,244 +1340,129 @@ function PriceInput({
   );
 }
 
-function LanguageStep({
-  onUpdate,
-  values,
-}: {
-  onUpdate: (
-    field: "name" | "description",
-    language: TripLanguage,
-    value: string,
-  ) => void;
-  values: TripFormValues;
-}) {
-  const completedLanguages = languages.filter(
-    (language) =>
-      (values.name[language.value] || "").trim() &&
-      (values.description[language.value] || "").trim(),
-  ).length;
-
-  return (
-    <div className="space-y-4">
-      <div className="flex flex-col gap-3 rounded-lg border border-black/10 bg-[#fbfdff] p-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
-            Translations
-          </p>
-          <h3 className="mt-1 text-lg font-bold text-[var(--color-deep-ocean)]">
-            Trip title and description
-          </h3>
-        </div>
-        <span className="inline-flex h-9 w-fit items-center rounded-lg bg-[#e8f5f9] px-3 text-sm font-bold text-[var(--color-ocean)]">
-          {completedLanguages} / {languages.length} complete
-        </span>
-      </div>
-
-      <div className="grid gap-4 xl:grid-cols-2">
-        {languages.map((language) => {
-          const isComplete =
-            (values.name[language.value] || "").trim() &&
-            (values.description[language.value] || "").trim();
-
-          return (
-            <div
-              className="overflow-hidden rounded-lg border border-black/10 bg-white"
-              key={language.value}
-            >
-              <div className="flex items-center justify-between gap-3 border-b border-black/5 bg-[#f7fbfd] px-4 py-3">
-                <div className="flex items-center gap-3">
-                  <span className="grid size-9 place-items-center rounded-lg bg-white text-sm font-bold text-[var(--color-ocean)] shadow-sm">
-                    {language.displayCode}
-                  </span>
-                  <p className="text-sm font-bold text-[var(--color-deep-ocean)]">
-                    {language.label}
-                  </p>
-                </div>
-                <span
-                  className={`inline-flex h-8 items-center gap-1 rounded-lg px-2.5 text-xs font-bold ${
-                    isComplete
-                      ? "bg-emerald-50 text-emerald-700"
-                      : "bg-slate-100 text-slate-600"
-                  }`}
-                >
-                  {isComplete ? <Check size={14} /> : <X size={14} />}
-                  {isComplete ? "Ready" : "Missing"}
-                </span>
-              </div>
-
-              <div className="space-y-4 p-4">
-                <label className="block">
-                  <span className="mb-2 block text-sm font-semibold text-[var(--color-deep-ocean)]">
-                    Trip name
-                  </span>
-                  <input
-                    className="h-12 w-full rounded-lg border border-black/10 bg-white px-3 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
-                    onChange={(event) =>
-                      onUpdate("name", language.value, event.target.value)
-                    }
-                    placeholder={`${language.label} trip name`}
-                    value={values.name[language.value] || ""}
-                  />
-                </label>
-
-                <label className="block">
-                  <span className="mb-2 block text-sm font-semibold text-[var(--color-deep-ocean)]">
-                    Description
-                  </span>
-                  <textarea
-                    className="min-h-32 w-full resize-y rounded-lg border border-black/10 bg-white px-3 py-3 text-sm leading-6 outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
-                    onChange={(event) =>
-                      onUpdate(
-                        "description",
-                        language.value,
-                        event.target.value,
-                      )
-                    }
-                    placeholder={`${language.label} trip description`}
-                    value={values.description[language.value] || ""}
-                  />
-                </label>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-function DetailsStep({
+function ContentStep({
   onAdd,
   onRemove,
-  onUpdate,
+  onUpdateDescription,
+  onUpdateItem,
   values,
 }: {
-  onAdd: (
-    field: "highlights" | "includes" | "excludes" | "whatToBring",
-  ) => void;
-  onRemove: (
-    field: "highlights" | "includes" | "excludes" | "whatToBring",
-    index: number,
-  ) => void;
-  onUpdate: (
-    field: "highlights" | "includes" | "excludes" | "whatToBring",
-    index: number,
-    language: TripLanguage,
-    value: string,
-  ) => void;
+  onAdd: (field: "highlights" | "includes" | "excludes" | "whatToBring") => void;
+  onRemove: (field: "highlights" | "includes" | "excludes" | "whatToBring", index: number) => void;
+  onUpdateDescription: (value: string) => void;
+  onUpdateItem: (field: "highlights" | "includes" | "excludes" | "whatToBring", index: number, value: string) => void;
   values: TripFormValues;
 }) {
+  const descString = typeof values.description === "string" ? values.description : (values.description?.en ?? "");
+
   return (
-    <div className="grid gap-5 xl:grid-cols-2">
-      <LocalizedListEditor
-        items={values.highlights}
-        label="Highlights"
-        onAdd={() => onAdd("highlights")}
-        onRemove={(index) => onRemove("highlights", index)}
-        onUpdate={(index, language, value) =>
-          onUpdate("highlights", index, language, value)
-        }
-      />
-      <LocalizedListEditor
-        items={values.includes}
-        label="Includes"
-        onAdd={() => onAdd("includes")}
-        onRemove={(index) => onRemove("includes", index)}
-        onUpdate={(index, language, value) =>
-          onUpdate("includes", index, language, value)
-        }
-      />
-      <LocalizedListEditor
-        items={values.excludes}
-        label="Excludes"
-        onAdd={() => onAdd("excludes")}
-        onRemove={(index) => onRemove("excludes", index)}
-        onUpdate={(index, language, value) =>
-          onUpdate("excludes", index, language, value)
-        }
-      />
-      <LocalizedListEditor
-        items={values.whatToBring}
-        label="What to bring"
-        onAdd={() => onAdd("whatToBring")}
-        onRemove={(index) => onRemove("whatToBring", index)}
-        onUpdate={(index, language, value) =>
-          onUpdate("whatToBring", index, language, value)
-        }
-      />
+    <div className="space-y-6">
+      <div className="rounded-lg border border-black/10 bg-white p-5 shadow-sm">
+        <label className="block">
+          <span className="mb-2 block text-sm font-semibold text-[var(--color-deep-ocean)]">
+            Trip Description <span className="text-red-600">*</span>
+          </span>
+          <textarea
+            className="min-h-36 w-full resize-y rounded-lg border border-black/10 bg-white px-4 py-3 text-sm leading-[1.6] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
+            onChange={(event) => onUpdateDescription(event.target.value)}
+            placeholder="Detailed overview and experience description for travelers..."
+            required
+            value={descString}
+          />
+        </label>
+      </div>
+
+      <div className="grid gap-5 xl:grid-cols-2">
+        <SimpleListEditor
+          items={values.highlights as (string | LocalizedText)[]}
+          label="Highlights"
+          onAdd={() => onAdd("highlights")}
+          onRemove={(index) => onRemove("highlights", index)}
+          onUpdate={(index, value) => onUpdateItem("highlights", index, value)}
+          placeholder="e.g. Snorkeling at Giftun Island coral reefs"
+        />
+        <SimpleListEditor
+          items={values.includes as (string | LocalizedText)[]}
+          label="Included Services"
+          onAdd={() => onAdd("includes")}
+          onRemove={(index) => onRemove("includes", index)}
+          onUpdate={(index, value) => onUpdateItem("includes", index, value)}
+          placeholder="e.g. Hotel pickup and drop-off"
+        />
+        <SimpleListEditor
+          items={values.excludes as (string | LocalizedText)[]}
+          label="Excluded Services"
+          onAdd={() => onAdd("excludes")}
+          onRemove={(index) => onRemove("excludes", index)}
+          onUpdate={(index, value) => onUpdateItem("excludes", index, value)}
+          placeholder="e.g. Personal expenses and tipping"
+        />
+        <SimpleListEditor
+          items={values.whatToBring as (string | LocalizedText)[]}
+          label="What to Bring"
+          onAdd={() => onAdd("whatToBring")}
+          onRemove={(index) => onRemove("whatToBring", index)}
+          onUpdate={(index, value) => onUpdateItem("whatToBring", index, value)}
+          placeholder="e.g. Sunglasses, sunscreen, towel"
+        />
+      </div>
     </div>
   );
 }
 
-function LocalizedListEditor({
+function SimpleListEditor({
   items,
   label,
   onAdd,
   onRemove,
   onUpdate,
+  placeholder,
 }: {
-  items: LocalizedText[];
+  items: (string | LocalizedText)[];
   label: string;
   onAdd: () => void;
   onRemove: (index: number) => void;
-  onUpdate: (index: number, language: TripLanguage, value: string) => void;
+  onUpdate: (index: number, value: string) => void;
+  placeholder?: string;
 }) {
   return (
-    <div className="rounded-lg border border-black/10 p-4">
-      <div className="flex items-center justify-between gap-3">
+    <div className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
+      <div className="flex items-center justify-between gap-3 border-b border-black/5 pb-3">
         <p className="text-sm font-bold text-[var(--color-deep-ocean)]">
           {label}
         </p>
         <button
-          className="flex h-9 items-center gap-2 rounded-lg border border-black/10 px-3 text-sm font-bold text-[var(--color-deep-ocean)] transition hover:border-[var(--color-ocean)]"
+          className="flex h-8 items-center gap-1.5 rounded-lg border border-black/10 px-3 text-xs font-bold text-[var(--color-deep-ocean)] transition hover:border-[var(--color-ocean)] hover:text-[var(--color-ocean)]"
           onClick={onAdd}
           type="button"
         >
-          <Plus size={16} />
+          <Plus size={14} />
           <span>Add</span>
         </button>
       </div>
 
-      <div className="mt-4 space-y-4">
-        {items.map((item, index) => (
-          <div
-            className="rounded-lg bg-[#f7fbfd] p-3"
-            key={`${label}-${index}`}
-          >
-            <div className="mb-3 flex items-center justify-between gap-3">
-              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
-                Item {index + 1}
-              </p>
+      <div className="mt-3 space-y-2.5">
+        {items.map((item, index) => {
+          const val = typeof item === "string" ? item : (item?.en ?? "");
+          return (
+            <div className="flex items-center gap-2" key={`${label}-${index}`}>
+              <input
+                className="h-10 flex-1 rounded-lg border border-black/10 bg-white px-3 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
+                onChange={(event) => onUpdate(index, event.target.value)}
+                placeholder={placeholder || label}
+                value={val}
+              />
               <button
                 aria-label={`Remove ${label} item ${index + 1}`}
-                className="grid size-8 place-items-center rounded-lg border border-red-200 text-red-600 transition hover:bg-red-50"
+                className="grid size-9 shrink-0 place-items-center rounded-lg border border-red-200 text-red-600 transition hover:bg-red-50"
                 onClick={() => onRemove(index)}
                 type="button"
               >
                 <Trash2 size={15} />
               </button>
             </div>
-            <div className="grid gap-3 md:grid-cols-2">
-              {languages.map((language) => (
-                <div className="relative" key={language.value}>
-                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <span className="text-xs font-bold text-[var(--color-ocean)]">
-                      {language.displayCode}
-                    </span>
-                  </div>
-                  <input
-                    className="h-10 w-full rounded-lg border border-black/10 bg-white pl-10 pr-3 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
-                    onChange={(event) =>
-                      onUpdate(index, language.value, event.target.value)
-                    }
-                    placeholder={`${label}`}
-                    value={item[language.value] || ""}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -1689,7 +1519,7 @@ function AvailabilityStep({
             <button
               className={`min-h-16 rounded-lg border px-3 py-3 text-left transition ${
                 isSelected
-                  ? "border-[var(--color-ocean)] bg-[#e8f5f9]"
+                  ? "border-[var(--color-ocean)] bg-orange-50"
                   : "border-black/10 bg-white hover:border-[var(--color-ocean)]"
               }`}
               key={day.value}
@@ -1762,7 +1592,7 @@ function ImagesStep({
                 className="overflow-hidden rounded-lg border border-black/10 bg-white"
                 key={draft.previewUrl}
               >
-                <div className="relative aspect-[4/3] bg-[#eef4f8]">
+                <div className="relative aspect-[4/3] bg-slate-100">
                   <Image
                     alt={draft.file.name}
                     className="object-cover"
@@ -1801,8 +1631,8 @@ function ImagesStep({
                 className="overflow-hidden rounded-lg border border-black/10 bg-white"
                 key={image.id}
               >
-                <div className="relative aspect-[4/3] bg-[#eef4f8]">
-                  <Image
+                <div className="relative aspect-[4/3] bg-slate-100">
+                  <AppImage
                     alt="Trip"
                     className="object-cover"
                     fill

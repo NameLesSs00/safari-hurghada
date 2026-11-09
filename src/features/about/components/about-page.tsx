@@ -136,7 +136,7 @@ export function AboutPage() {
             aria-label="Breadcrumb"
             className="mb-5 text-center text-[12px] leading-[160%] text-[#8d929b] lg:mb-[58px] lg:text-sm"
           >
-            <Link href={`/${locale}`} className="transition-colors hover:text-[var(--color-ocean)]">
+            <Link href="/" className="transition-colors hover:text-[var(--color-ocean)]">
               {t("breadcrumb.home")}
             </Link>
             <span> &gt; </span>

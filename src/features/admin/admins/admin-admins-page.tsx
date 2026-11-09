@@ -109,7 +109,7 @@ export function AdminAdminsPage() {
         {!queryError && admins.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[780px] border-collapse text-left">
-              <thead className="bg-[#f5f9ff] text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
+              <thead className="bg-slate-50 border-b border-black/5 text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
                 <tr>
                   <th className="px-4 py-3">Name</th>
                   <th className="px-4 py-3">Email</th>

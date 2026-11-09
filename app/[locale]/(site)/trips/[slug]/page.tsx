@@ -1,6 +1,7 @@
 import { TripDetailsPage } from "@/src/features/tours/components/single/trip-details-page";
 import { extractIdFromSlug } from "@/src/features/tours/utils/slugify";
 import { getApiUrl } from "@/src/shared/config/api";
+import { TouristTripJsonLd } from "@/src/components/json-ld";
 import type { Metadata } from "next";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string, locale: string }> }): Promise<Metadata> {
@@ -20,8 +21,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (!response.ok) throw new Error("Failed to fetch trip");
     
     const trip = await response.json();
-    const title = `${trip.data.name} | SunnySide Tours`;
-    const description = trip.data.description.replace(/<[^>]+>/g, "").substring(0, 160) + "...";
+    const title = `${trip.data.name} | Safari Hurghada`;
+    const description = (trip.data.description || "").replace(/<[^>]+>/g, "").substring(0, 160) + "...";
 
     return {
       title,
@@ -34,13 +35,42 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   } catch (error) {
     return {
-      title: `Egypt Tour | SunnySide Tours`,
-      description: `Explore this amazing Egypt tour with SunnySide Tours. Book your adventure and create memories together.`,
+      title: `Hurghada Excursion | Safari Hurghada`,
+      description: `Explore this amazing Hurghada adventure with Safari Hurghada. Best prices for desert safaris and Red Sea tours.`,
     };
   }
 }
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  return <TripDetailsPage slug={slug} />;
+  const id = extractIdFromSlug(slug);
+
+  let tripData: any = null;
+  if (id) {
+    try {
+      const response = await fetch(getApiUrl(`/api/Trips/${id}`), {
+        next: { revalidate: 3600 },
+      });
+      if (response.ok) {
+        const json = await response.json();
+        tripData = json?.data;
+      }
+    } catch {}
+  }
+
+  return (
+    <>
+      {tripData ? (
+        <TouristTripJsonLd
+          name={tripData.name}
+          description={tripData.description || ""}
+          price={tripData.adultPrice}
+          currency={tripData.currencyName || "EUR"}
+          imageUrl={tripData.images?.[0]?.imageUrl}
+          url={`https://safarihurghada.net/trips/${slug}`}
+        />
+      ) : null}
+      <TripDetailsPage slug={slug} />
+    </>
+  );
 }

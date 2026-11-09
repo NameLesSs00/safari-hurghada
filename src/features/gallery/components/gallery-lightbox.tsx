@@ -1,13 +1,19 @@
 "use client";
 
 import Image from "next/image";
+import { AppImage } from "@/src/shared/components/app-image";
 import { useEffect, useRef, useState } from "react";
 
 import type { GalleryImage } from "@/src/features/gallery/types/gallery";
 
+export interface LightboxImageItem {
+  id: number;
+  imageUrl: string;
+}
+
 interface GalleryLightboxProps {
-  image: GalleryImage | null;
-  images: GalleryImage[];
+  image: LightboxImageItem | null;
+  images: LightboxImageItem[];
   onClose: () => void;
   onNext: () => void;
   onPrev: () => void;
@@ -181,10 +187,11 @@ export function GalleryLightbox({
         onMouseMove={handleMouseMove}
         style={{ cursor: isZoomed ? "zoom-out" : "zoom-in" }}
       >
-        <Image
+        <AppImage
           src={image.imageUrl}
           alt={`Gallery image ${image.id}`}
           fill
+          fallbackVariant="white"
           className="select-none object-contain"
           sizes="(min-width: 1280px) 1152px, 90vw"
           style={{

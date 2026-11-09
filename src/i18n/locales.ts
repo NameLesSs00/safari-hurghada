@@ -1,4 +1,9 @@
-export const locales = ["en", "fr", "de", "pl"] as const;
+export const locales = [
+  "en",
+  // "fr",
+  // "de",
+  // "pl",
+] as const;
 
 export type AppLocale = (typeof locales)[number];
 
@@ -11,9 +16,9 @@ export type ApiLanguage = (typeof apiLanguages)[number];
 
 export const apiLanguageByLocale: Record<AppLocale, ApiLanguage> = {
   en: "en",
-  fr: "fr",
-  de: "ru", // API doesn't support "de"; "ru" is the agreed fallback
-  pl: "ro", // API doesn't support "pl"; "ro" is the agreed fallback
+  // fr: "fr",
+  // de: "ru", // API doesn't support "de"; "ru" is the agreed fallback
+  // pl: "ro", // API doesn't support "pl"; "ro" is the agreed fallback
 };
 
 export function isAppLocale(locale: string): locale is AppLocale {

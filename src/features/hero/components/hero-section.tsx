@@ -141,7 +141,7 @@ export function HeroSection() {
             >
               {/* Primary: Explore Trips */}
               <Link
-                href={`/${locale}/trips`}
+                href="/trips"
                 className="group inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full bg-[#F36F21] px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-orange-500/25 transition-all hover:bg-[#df5d10] hover:shadow-orange-500/35 hover:-translate-y-0.5 active:scale-95"
               >
                 <Compass size={19} className="transition-transform group-hover:rotate-45" />
@@ -165,75 +165,75 @@ export function HeroSection() {
       </div>
 
       {/* ─── Bottom Floating Feature Bar (Straddles the Boundary Between Hero & Next Section) ─── */}
-      <div className="relative z-30 mx-auto -mt-14 sm:-mt-16 lg:-mt-20 px-4 sm:px-6 lg:px-8 max-w-[1380px]">
+      <div className="relative z-30 mx-auto -mt-12 sm:-mt-14 lg:-mt-16 xl:-mt-20 px-4 sm:px-6 lg:px-8 max-w-[1380px]">
         <motion.div
           variants={featureBarVariants}
           initial="hidden"
           animate="show"
-          className="w-full rounded-[24px] sm:rounded-[36px] border border-gray-100 bg-white px-6 py-6 sm:px-10 sm:py-7 lg:px-16 lg:py-8 shadow-[0_16px_50px_rgba(0,0,0,0.08)]"
+          className="w-full rounded-[24px] sm:rounded-[32px] lg:rounded-[36px] border border-gray-100 bg-white px-5 py-5 sm:px-8 sm:py-6 lg:px-10 xl:px-14 lg:py-7 xl:py-8 shadow-[0_16px_50px_rgba(0,0,0,0.08)]"
         >
-          <div className="grid grid-cols-1 gap-6 divide-y divide-gray-100 sm:grid-cols-3 sm:gap-6 sm:divide-y-0 sm:divide-x sm:divide-gray-200">
+          <div className="grid grid-cols-1 gap-5 sm:gap-6 divide-y divide-gray-100 lg:grid-cols-3 lg:gap-6 xl:gap-8 lg:divide-y-0 lg:divide-x lg:divide-gray-200">
             {/* Pillar 1: Top-rated */}
-            <div className="flex items-center gap-4 lg:gap-6 pt-1 sm:pt-0 sm:pl-2 sm:pr-8">
-              <div className="flex size-12 sm:size-14 shrink-0 items-center justify-center">
+            <div className="flex items-center gap-4 lg:gap-5 xl:gap-6 pt-1 lg:pt-0 lg:pr-6 xl:pr-8">
+              <div className="flex size-12 sm:size-13 lg:size-14 shrink-0 items-center justify-center">
                 <Image
                   src="/Hero/star.svg"
                   alt=""
                   width={54}
                   height={54}
                   unoptimized
-                  className="h-11 w-11 sm:h-12 sm:w-12 lg:h-[52px] lg:w-[52px] object-contain"
+                  className="size-11 sm:size-12 lg:size-13 xl:size-[52px] object-contain"
                 />
               </div>
               <div>
-                <h2 className="text-base sm:text-lg lg:text-[20px] font-bold text-[#1E232A] leading-tight">
+                <h2 className="text-base sm:text-lg lg:text-[18px] xl:text-[20px] font-bold text-[#1E232A] leading-tight">
                   {t("highlights.rating.title")}
                 </h2>
-                <p className="mt-1 text-xs sm:text-sm lg:text-[14px] text-[#535764]">
+                <p className="mt-1 text-xs sm:text-sm lg:text-[13.5px] xl:text-[14px] text-[#535764]">
                   {t("highlights.rating.description")}
                 </p>
               </div>
             </div>
 
             {/* Pillar 2: Best local prices */}
-            <div className="flex items-center gap-4 lg:gap-6 pt-4 sm:pt-0 sm:px-8">
-              <div className="flex size-12 sm:size-14 shrink-0 items-center justify-center">
+            <div className="flex items-center gap-4 lg:gap-5 xl:gap-6 pt-4 lg:pt-0 lg:px-6 xl:px-8">
+              <div className="flex size-12 sm:size-13 lg:size-14 shrink-0 items-center justify-center">
                 <Image
                   src="/Hero/money.svg"
                   alt=""
                   width={52}
                   height={52}
                   unoptimized
-                  className="h-10 w-10 sm:h-11 sm:w-11 lg:h-[48px] lg:w-[48px] object-contain"
+                  className="size-10 sm:size-11 lg:size-12 xl:size-[48px] object-contain"
                 />
               </div>
               <div>
-                <h2 className="text-base sm:text-lg lg:text-[20px] font-bold text-[#1E232A] leading-tight">
+                <h2 className="text-base sm:text-lg lg:text-[18px] xl:text-[20px] font-bold text-[#1E232A] leading-tight">
                   {t("highlights.price.title")}
                 </h2>
-                <p className="mt-1 text-xs sm:text-sm lg:text-[14px] text-[#535764]">
+                <p className="mt-1 text-xs sm:text-sm lg:text-[13.5px] xl:text-[14px] text-[#535764]">
                   {t("highlights.price.description")}
                 </p>
               </div>
             </div>
 
             {/* Pillar 3: Instant support */}
-            <div className="flex items-center gap-4 lg:gap-6 pt-4 sm:pt-0 sm:pl-8 sm:pr-2">
-              <div className="flex size-12 sm:size-14 shrink-0 items-center justify-center">
+            <div className="flex items-center gap-4 lg:gap-5 xl:gap-6 pt-4 lg:pt-0 lg:pl-6 xl:pl-8">
+              <div className="flex size-12 sm:size-13 lg:size-14 shrink-0 items-center justify-center">
                 <Image
                   src="/Hero/support.svg"
                   alt=""
                   width={52}
                   height={52}
                   unoptimized
-                  className="h-10 w-10 sm:h-11 sm:w-11 lg:h-[48px] lg:w-[48px] object-contain"
+                  className="size-10 sm:size-11 lg:size-12 xl:size-[48px] object-contain"
                 />
               </div>
               <div>
-                <h2 className="text-base sm:text-lg lg:text-[20px] font-bold text-[#1E232A] leading-tight">
+                <h2 className="text-base sm:text-lg lg:text-[18px] xl:text-[20px] font-bold text-[#1E232A] leading-tight">
                   {t("highlights.support.title")}
                 </h2>
-                <p className="mt-1 text-xs sm:text-sm lg:text-[14px] text-[#535764]">
+                <p className="mt-1 text-xs sm:text-sm lg:text-[13.5px] xl:text-[14px] text-[#535764]">
                   {t("highlights.support.description")}
                 </p>
               </div>

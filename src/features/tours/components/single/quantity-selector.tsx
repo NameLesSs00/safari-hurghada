@@ -27,44 +27,48 @@ export function QuantitySelector({
   const subtotal = count * unitPrice;
 
   return (
-    <div className="flex items-center justify-between rounded-2xl bg-[#F5F9FC] px-5 py-4">
+    <div className="flex items-center justify-between rounded-2xl bg-slate-50 border border-slate-100 px-5 py-4">
       {/* Label */}
       <div className="flex flex-col">
-        <span className="text-sm font-semibold text-[#111827]">{label}</span>
+        <span className="text-sm font-bold text-[#1E232A]">{label}</span>
         {sublabel && (
-          <span className="text-xs text-[#9CA3AF]">{sublabel}</span>
+          <span className="text-xs text-slate-400">{sublabel}</span>
         )}
       </div>
 
       {/* Price + Controls */}
-      <div className="flex items-center gap-4">
-        <span className="min-w-[56px] text-right text-sm font-semibold text-[#111827]">
+      <div className="flex items-center gap-3 sm:gap-4">
+        <span className="min-w-[64px] text-right text-sm font-bold text-emerald-600">
           {unitPrice === 0
-            ? "Contact us for price"
+            ? "Contact us"
             : formatPrice(subtotal, currency)}
         </span>
 
-        <button
-          type="button"
-          onClick={onIncrement}
-          disabled={count >= max}
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#003A5A] text-white shadow transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          <Plus size={16} strokeWidth={2.5} />
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={onDecrement}
+            disabled={count <= min}
+            className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-xs transition-all hover:border-[#F36F21] hover:text-[#F36F21] active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 cursor-pointer"
+            aria-label="Decrease quantity"
+          >
+            <Minus size={15} strokeWidth={2.5} />
+          </button>
 
-        <span className="w-4 text-center text-base font-bold text-[#111827]">
-          {count}
-        </span>
+          <span className="w-6 text-center text-base font-extrabold text-[#1E232A]">
+            {count}
+          </span>
 
-        <button
-          type="button"
-          onClick={onDecrement}
-          disabled={count <= min}
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#003A5A] text-white shadow transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          <Minus size={16} strokeWidth={2.5} />
-        </button>
+          <button
+            type="button"
+            onClick={onIncrement}
+            disabled={count >= max}
+            className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full bg-[#F36F21] text-white shadow-xs transition-all hover:bg-[#d95c12] active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
+            aria-label="Increase quantity"
+          >
+            <Plus size={15} strokeWidth={2.5} />
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -336,7 +336,7 @@ export function AdminBookingsPage() {
         {!queryError && bookings.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[900px] border-collapse text-left">
-              <thead className="bg-[#f5f9ff] text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
+              <thead className="bg-slate-50 border-b border-black/5 text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
                 <tr>
                   <th className="px-4 py-3">ID</th>
                   <th className="px-4 py-3">Customer</th>
@@ -627,7 +627,7 @@ function BookingDetailModal({
           </div>
 
           {/* Total */}
-          <div className="rounded-lg border border-black/5 bg-[#f5f9ff] px-4 py-3">
+          <div className="rounded-lg border border-black/5 bg-slate-50 px-4 py-3">
             <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
               Total Price
             </p>
@@ -644,7 +644,7 @@ function BookingDetailModal({
               </p>
               <div className="overflow-hidden rounded-lg border border-black/5">
                 <table className="w-full border-collapse text-left">
-                  <thead className="bg-[#f5f9ff] text-xs font-bold uppercase tracking-[0.1em] text-[var(--color-muted)]">
+                  <thead className="bg-slate-50 border-b border-black/5 text-xs font-bold uppercase tracking-[0.1em] text-[var(--color-muted)]">
                     <tr>
                       <th className="px-3 py-2.5">Trip</th>
                       <th className="px-3 py-2.5">Leave Date</th>

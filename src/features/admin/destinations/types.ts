@@ -31,7 +31,8 @@ export type DestinationListParams = {
 
 export type DestinationFormValues = {
   id?: number;
-  names: DestinationNames;
+  name?: string;
+  names?: DestinationNames;
   isFeatured: boolean;
   imageFile?: File | null;
 };

@@ -60,14 +60,39 @@ export async function fetchTrips({
     throw new Error(json.message || "Failed to load trips");
   }
 
-  // Prepend base URL to all image URLs
-  return json.data.map((trip) => ({
-    ...trip,
-    images: trip.images.map((img) => ({
-      ...img,
-      imageUrl: getImageUrl(img.imageUrl),
-    })),
-  }));
+  const DESTINATION_NAMES: Record<number, string> = {
+    2: "Hurghada",
+    3: "Giza",
+    4: "Aswan",
+    5: "Cairo",
+    6: "Luxor",
+    7: "El Gouna",
+  };
+
+  // Prepend base URL to all image URLs and fill in destination name fallback if backend returns null
+  return json.data.map((trip) => {
+    const destId = trip.destinationInfo?.id;
+    const resolvedName =
+      trip.destinationInfo?.name ||
+      (destId ? DESTINATION_NAMES[destId] : undefined) ||
+      trip.destination ||
+      "Hurghada";
+
+    return {
+      ...trip,
+      destinationInfo: {
+        ...trip.destinationInfo,
+        id: destId ?? 2,
+        name: resolvedName,
+        imageUrl: trip.destinationInfo?.imageUrl ?? "",
+        isFeatured: trip.destinationInfo?.isFeatured ?? false,
+      },
+      images: (trip.images || []).map((img) => ({
+        ...img,
+        imageUrl: getImageUrl(img.imageUrl),
+      })),
+    };
+  });
 }
 
 export function useTripsInfiniteQuery(options: UseTripsQueryOptions = {}) {

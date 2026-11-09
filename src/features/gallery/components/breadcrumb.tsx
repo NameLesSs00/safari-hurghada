@@ -13,7 +13,7 @@ export function Breadcrumb() {
       <div className="mx-auto w-full px-5 text-center md:px-8 lg:max-w-[1400px] lg:px-10">
         <div className="flex items-center justify-center gap-2 text-sm">
           <Link
-            href={`/${locale}`}
+            href="/"
             className="text-[#6B7280] transition-colors hover:text-[#003A5A]"
           >
             {t("home")}

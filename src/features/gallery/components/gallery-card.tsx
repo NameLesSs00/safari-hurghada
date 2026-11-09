@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-
+import { AppImage } from "@/src/shared/components/app-image";
+import { Camera, Maximize2 } from "lucide-react";
 import type { GalleryImage } from "@/src/features/gallery/types/gallery";
 
 interface GalleryCardProps {
@@ -11,69 +11,45 @@ interface GalleryCardProps {
 }
 
 export function GalleryCard({ image, onExpand }: GalleryCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
     <div
-      className="group relative cursor-pointer overflow-hidden rounded-[16px] md:rounded-[20px]"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      role="button"
+      tabIndex={0}
+      aria-label={`View photo moment #${image.id}`}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onExpand(image);
+        }
+      }}
       onClick={() => onExpand(image)}
+      className="group relative cursor-pointer overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200/80 bg-white shadow-[0_4px_24px_rgba(15,23,42,0.04)] transition-all duration-500 hover:-translate-y-1.5 hover:border-slate-300 hover:shadow-[0_20px_48px_rgba(15,23,42,0.12)]"
     >
-      {/* Image */}
-      <div className="relative aspect-square w-full">
-        <Image
+      {/* Large Image Canvas */}
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+        <AppImage
           src={image.imageUrl}
-          alt={`Gallery image ${image.id}`}
+          alt={`SunnySide Egypt travel photo #${image.id}`}
           fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
-      </div>
 
-      {/* Expand icon overlay */}
-      <div
-        className={`absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-lg bg-white/90 transition-opacity duration-200 ${
-          isHovered ? "opacity-100" : "opacity-0 md:opacity-100"
-        }`}
-      >
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="text-[#003A5A]"
-        >
-          <path
-            d="M21 9V3H15"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M3 15V21H9"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M21 3L14 10"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M3 21L10 14"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        {/* Cinematic Gradient Scrim on Hover */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+        {/* Floating Expand Icon Top Right */}
+        <div className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 flex size-10 items-center justify-center rounded-full bg-white/90 text-[#1E232A] shadow-md backdrop-blur-md transition-all duration-300 group-hover:scale-110 group-hover:bg-[#F36F21] group-hover:text-white">
+          <Maximize2 size={17} strokeWidth={2.4} />
+        </div>
+
+        {/* Minimal Enlarge Pill Bottom Left (Revealed on hover) */}
+        <div className="absolute bottom-4 left-4 hidden translate-y-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 sm:block">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/50 px-3.5 py-1.5 text-xs font-medium text-white shadow-md backdrop-blur-md">
+            <Maximize2 size={12} strokeWidth={2.4} />
+            <span>Click to view full photo</span>
+          </span>
+        </div>
       </div>
     </div>
   );

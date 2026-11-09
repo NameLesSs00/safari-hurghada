@@ -16,7 +16,7 @@ interface UseGetBlogsQueryOptions {
   pageNumber?: number;
 }
 
-async function fetchBlogs(
+export async function fetchBlogs(
   { pageSize = 6, pageNumber = 1 }: UseGetBlogsQueryOptions,
   locale: AppLocale,
 ): Promise<Blog[]> {
@@ -27,6 +27,7 @@ async function fetchBlogs(
 
   const response = await fetch(getApiUrl(`/api/Blogs?${params}`), {
     headers: getLanguageHeaders(locale),
+    next: { revalidate: 60 },
   });
 
   if (!response.ok) throw new Error("Failed to fetch blogs");

@@ -9,7 +9,8 @@
     "logoHome": "Logoipsum Startseite",
     "openCart": "Warenkorb öffnen",
     "openMenu": "Menü öffnen",
-    "closeMenu": "Menü schließen"
+    "closeMenu": "Menü schließen",
+    "bookNow": "Jetzt buchen"
   },
   "LocaleSwitcher": {
     "label": "Sprache ändern",
@@ -61,7 +62,11 @@
     "loading": "Kategorien werden geladen...",
     "error": "Kategorien konnten nicht geladen werden",
     "goTo": "Zu {destination} gehen",
-    "exploreTrips": "Reisen erkunden"
+    "exploreTrips": "Reisen erkunden",
+    "titlePrefix": "Finden Sie Ihr nächstes",
+    "titleHighlight": "Abenteuer",
+    "scrollLeft": "Nach links scrollen",
+    "scrollRight": "Nach rechts scrollen"
   },
   "Tours": {
     "eyebrow": "UNSERE MEISTVERKAUFTEN TOUREN",
@@ -79,7 +84,9 @@
     "bookNow": "Jetzt buchen",
     "addToCart": "In den Warenkorb",
     "saveTrip": "Tour merken",
-    "unsaveTrip": "Aus gemerkten Touren entfernen"
+    "unsaveTrip": "Aus gemerkten Touren entfernen",
+    "contactForPrice": "Preis auf Anfrage",
+    "defaultDescription": "Erleben Sie ein unvergessliches Abenteuer mit geführten Ausflügen in Hurghada."
   },
   "PopularDestinations": {
     "eyebrow": "TOP REISEZIELE",
@@ -133,13 +140,28 @@
     "viewMore": "Mehr anzeigen",
     "readMore": "Mehr lesen",
     "error": "Blogs konnten nicht geladen werden. Bitte versuche es später erneut.",
-    "empty": "Momentan sind keine Blogbeiträge verfügbar."
+    "empty": "Momentan sind keine Blogbeiträge verfügbar.",
+    "defaultDescription": "Entdecken Sie Insider-Tipps und Reiseideen für Ihr nächstes Abenteuer in Hurghada."
   },
   "FAQ": {
     "eyebrow": "FAQS",
     "title": "Häufig gestellte Fragen",
     "subtitle": "Hier findest du schnelle Antworten auf die häufigsten Fragen zu unseren Touren und Services.",
-    "viewAll": "Alle FAQs ansehen →"
+    "viewAll": "Alle FAQs ansehen →",
+    "defaults": {
+      "q1": "Welche Arten von Touren und Aktivitäten bieten Sie in Hurghada an?",
+      "a1": "Wir bieten eine breite Palette an Erlebnissen in Hurghada, darunter Tauchausflüge, Schnorcheltouren, Wüstensafaris, Bootsfahrten, Inselausflüge und viele weitere spannende Aktivitäten.",
+      "q2": "Benötige ich Taucherfahrung, um an einem Tauchausflug teilzunehmen?",
+      "a2": "Nein. Wir bieten Taucherlebnisse für Anfänger und Fortgeschrittene an. Anfänger erhalten eine professionelle Einweisung und Sicherheitsschulung, bevor sie ins Wasser gehen.",
+      "q3": "Was ist in Ihren Wüstensafari-Touren enthalten?",
+      "a3": "Je nach gewählter Safari umfasst das Erlebnis Transfers, Wüstenaktivitäten, den Besuch eines Beduinendorfes, traditionelles Essen und ein spannendes Abenteuer. Die genauen Leistungen sind bei jeder Tour angegeben.",
+      "q4": "Kann ich eine private Tour oder einen individuellen Ausflug buchen?",
+      "a4": "Ja. Private Touren können für Einzelpersonen, Paare, Familien und Gruppen organisiert werden. Kontaktieren Sie uns, um Ihre Wunschaktivität, Zeiten und Wünsche zu besprechen.",
+      "q5": "Wie kann ich eine Tour in Hurghada buchen?",
+      "a5": "Die Buchung ist einfach. Wählen Sie Ihre Lieblingstour und kontaktieren Sie uns mit Ihrem Wunschdatum und der Teilnehmerzahl. Wir bestätigen die Verfügbarkeit umgehend.",
+      "q6": "Kann ich meine Buchung stornieren oder ändern?",
+      "a6": "Ja, Sie können problemlos stornieren oder umbuchen. Die meisten Touren bieten kostenlose Änderungen bei rechtzeitiger Anfrage. Kontaktieren Sie unser Support-Team rund um die Uhr per WhatsApp."
+    }
   },
   "Footer": {
     "companyDescription": "Dein vertrauenswürdiger Reisepartner in Hurghada für Wüstensafaris, Seefahrten, Schnorcheln, Tauchen und unvergessliche Ausflüge in ganz Ägypten.",
@@ -148,16 +170,23 @@
     "contactUs": "Kontaktiere uns",
     "address": "Hurghada, Rotes Meer, Ägypten",
     "chatOnWhatsApp": "Chatte auf WhatsApp",
-    "privacyPolicy": "Datenschutz",
     "termsConditions": "AGB",
     "poweredBy": "Unterstützt von",
-    "allRightsReserved": "Alle Rechte vorbehalten."
+    "allRightsReserved": "Alle Rechte vorbehalten.",
+    "categories": {
+      "desertSafari": "Wüstensafari",
+      "seaTrips": "Bootsausflüge",
+      "snorkeling": "Schnorcheln",
+      "scubaDiving": "Tauchen",
+      "waterSports": "Wassersport",
+      "historicalTours": "Historische Touren"
+    }
   },
   "DestinationsPage": {
     "hero": {
-      "subtitle": "Entdecke Ägypten",
-      "title": "Entdecke Reiseziele, die jede Reise inspirieren",
-      "imageAlt": "Hurghada Reiseziel Wortkunst"
+      "subtitle": "Von den türkisfarbenen Gewässern von Hurghada bis zu den zeitlosen Wundern von Kairo, Luxor und Assuan — entdecken Sie Ihre nächste unvergessliche Reise.",
+      "title": "Entdecken Sie Ägyptens ikonischste Reiseziele",
+      "imageAlt": "Ägypten Reiseziele"
     },
     "breadcrumb": {
       "home": "Startseite",
@@ -166,17 +195,19 @@
     "card": {
       "trips": "{count} Reisen",
       "tripsSingular": "{count} Reise",
-      "destinationAlt": "Reiseziel {name}"
+      "destinationAlt": "Reiseziel {name}",
+      "exploreTours": "Ausflüge Entdecken"
     }
   },
   "TripsPage": {
     "hero": {
-      "subtitle": "Entdecke Ägypten",
-      "title": "Finde dein nächstes Abenteuer"
+      "subtitle": "Von Schnorcheln im Roten Meer und Wüstensafaris bis hin zu historischen Reisen nach Kairo, Luxor und Assuan — buchen Sie noch heute Ihr Abenteuer.",
+      "title": "Unvergessliche Ägypten-Ausflüge & Touren",
+      "imageAlt": "Ägypten Touren und Pyramiden"
     },
     "breadcrumb": {
       "home": "Startseite",
-      "explore": "Erkunden"
+      "explore": "Ausflüge"
     },
     "toolbar": {
       "tripsFound": "{count} Reisen gefunden",
@@ -229,9 +260,9 @@
   },
   "BlogsPage": {
     "hero": {
-      "subtitle": "Entdecke Artikel",
-      "title": "Entdecke Geschichten, Reiseführer & Reisetipps",
-      "imageAlt": "Entdecke Geschichten, Reiseführer & Reisetipps"
+      "subtitle": "Entdecken Sie ausgewählte Reisegeschichten, Hurghada-Geheimtipps, Wüstensafari-Guides und Rotes-Meer-Abenteuer von lokalen Experten.",
+      "title": "Inspirierende Geschichten & Lokale Reiseführer für Ägypten",
+      "imageAlt": "SunnySide Tours Reisegeschichten & Reiseführer"
     },
     "breadcrumb": {
       "home": "Startseite",
@@ -249,8 +280,9 @@
     },
     "grid": {
       "error": "Blogs konnten nicht geladen werden. Bitte versuche es später erneut.",
-      "empty": "Keine Artikel gefunden, die deiner Suche entsprechen.",
-      "seeMore": "Mehr anzeigen"
+      "empty": "Zurzeit sind keine Artikel verfügbar.",
+      "seeMore": "Mehr anzeigen",
+      "viewMore": "Mehr Artikel anzeigen"
     }
   },
   "AboutPage": {
@@ -463,5 +495,33 @@
     "title": "Buchung erfolgreich erstellt!",
     "description": "Vielen Dank, dass du dich für uns entschieden hast. Wir haben deine Buchungsdetails erhalten und melden uns in Kürze bei dir.",
     "backHome": "Zurück zur Startseite"
+  },
+  "BlogDetail": {
+    "breadcrumb": {
+      "home": "Startseite",
+      "blogs": "Blog",
+      "details": "Blog-Details"
+    },
+    "meta": {
+      "minRead": "Min. Lesezeit",
+      "publishedOn": "Veröffentlicht am"
+    },
+    "toc": {
+      "title": "Inhaltsverzeichnis",
+      "intro": "Einleitung"
+    },
+    "recent": {
+      "title": "Neueste Artikel"
+    },
+    "share": {
+      "shareArticle": "Diesen Artikel teilen:",
+      "copyLink": "Link kopieren",
+      "copied": "Kopiert!"
+    },
+    "cta": {
+      "title": "Planen Sie Ihre Reise mit Einheimischen",
+      "subtitle": "Benötigen Sie Hilfe bei der Planung Ihres Ägypten-Abenteuers? Schreiben Sie uns jederzeit.",
+      "whatsapp": "Über WhatsApp schreiben"
+    }
   }
 }

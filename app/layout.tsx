@@ -18,9 +18,10 @@ const montez = Montez({
 });
 
 export const metadata: Metadata = {
-  title: "Hurghada Tourism",
+  metadataBase: new URL("https://safarihurghada.net"),
+  title: "Safari Hurghada - Excursions & Desert Tours",
   description:
-    "Curated tours and travel experiences for memorable journeys in Hurghada, Egypt.",
+    "Safari Hurghada - #1 Rated Tour Operator in Hurghada. Book VIP Desert Safaris, Quad Biking, Orange Bay Island, Submarine & Diving Excursions at best prices.",
 };
 
 export default function RootLayout({

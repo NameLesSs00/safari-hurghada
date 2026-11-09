@@ -12,6 +12,7 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+import { AppImage } from "@/src/shared/components/app-image";
 import { FormEvent, type ReactNode, useMemo, useState } from "react";
 
 import { getGalleryImageUrl } from "@/src/features/admin/gallery/api";
@@ -186,24 +187,18 @@ function GalleryCard({
   return (
     <article className="overflow-hidden rounded-lg border border-black/5 bg-white shadow-[0_12px_30px_rgba(0,69,96,0.08)]">
       <button
-        className="relative block aspect-[4/3] w-full overflow-hidden bg-[#eef4f8] cursor-pointer"
+        className="relative block aspect-[4/3] w-full overflow-hidden bg-slate-100 cursor-pointer"
         onClick={onPreview}
         type="button"
       >
-        {imageUrl ? (
-          <Image
-            alt={`Gallery image ${galleryImage.id}`}
-            className="object-cover transition duration-300 hover:scale-105"
-            fill
-            sizes="(min-width: 1536px) 25vw, (min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
-            src={imageUrl}
-            unoptimized
-          />
-        ) : (
-          <span className="grid size-full place-items-center">
-            <ImageOff className="text-[var(--color-muted)]" size={28} />
-          </span>
-        )}
+        <AppImage
+          alt={`Gallery image ${galleryImage.id}`}
+          className="object-cover transition duration-300 hover:scale-105"
+          fill
+          sizes="(min-width: 1536px) 25vw, (min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
+          src={imageUrl}
+          unoptimized
+        />
         {galleryImage.isFeatured ? (
           <span className="absolute left-3 top-3 inline-flex h-8 items-center gap-1 rounded-full bg-emerald-50 px-3 text-xs font-bold text-emerald-700 shadow-sm">
             <Star size={14} />
@@ -313,7 +308,7 @@ function AddGalleryImagePanel({ onClose }: { onClose: () => void }) {
             </label>
           </div>
 
-          <div className="grid aspect-[4/3] place-items-center overflow-hidden rounded-lg bg-[#eef4f8]">
+          <div className="grid aspect-[4/3] place-items-center overflow-hidden rounded-lg bg-slate-100">
             {imagePreviewUrl ? (
               <Image
                 alt="Selected gallery preview"
@@ -398,21 +393,15 @@ function GalleryDetailPanel({
 
         {galleryImage ? (
           <>
-            <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-[#eef4f8]">
-              {imageUrl ? (
-                <Image
-                  alt={`Gallery image ${galleryImage.id}`}
-                  className="object-cover"
-                  fill
-                  sizes="(min-width: 1024px) 760px, 100vw"
-                  src={imageUrl}
-                  unoptimized
-                />
-              ) : (
-                <span className="grid size-full place-items-center">
-                  <ImageOff className="text-[var(--color-muted)]" size={28} />
-                </span>
-              )}
+            <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-slate-100">
+              <AppImage
+                alt={`Gallery image ${galleryImage.id}`}
+                className="object-cover"
+                fill
+                sizes="(min-width: 1024px) 760px, 100vw"
+                src={imageUrl}
+                unoptimized
+              />
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>

@@ -1,49 +1,80 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { AppImage } from "@/src/shared/components/app-image";
+import { Clock, ChevronRight } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import type { AppLocale } from "@/src/i18n/locales";
 
 interface BlogDetailHeroProps {
   title: string;
+  imageUrl?: string | null;
+  readingTimeMinutes?: number;
 }
 
-export function BlogDetailHero({ title }: BlogDetailHeroProps) {
+export function BlogDetailHero({
+  title,
+  imageUrl,
+  readingTimeMinutes = 5,
+}: BlogDetailHeroProps) {
+  const locale = useLocale() as AppLocale;
+  const t = useTranslations("BlogDetail");
+
+  const heroImageSrc = imageUrl || "/Blogs/Blogs.png";
+
   return (
-    <>
-      {/* Hero Section */}
-      <div className="relative h-[200px] w-full sm:h-[250px] lg:h-[350px]">
-        <Image
-          src="/Blogs/heroSingleBlog.jpg"
-          alt={title}
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-black/40" />
-
-        <div className="absolute inset-0 mx-auto flex w-full max-w-[1280px] flex-col justify-center px-5 sm:px-8 lg:px-0">
-          <h1 className="text-center text-2xl font-bold leading-[1.3] text-white drop-shadow-md sm:text-3xl lg:text-4xl">
-            {title}
-          </h1>
-        </div>
-      </div>
-
-      {/* Breadcrumb */}
-      <div className="bg-white py-4">
+    <header className="w-full pt-6 sm:pt-8 lg:pt-10">
+      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumb Navigation */}
         <nav
           aria-label="Breadcrumb"
-          className="mx-auto flex w-full max-w-[1280px] items-center justify-center px-5 text-[14px] leading-[160%] text-[#6d7280] sm:px-8 lg:px-0 lg:text-base"
+          className="mb-4 sm:mb-5 flex flex-wrap items-center gap-1.5 text-xs sm:text-sm font-medium text-slate-500"
         >
-          <Link href="/" className="transition-colors hover:text-[var(--color-ocean)]">
-            Home
+          <Link
+            href="/"
+            className="transition-colors hover:text-[#F36F21]"
+          >
+            {t("breadcrumb.home")}
           </Link>
-          <span className="mx-2"> &gt; </span>
-          <Link href="/blogs" className="transition-colors hover:text-[var(--color-ocean)]">
-            Blogs
+          <ChevronRight size={14} className="text-slate-300" />
+          <Link
+            href="/blogs"
+            className="transition-colors hover:text-[#F36F21]"
+          >
+            {t("breadcrumb.blogs")}
           </Link>
-          <span className="mx-2"> &gt; </span>
-          <span className="line-clamp-1 font-medium text-[var(--color-ocean)]">Blog details</span>
+          <ChevronRight size={14} className="text-slate-300" />
+          <span className="line-clamp-1 max-w-[260px] sm:max-w-[420px] text-slate-800 font-semibold">
+            {title}
+          </span>
         </nav>
+
+        {/* Article Headline */}
+        <h1 className="max-w-[980px] text-2xl sm:text-4xl lg:text-[44px] font-black leading-[1.2] tracking-tight text-[#0F2942]">
+          {title}
+        </h1>
+
+        {/* Meta Line: Real Reading Time */}
+        <div className="mt-4 mb-6 sm:mb-8 flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-500">
+          <Clock size={15} className="text-[#F36F21]" />
+          <span>
+            {readingTimeMinutes} {t("meta.minRead")}
+          </span>
+        </div>
+
+        {/* Centerpiece Hero Photography Card */}
+        <div className="relative aspect-[16/9] sm:aspect-[21/9] w-full overflow-hidden rounded-2xl sm:rounded-3xl bg-slate-100 border border-gray-100 shadow-sm">
+          <AppImage
+            src={heroImageSrc}
+            alt={title}
+            fill
+            priority
+            sizes="(min-width: 1320px) 1280px, 100vw"
+            className="object-cover object-center"
+          />
+        </div>
       </div>
-    </>
+    </header>
   );
 }

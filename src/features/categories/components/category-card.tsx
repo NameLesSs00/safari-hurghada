@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { AppImage } from "@/src/shared/components/app-image";
 import { useLocale } from "next-intl";
 import { ArrowRight } from "lucide-react";
 
@@ -20,7 +20,7 @@ export function CategoryCard({ tripType, index }: CategoryCardProps) {
 
   return (
     <Link
-      href={`/${locale}/trips?typeId=${tripType.id}`}
+      href={`/trips?typeId=${tripType.id}`}
       className="group block select-none h-full"
       draggable={false}
     >
@@ -31,7 +31,7 @@ export function CategoryCard({ tripType, index }: CategoryCardProps) {
       >
         {/* Card Image: bounded above bottom corners so only solid white touches bottom */}
         <div className="absolute inset-x-0 top-0 bottom-[40px] z-0 overflow-hidden bg-gray-50">
-          <Image
+          <AppImage
             src={tripType.imageUrl}
             alt={tripType.name}
             fill

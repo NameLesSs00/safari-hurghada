@@ -9,7 +9,8 @@
     "logoHome": "Strona główna Logoipsum",
     "openCart": "Otwórz koszyk",
     "openMenu": "Otwórz menu",
-    "closeMenu": "Zamknij menu"
+    "closeMenu": "Zamknij menu",
+    "bookNow": "Zarezerwuj teraz"
   },
   "LocaleSwitcher": {
     "label": "Zmień język",
@@ -61,7 +62,11 @@
     "loading": "Ładowanie kategorii...",
     "error": "Nie udało się załadować kategorii",
     "goTo": "Przejdź do {destination}",
-    "exploreTrips": "Odkryj wycieczki"
+    "exploreTrips": "Odkryj wycieczki",
+    "titlePrefix": "Znajdź swoją kolejną",
+    "titleHighlight": "Przygodę",
+    "scrollLeft": "Przewiń w lewo",
+    "scrollRight": "Przewiń w prawo"
   },
   "Tours": {
     "eyebrow": "NASZE NAJPOPULARNIEJSZE WYCIECZKI",
@@ -79,7 +84,9 @@
     "bookNow": "Zarezerwuj teraz",
     "addToCart": "Dodaj do koszyka",
     "saveTrip": "Zapisz wycieczkę",
-    "unsaveTrip": "Usuń z zapisanych"
+    "unsaveTrip": "Usuń z zapisanych",
+    "contactForPrice": "Cena na zapytanie",
+    "defaultDescription": "Przeżyj niezapomnianą przygodę z wycieczkami z przewodnikiem w Hurghadzie."
   },
   "PopularDestinations": {
     "eyebrow": "NAJLEPSZE DESTYNACJE",
@@ -133,13 +140,28 @@
     "viewMore": "Zobacz więcej",
     "readMore": "Czytaj więcej",
     "error": "Nie udało się załadować blogów. Spróbuj ponownie później.",
-    "empty": "Brak dostępnych artykułów w tej chwili."
+    "empty": "Brak dostępnych artykułów w tej chwili.",
+    "defaultDescription": "Odkryj sprawdzone wskazówki i pomysły na podróż na swoją kolejną przygodę w Hurghadzie."
   },
   "FAQ": {
     "eyebrow": "FAQS",
     "title": "Często zadawane pytania",
     "subtitle": "Znajdź szybkie odpowiedzi na najczęstsze pytania dotyczące naszych wycieczek i usług.",
-    "viewAll": "Zobacz wszystkie FAQ →"
+    "viewAll": "Zobacz wszystkie FAQ →",
+    "defaults": {
+      "q1": "Jakie rodzaje wycieczek i atrakcji oferujecie w Hurghadzie?",
+      "a1": "Oferujemy szeroki wybór atrakcji w Hurghadzie, w tym nurkowanie, snorkeling, safari po pustyni, rejsy statkiem, wycieczki na wyspy i wiele innych ekscytujących aktywności.",
+      "q2": "Czy muszę mieć doświadczenie w nurkowaniu, aby wziąć udział w wyprawie?",
+      "a2": "Nie. Oferujemy nurkowanie zarówno dla początkujących, jak i doświadczonych nurków. Początkujący przechodzą profesjonalne szkolenie i odprawę bezpieczeństwa przed wejściem do wody.",
+      "q3": "Co obejmują wycieczki safari na pustyni?",
+      "a3": "W zależności od wybranego safari, wycieczka może obejmować transfery, aktywności na pustyni, wizytę w wiosce Beduinów, tradycyjny posiłek i pełną wrażeń przygodę. Dokładne świadczenia są podane przy każdej ofercie.",
+      "q4": "Czy mogę zarezerwować prywatną wycieczkę?",
+      "a4": "Tak. Organizujemy prywatne wycieczki dla osób indywidualnych, par, rodzin i grup. Skontaktuj się z nami, aby ustalić plan, godziny i szczegółowe wymagania.",
+      "q5": "Jak mogę zarezerwować wycieczkę w Hurghadzie?",
+      "a5": "Rezerwacja jest prosta. Wybierz wycieczkę i napisz do nas, podając preferowaną datę oraz liczbę uczestników. Szybko potwierdzimy dostępność i przekażemy wszystkie informacje.",
+      "q6": "Czy mogę anulować lub zmienić rezerwację?",
+      "a6": "Tak, możesz łatwo anulować lub zmienić termin. Większość wycieczek oferuje bezpłatną zmianę przy wcześniejszym zgłoszeniu. Skontaktuj się z naszym zespołem 24/7 przez WhatsApp."
+    }
   },
   "Footer": {
     "companyDescription": "Twój zaufany partner podróży w Hurghadzie: safari na pustyni, rejsy morskie, nurkowanie z rurką i butlą oraz niezapomniane wycieczki po całym Egipcie.",
@@ -148,16 +170,23 @@
     "contactUs": "Skontaktuj się z nami",
     "address": "Hurghada, Morze Czerwone, Egipt",
     "chatOnWhatsApp": "Napisz na WhatsApp",
-    "privacyPolicy": "Polityka prywatności",
     "termsConditions": "Regulamin",
     "poweredBy": "Obsługiwane przez",
-    "allRightsReserved": "Wszelkie prawa zastrzeżone."
+    "allRightsReserved": "Wszelkie prawa zastrzeżone.",
+    "categories": {
+      "desertSafari": "Safari na pustyni",
+      "seaTrips": "Wycieczki morskie",
+      "snorkeling": "Snorkeling",
+      "scubaDiving": "Nurkowanie",
+      "waterSports": "Sporty wodne",
+      "historicalTours": "Wycieczki historyczne"
+    }
   },
   "DestinationsPage": {
     "hero": {
-      "subtitle": "Odkryj Egipt",
-      "title": "Odkryj destynacje, które inspirują każdą podróż",
-      "imageAlt": "Grafika słowna destynacji Hurghada"
+      "subtitle": "Od turkusowych wód Hurghady po ponadczasowe cuda Kairu, Luksoru i Asuanu — odkryj swoją następną niezapomnianą podróż.",
+      "title": "Odkryj najbardziej kultowe destynacje w Egipcie",
+      "imageAlt": "Destynacje turystyczne w Egipcie"
     },
     "breadcrumb": {
       "home": "Strona główna",
@@ -166,17 +195,19 @@
     "card": {
       "trips": "{count} wycieczki",
       "tripsSingular": "{count} wycieczka",
-      "destinationAlt": "Destynacja {name}"
+      "destinationAlt": "Destynacja {name}",
+      "exploreTours": "Odkryj Wycieczki"
     }
   },
   "TripsPage": {
     "hero": {
-      "subtitle": "Odkryj Egipt",
-      "title": "Znajdź swoją następną przygodę"
+      "subtitle": "Od snorkelingu w Morzu Czerwonym i safari po historyczne wyprawy do Kairu, Luksoru i Asuanu — zarezerwuj swoją przygodę już dziś.",
+      "title": "Niezapomniane Wycieczki i Wyprawy w Egipcie",
+      "imageAlt": "Wycieczki w Egipcie i piramidy"
     },
     "breadcrumb": {
       "home": "Strona główna",
-      "explore": "Eksploruj"
+      "explore": "Wycieczki"
     },
     "toolbar": {
       "tripsFound": "Znaleziono {count} wycieczki",
@@ -229,9 +260,9 @@
   },
   "BlogsPage": {
     "hero": {
-      "subtitle": "Odkryj artykuły",
-      "title": "Odkryj historie, przewodniki i wskazówki podróżnicze",
-      "imageAlt": "Odkryj historie, przewodniki i wskazówki podróżnicze"
+      "subtitle": "Odkryj wyselekcjonowane opowieści podróżnicze, porady z Hurghady, przewodniki po safari pustynnym i przygody nad Morzem Czerwonym od lokalnych ekspertów.",
+      "title": "Inspirujące Historie i Przewodniki po Egipcie",
+      "imageAlt": "Opowieści i przewodniki podróżnicze SunnySide Tours"
     },
     "breadcrumb": {
       "home": "Strona główna",
@@ -249,8 +280,9 @@
     },
     "grid": {
       "error": "Nie udało się załadować blogów. Spróbuj ponownie później.",
-      "empty": "Nie znaleziono artykułów pasujących do wyszukiwania.",
-      "seeMore": "Zobacz więcej"
+      "empty": "W tej chwili brak dostępnych artykułów.",
+      "seeMore": "Zobacz więcej",
+      "viewMore": "Zobacz więcej artykułów"
     }
   },
   "AboutPage": {
@@ -463,5 +495,33 @@
     "title": "Rezerwacja utworzona pomyślnie!",
     "description": "Dziękujemy za wybranie nas. Otrzymaliśmy Twoje dane rezerwacji i wkrótce się z Tobą skontaktujemy.",
     "backHome": "Powrót do strony głównej"
+  },
+  "BlogDetail": {
+    "breadcrumb": {
+      "home": "Strona główna",
+      "blogs": "Blogi",
+      "details": "Szczegóły bloga"
+    },
+    "meta": {
+      "minRead": "min czytania",
+      "publishedOn": "Opublikowano"
+    },
+    "toc": {
+      "title": "Spis treści",
+      "intro": "Wprowadzenie"
+    },
+    "recent": {
+      "title": "Najnowsze artykuły"
+    },
+    "share": {
+      "shareArticle": "Udostępnij ten artykuł:",
+      "copyLink": "Kopiuj link",
+      "copied": "Skopiowano!"
+    },
+    "cta": {
+      "title": "Zaplanuj wycieczkę z lokalnymi przewodnikami",
+      "subtitle": "Potrzebujesz pomocy w zaplanowaniu egipskiej przygody? Porozmawiaj z naszym zespołem.",
+      "whatsapp": "Napisz na WhatsApp"
+    }
   }
 }

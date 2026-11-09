@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { X, CalendarDays } from "lucide-react";
+import { AppImage } from "@/src/shared/components/app-image";
+import { X, CalendarDays, ArrowRight, ShieldCheck, Zap, Lock, ShoppingBag } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { motion, type Variants } from "framer-motion";
 import { useCartStore } from "@/src/store/use-cart-store";
@@ -16,42 +17,18 @@ const summaryCardContainerVariants: Variants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.08,
-      delayChildren: 0.2,
+      delayChildren: 0.1,
     },
   },
 };
 
 const summaryCardVariants: Variants = {
   hidden: { opacity: 0, scale: 0.95 },
-  show: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: "easeOut" } },
-};
-
-// Summary sections
-const packageVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut", delay: 0.4 } },
-};
-
-const dividerVariants: Variants = {
-  hidden: { scaleX: 0 },
-  show: { scaleX: 1, transition: { duration: 0.4, ease: "easeOut", delay: 0.6 } },
-};
-
-const totalVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut", delay: 0.7 } },
-};
-
-const checkoutButtonVariants: Variants = {
-  hidden: { opacity: 0, y: 20, scale: 0.95 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: "easeOut", delay: 0.85 } },
+  show: { opacity: 1, scale: 1, transition: { duration: 0.35, ease: "easeOut" } },
 };
 
 const dateLocaleByLocale: Record<AppLocale, string> = {
   en: "en-GB",
-  fr: "fr-FR",
-  de: "de-DE",
-  pl: "pl-PL",
 };
 
 export function CartSummary() {
@@ -62,35 +39,45 @@ export function CartSummary() {
 
   if (items.length === 0) {
     return (
-      <div className="flex w-full flex-col gap-6 rounded-3xl bg-[#F9FAFB] p-6 lg:w-[380px] lg:p-8">
-        <h2 className="text-xl font-medium text-[#111827]">{t("title")}</h2>
-        <p className="text-sm text-gray-500">{t("empty")}</p>
+      <div className="flex w-full flex-col gap-4 rounded-3xl border border-slate-100 bg-white p-6 lg:w-[380px] lg:p-7 shadow-xs">
+        <h2 className="text-lg font-bold text-[#1E232A]">{t("title")}</h2>
+        <p className="text-sm text-slate-500">{t("empty")}</p>
       </div>
     );
   }
 
-  // Assuming all items share the same currency for simplicity in this display
   const currencyName = items[0]?.trip.currencyName || "EUR";
 
   return (
-    <div className="flex w-full flex-col gap-6 rounded-3xl bg-[#F8FBFC] p-6 shadow-[0px_4px_20px_rgba(0,0,0,0.02)] lg:w-[420px] lg:p-8">
-      <h2 className="text-xl font-medium text-[#111827]">{t("title")}</h2>
+    <div className="flex w-full flex-col gap-6 rounded-3xl border border-slate-100 bg-white p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.06)] lg:w-[420px]">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-orange-50 text-[#F36F21]">
+            <ShoppingBag size={17} />
+          </div>
+          <h2 className="text-lg font-extrabold text-[#1E232A]">{t("title")}</h2>
+        </div>
+        <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-bold text-slate-600">
+          {items.length} {items.length === 1 ? "tour" : "tours"}
+        </span>
+      </div>
 
+      {/* Mini tour cards in summary */}
       <motion.div
         variants={summaryCardContainerVariants}
         initial="hidden"
         animate="show"
-        className="flex flex-col gap-4"
+        className="flex flex-col gap-3"
       >
         {items.map((item) => {
           const primaryImage =
             item.trip.images.find((img) => img.isPrimary) ?? item.trip.images[0];
           
           const formattedDate = new Date(item.date).toLocaleDateString(
-            dateLocaleByLocale[locale],
+            dateLocaleByLocale[locale] || "en-GB",
             {
               day: "numeric",
-              month: "numeric",
+              month: "short",
               year: "numeric",
             },
           );
@@ -99,26 +86,24 @@ export function CartSummary() {
             <motion.div
               key={item.id}
               variants={summaryCardVariants}
-              className="flex items-start justify-between gap-3 rounded-2xl bg-white p-3 shadow-sm"
+              className="flex items-center justify-between gap-3 rounded-2xl border border-slate-100 bg-slate-50/70 p-3 transition-colors hover:bg-slate-50"
             >
-              <div className="flex items-center gap-3">
-                {primaryImage && (
-                  <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl">
-                    <Image
-                      src={primaryImage.imageUrl}
-                      alt={item.trip.name}
-                      fill
-                      className="object-cover"
-                      sizes="56px"
-                    />
-                  </div>
-                )}
-                <div className="flex flex-col gap-1">
-                  <span className="line-clamp-1 text-sm font-medium text-[#111827]">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-slate-200/60 bg-slate-100">
+                  <AppImage
+                    src={primaryImage?.imageUrl}
+                    alt={item.trip.name}
+                    fill
+                    className="object-cover"
+                    sizes="48px"
+                  />
+                </div>
+                <div className="flex flex-col min-w-0">
+                  <span className="truncate text-xs sm:text-sm font-bold text-[#1E232A]">
                     {item.trip.name}
                   </span>
-                  <div className="flex items-center gap-1.5 text-xs text-[#6B7280]">
-                    <CalendarDays size={13} />
+                  <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
+                    <CalendarDays size={12} className="text-[#F36F21]" />
                     <span>{formattedDate}</span>
                   </div>
                 </div>
@@ -127,87 +112,99 @@ export function CartSummary() {
                 type="button"
                 onClick={() => removeItem(item.id)}
                 aria-label={t("removeAria", { name: item.trip.name })}
-                className="mt-1 shrink-0 text-gray-400 transition-colors hover:text-red-500"
+                className="shrink-0 p-1 text-slate-400 transition-colors hover:text-rose-600 cursor-pointer"
               >
-                <X size={16} />
+                <X size={15} />
               </button>
             </motion.div>
           );
         })}
       </motion.div>
 
-      <motion.div
-        variants={packageVariants}
-        initial="hidden"
-        animate="show"
-        className="flex flex-col gap-3 pt-2"
-      >
-        <h4 className="text-sm font-semibold text-[#111827]">{t("package")}</h4>
+      {/* Pricing Breakdown */}
+      <div className="flex flex-col gap-2.5 pt-2 border-t border-slate-100 text-xs sm:text-sm">
+        <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          {t("package")}
+        </span>
         
         {items.map((item) => (
-          <div key={`breakdown-${item.id}`} className="flex flex-col gap-1">
+          <div key={`breakdown-${item.id}`} className="flex flex-col gap-1 text-slate-600">
             {item.adultCount > 0 && (
-              <div className="flex items-center justify-between text-sm text-[#374151]">
+              <div className="flex items-center justify-between">
                 <span>
-                  {t("adult")}: {item.adultCount} x{" "}
-                  {item.trip.adultPrice === 0 ? "Contact us for price" : formatPrice(item.trip.adultPrice, item.trip.currencyName)}
+                  {t("adult")}: {item.adultCount} ×{" "}
+                  {item.trip.adultPrice === 0 ? "Custom" : formatPrice(item.trip.adultPrice, item.trip.currencyName)}
                 </span>
-                <span className="font-medium text-[#003A5A]">
-                  {item.trip.adultPrice === 0 ? "Contact us for price" : formatPrice(item.adultCount * item.trip.adultPrice, item.trip.currencyName)}
+                <span className="font-semibold text-[#1E232A]">
+                  {item.trip.adultPrice === 0 ? "Custom" : formatPrice(item.adultCount * item.trip.adultPrice, item.trip.currencyName)}
                 </span>
               </div>
             )}
             {item.childCount > 0 && item.trip.childPrice > 0 && (
-              <div className="flex items-center justify-between text-sm text-[#374151]">
+              <div className="flex items-center justify-between">
                 <span>
-                  {t("child")}: {item.childCount} x{" "}
-                  {item.trip.childPrice === 0 ? "Contact us for price" : formatPrice(item.trip.childPrice, item.trip.currencyName)}
+                  {t("child")}: {item.childCount} ×{" "}
+                  {formatPrice(item.trip.childPrice, item.trip.currencyName)}
                 </span>
-                <span className="font-medium text-[#003A5A]">
-                  {item.trip.childPrice === 0 ? "Contact us for price" : formatPrice(item.childCount * item.trip.childPrice, item.trip.currencyName)}
+                <span className="font-semibold text-[#1E232A]">
+                  {formatPrice(item.childCount * item.trip.childPrice, item.trip.currencyName)}
                 </span>
               </div>
             )}
           </div>
         ))}
-      </motion.div>
+      </div>
 
-      <motion.div
-        variants={dividerVariants}
-        initial="hidden"
-        animate="show"
-        className="h-px w-full bg-gray-200"
-        style={{ originX: 0 }}
-      />
+      <div className="h-px w-full bg-slate-100" />
 
-      <motion.div
-        variants={totalVariants}
-        initial="hidden"
-        animate="show"
-        className="flex items-center justify-between"
-      >
-        <span className="text-lg font-bold text-[#111827]">{t("total")}</span>
-        <span className="text-xl font-bold text-[#10B981]">
+      {/* Grand Total */}
+      <div className="flex items-baseline justify-between">
+        <div className="flex flex-col">
+          <span className="text-base font-bold text-[#1E232A]">{t("total")}</span>
+          <span className="text-[11px] text-slate-400">All local taxes included</span>
+        </div>
+        <span className="text-2xl font-black text-emerald-600">
           {items.some(item => (item.trip.adultPrice === 0 && item.adultCount > 0) || (item.trip.childPrice === 0 && item.childCount > 0))
             ? total > 0 
-              ? `${formatPrice(total, currencyName)} + Contact us for price`
-              : "Contact us for price"
+              ? `${formatPrice(total, currencyName)} + Custom`
+              : "Contact us"
             : formatPrice(total, currencyName)}
         </span>
-      </motion.div>
+      </div>
       
-      <motion.div
-        variants={checkoutButtonVariants}
-        initial="hidden"
-        animate="show"
-      >
+      {/* Checkout Actions */}
+      <div className="flex flex-col gap-3 pt-2">
         <Link
-          href={`/${locale}/checkout`}
-          className="mt-2 block w-full rounded-full border border-[#003A5A] py-3.5 text-center font-semibold text-[#003A5A] transition-colors hover:bg-[#003A5A] hover:text-white"
+          href="/checkout"
+          className="w-full rounded-2xl bg-[#F36F21] py-4 text-center text-sm sm:text-base font-bold text-white shadow-lg shadow-orange-500/25 transition-all hover:bg-[#d95c12] active:scale-[0.99] flex items-center justify-center gap-2"
         >
-          {t("checkout")}
+          <span>{t("checkout")}</span>
+          <ArrowRight size={17} />
         </Link>
-      </motion.div>
+
+        <Link
+          href="/trips"
+          className="text-center text-xs font-semibold text-slate-500 hover:text-[#F36F21] transition-colors"
+        >
+          ← Continue exploring tours
+        </Link>
+      </div>
+
+      {/* Trust Badges */}
+      <div className="flex flex-col gap-2 rounded-2xl bg-slate-50 p-4 text-xs text-slate-600 border border-slate-100">
+        <div className="flex items-center gap-2">
+          <Zap size={14} className="text-[#F36F21] shrink-0" />
+          <span>Instant reservation confirmation</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <ShieldCheck size={14} className="text-emerald-600 shrink-0" />
+          <span>Free cancellation up to 24h prior</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Lock size={14} className="text-[#00A3C4] shrink-0" />
+          <span>Safe &amp; encrypted checkout</span>
+        </div>
+      </div>
     </div>
   );
 }

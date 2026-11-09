@@ -29,10 +29,33 @@ async function fetchTripById(id: number, locale: AppLocale): Promise<Trip> {
 
   const trip = json.data as Trip;
 
-  // Prepend base URL to all image URLs
+  const DESTINATION_NAMES: Record<number, string> = {
+    2: "Hurghada",
+    3: "Giza",
+    4: "Aswan",
+    5: "Cairo",
+    6: "Luxor",
+    7: "El Gouna",
+  };
+
+  const destId = trip.destinationInfo?.id;
+  const resolvedName =
+    trip.destinationInfo?.name ||
+    (destId ? DESTINATION_NAMES[destId] : undefined) ||
+    trip.destination ||
+    "Hurghada";
+
+  // Prepend base URL to all image URLs and fill in destination name fallback
   return {
     ...trip,
-    images: trip.images.map((img) => ({
+    destinationInfo: {
+      ...trip.destinationInfo,
+      id: destId ?? 2,
+      name: resolvedName,
+      imageUrl: trip.destinationInfo?.imageUrl ?? "",
+      isFeatured: trip.destinationInfo?.isFeatured ?? false,
+    },
+    images: (trip.images || []).map((img) => ({
       ...img,
       imageUrl: getImageUrl(img.imageUrl),
     })),

@@ -53,7 +53,7 @@ export function AdminDashboardPage() {
       label: "Total bookings",
       value: formatInteger(report?.totalBookings),
       icon: ReceiptText,
-      accent: "bg-[#e8f5f9] text-[var(--color-ocean)]",
+      accent: "bg-orange-50 text-[var(--color-ocean)]",
     },
     {
       label: "Total revenue",
@@ -170,7 +170,7 @@ export function AdminDashboardPage() {
                 Booking leaders
               </h2>
             </div>
-            <span className="inline-flex items-center gap-2 rounded-lg bg-[#e8f5f9] px-3 py-2 text-sm font-semibold text-[var(--color-ocean)]">
+            <span className="inline-flex items-center gap-2 rounded-lg bg-orange-50 px-3 py-2 text-sm font-semibold text-[var(--color-ocean)]">
               <Trophy size={16} />
               {reportPeriods.find((period) => period.value === activePeriod)
                 ?.label ?? "Daily"}
@@ -245,7 +245,7 @@ export function AdminDashboardPage() {
                 {reportQuery.data?.message ?? "Report summary"}
               </h2>
             </div>
-            <span className="grid size-11 place-items-center rounded-lg bg-[#e8f5f9] text-[var(--color-ocean)]">
+            <span className="grid size-11 place-items-center rounded-lg bg-orange-50 text-[var(--color-ocean)]">
               <CalendarDays size={21} />
             </span>
           </div>

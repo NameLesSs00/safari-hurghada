@@ -16,9 +16,9 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+import { AppImage } from "@/src/shared/components/app-image";
 import { FormEvent, type ReactNode, useMemo, useState } from "react";
 
-import { adminLanguageOptions } from "@/src/features/admin/shared/languages";
 import { getDestinationImageUrl } from "@/src/features/admin/destinations/api";
 import {
   useCreateDestinationMutation,
@@ -36,21 +36,10 @@ import type {
   DestinationNames,
 } from "@/src/features/admin/destinations/types";
 
-const languages = adminLanguageOptions;
-
 const pageSizes = [6, 10, 20];
 
 function getErrorText(error: unknown, fallback: string) {
   return error instanceof Error ? error.message : fallback;
-}
-
-function getEmptyNames(): DestinationNames {
-  return {
-    en: "",
-    fr: "",
-    ru: "",
-    ro: "",
-  };
 }
 
 export function AdminDestinationsPage() {
@@ -132,14 +121,14 @@ export function AdminDestinationsPage() {
       </div>
 
       <section className="rounded-lg border border-black/5 bg-white p-4 shadow-[0_12px_30px_rgba(0,69,96,0.08)]">
-        <div className="grid gap-3 lg:grid-cols-[1fr_180px_150px]">
+        <div className="grid gap-3 sm:grid-cols-[1fr_160px]">
           <form className="relative" onSubmit={handleSearch}>
             <Search
               className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-muted)]"
               size={18}
             />
             <input
-              className="h-11 w-full rounded-lg border border-black/10 bg-white pl-10 pr-4 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
+              className="h-11 w-full rounded-lg border border-black/10 bg-white pl-10 pr-4 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
               onChange={(event) => setDraftSearch(event.target.value)}
               placeholder="Search destinations"
               type="search"
@@ -148,22 +137,7 @@ export function AdminDestinationsPage() {
           </form>
 
           <select
-            className="h-11 rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
-            onChange={(event) => {
-              setPageNumber(1);
-              setLanguage(event.target.value as DestinationLanguage);
-            }}
-            value={language}
-          >
-            {languages.map((item) => (
-              <option key={item.value} value={item.value}>
-                {item.label}
-              </option>
-            ))}
-          </select>
-
-          <select
-            className="h-11 rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
+            className="h-11 rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
             onChange={(event) => {
               setPageNumber(1);
               setPageSize(Number(event.target.value));
@@ -229,7 +203,7 @@ export function AdminDestinationsPage() {
         {!queryError && destinations.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[760px] border-collapse text-left">
-              <thead className="bg-[#f5f9ff] text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
+              <thead className="bg-slate-50 border-b border-black/5 text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
                 <tr>
                   <th className="px-4 py-3">Destination</th>
                   <th className="px-4 py-3">Featured</th>
@@ -360,19 +334,14 @@ function DestinationThumb({ destination }: { destination: Destination }) {
   const imageUrl = getDestinationImageUrl(destination.imageUrl);
 
   return (
-    <div className="grid size-14 shrink-0 place-items-center overflow-hidden rounded-lg bg-[#eef4f8]">
-      {imageUrl ? (
-        <Image
-          alt={`${destination.name} destination`}
-          className="size-full object-cover"
-          height={56}
-          src={imageUrl}
-          unoptimized
-          width={56}
-        />
-      ) : (
-        <ImageOff className="text-[var(--color-muted)]" size={20} />
-      )}
+    <div className="relative size-14 shrink-0 overflow-hidden rounded-lg border border-black/10 bg-slate-100">
+      <AppImage
+        alt={`${destination.name} destination`}
+        className="size-full object-cover"
+        fill
+        src={imageUrl}
+        unoptimized
+      />
     </div>
   );
 }
@@ -386,64 +355,13 @@ function DestinationFormPanel({
   mode: "create" | "edit";
   onClose: () => void;
 }) {
-  const isEdit = mode === "edit";
-  const translationsQuery = useDestinationTranslationsQuery(
-    isEdit ? (destination?.id ?? null) : null,
-  );
-  const title = isEdit ? (destination?.name ?? "Destination") : "Add destination";
-
-  if (isEdit && translationsQuery.isLoading) {
-    return (
-      <DestinationModalFrame
-        eyebrow="Edit destination"
-        onClose={onClose}
-        title={title}
-      >
-        <div className="grid min-h-[280px] place-items-center p-5 text-[var(--color-deep-ocean)]">
-          <div className="flex items-center gap-3 text-sm font-semibold">
-            <Loader2 className="animate-spin" size={20} />
-            <span>Loading translations</span>
-          </div>
-        </div>
-      </DestinationModalFrame>
-    );
-  }
-
-  if (isEdit && translationsQuery.error) {
-    return (
-      <DestinationModalFrame
-        eyebrow="Edit destination"
-        onClose={onClose}
-        title={title}
-      >
-        <div className="space-y-4 p-5">
-          <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {getErrorText(
-              translationsQuery.error,
-              "Unable to load destination translations.",
-            )}
-          </p>
-          <button
-            className="h-10 rounded-lg border border-black/10 px-4 text-sm font-bold text-[var(--color-deep-ocean)] transition hover:border-[var(--color-ocean)]"
-            onClick={() => void translationsQuery.refetch()}
-            type="button"
-          >
-            Try again
-          </button>
-        </div>
-      </DestinationModalFrame>
-    );
-  }
-
-  const initialNames = isEdit
-    ? (translationsQuery.data ?? getEmptyNames())
-    : getEmptyNames();
+  const initialName = mode === "edit" ? (destination?.name ?? "") : "";
 
   return (
     <DestinationFormFields
       destination={destination}
-      initialNames={initialNames}
-      key={`${mode}-${destination?.id ?? "new"}-${Object.values(initialNames).join("|")}`}
+      initialName={initialName}
+      key={`${mode}-${destination?.id ?? "new"}`}
       mode={mode}
       onClose={onClose}
     />
@@ -452,12 +370,12 @@ function DestinationFormPanel({
 
 function DestinationFormFields({
   destination,
-  initialNames,
+  initialName,
   mode,
   onClose,
 }: {
   destination?: Destination;
-  initialNames: DestinationNames;
+  initialName: string;
   mode: "create" | "edit";
   onClose: () => void;
 }) {
@@ -465,7 +383,7 @@ function DestinationFormFields({
   const updateMutation = useUpdateDestinationMutation();
   const updateImageMutation = useUpdateDestinationImageMutation();
   const deleteImageMutation = useDeleteDestinationImageMutation();
-  const [names, setNames] = useState(initialNames);
+  const [name, setName] = useState(initialName);
   const [isFeatured, setIsFeatured] = useState(
     destination?.isFeatured ?? false,
   );
@@ -483,19 +401,12 @@ function DestinationFormFields({
     getErrorText(updateImageMutation.error, "") ||
     getErrorText(deleteImageMutation.error, "");
 
-  function updateName(language: DestinationLanguage, value: string) {
-    setNames((current) => ({
-      ...current,
-      [language]: value,
-    }));
-  }
-
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setFieldError("");
 
-    if (!names.en.trim() || !names.fr.trim()) {
-      setFieldError("All translated names are required.");
+    if (!name.trim()) {
+      setFieldError("Destination name is required.");
       return;
     }
 
@@ -504,11 +415,13 @@ function DestinationFormFields({
       return;
     }
 
+    const trimmed = name.trim();
     const values: DestinationFormValues = {
       id: destination?.id,
       imageFile: isEdit ? null : imageFile,
       isFeatured,
-      names,
+      name: trimmed,
+      names: { en: trimmed, fr: trimmed, ru: trimmed, ro: trimmed },
     };
 
     submitMutation.mutate(values, {
@@ -570,22 +483,19 @@ function DestinationFormFields({
         </div>
 
         <form className="space-y-5 p-5" onSubmit={handleSubmit}>
-          <div className="grid gap-4 md:grid-cols-2">
-            {languages.map((item) => (
-              <label className="block" key={item.value}>
-                <span className="mb-2 block text-sm font-semibold text-[var(--color-deep-ocean)]">
-                  Name.{item.displayCode}
-                </span>
-                <input
-                  className="h-11 w-full rounded-lg border border-black/10 px-3 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
-                  onChange={(event) =>
-                    updateName(item.value, event.target.value)
-                  }
-                  placeholder={`${item.label} name`}
-                  value={names[item.value]}
-                />
-              </label>
-            ))}
+          <div>
+            <label className="block">
+              <span className="mb-2 block text-sm font-semibold text-[var(--color-deep-ocean)]">
+                Destination Name <span className="text-red-600">*</span>
+              </span>
+              <input
+                className="h-11 w-full rounded-lg border border-black/10 px-3 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
+                onChange={(event) => setName(event.target.value)}
+                placeholder="e.g. Hurghada, Luxor, Cairo"
+                required
+                value={name}
+              />
+            </label>
           </div>
 
           <label className="flex items-center gap-3 rounded-lg border border-black/10 px-4 py-3">
@@ -620,7 +530,7 @@ function DestinationFormFields({
           {isEdit ? (
             <div className="rounded-lg border border-black/10 p-4">
               <div className="flex flex-col gap-4 md:flex-row md:items-center">
-                <div className="grid h-24 w-full place-items-center overflow-hidden rounded-lg bg-[#eef4f8] md:w-36">
+                <div className="grid h-24 w-full place-items-center overflow-hidden rounded-lg bg-slate-100 md:w-36">
                   {imageUrl ? (
                     <Image
                       alt={`${destination?.name ?? "Destination"} current`}

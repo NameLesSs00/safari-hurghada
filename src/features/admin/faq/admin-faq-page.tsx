@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import { FormEvent, type ReactNode, useMemo, useState } from "react";
 
-import { adminLanguageOptions } from "@/src/features/admin/shared/languages";
 import {
   useCreateFaqQuestionMutation,
   useDeleteFaqQuestionMutation,
@@ -28,21 +27,10 @@ import type {
   FaqTranslations,
 } from "@/src/features/admin/faq/types";
 
-const languages = adminLanguageOptions;
-
 const pageSizes = [6, 10, 20];
 
 function getErrorText(error: unknown, fallback: string) {
   return error instanceof Error ? error.message : fallback;
-}
-
-function getEmptyTranslations(): FaqTranslations {
-  return {
-    en: "",
-    fr: "",
-    ru: "",
-    ro: "",
-  };
 }
 
 export function AdminFaqPage() {
@@ -114,24 +102,9 @@ export function AdminFaqPage() {
       </div>
 
       <section className="rounded-lg border border-black/5 bg-white p-4 shadow-[0_12px_30px_rgba(0,69,96,0.08)]">
-        <div className="grid gap-3 sm:grid-cols-[1fr_150px] lg:w-[380px]">
+        <div className="flex sm:w-[180px]">
           <select
-            className="h-11 rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
-            onChange={(event) => {
-              setPageNumber(1);
-              setLanguage(event.target.value as FaqLanguage);
-            }}
-            value={language}
-          >
-            {languages.map((item) => (
-              <option key={item.value} value={item.value}>
-                {item.label}
-              </option>
-            ))}
-          </select>
-
-          <select
-            className="h-11 rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
+            className="h-11 w-full rounded-lg border border-black/10 bg-white px-3 text-sm font-semibold text-[var(--color-deep-ocean)] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
             onChange={(event) => {
               setPageNumber(1);
               setPageSize(Number(event.target.value));
@@ -197,7 +170,7 @@ export function AdminFaqPage() {
         {!queryError && questions.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[780px] border-collapse text-left">
-              <thead className="bg-[#f5f9ff] text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
+              <thead className="bg-slate-50 border-b border-black/5 text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-muted)]">
                 <tr>
                   <th className="px-4 py-3">Question</th>
                   <th className="px-4 py-3">Answer</th>
@@ -314,52 +287,14 @@ function FaqFormPanel({
   onClose: () => void;
   question?: FaqQuestion;
 }) {
-  const isEdit = mode === "edit";
-  const translationsQuery = useFaqQuestionTranslationsQuery(
-    isEdit ? (question?.id ?? null) : null,
-  );
-  const title = isEdit ? `FAQ ${question?.id}` : "Add FAQ";
-
-  if (isEdit && translationsQuery.isLoading) {
-    return (
-      <FaqModalFrame eyebrow="Edit FAQ" onClose={onClose} title={title}>
-        <div className="grid min-h-[280px] place-items-center p-5 text-[var(--color-deep-ocean)]">
-          <div className="flex items-center gap-3 text-sm font-semibold">
-            <Loader2 className="animate-spin" size={20} />
-            <span>Loading translations</span>
-          </div>
-        </div>
-      </FaqModalFrame>
-    );
-  }
-
-  if (isEdit && translationsQuery.error) {
-    return (
-      <FaqModalFrame eyebrow="Edit FAQ" onClose={onClose} title={title}>
-        <div className="space-y-4 p-5">
-          <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {getErrorText(
-              translationsQuery.error,
-              "Unable to load FAQ translations.",
-            )}
-          </p>
-          <button
-            className="h-10 rounded-lg border border-black/10 px-4 text-sm font-bold text-[var(--color-deep-ocean)] transition hover:border-[var(--color-ocean)]"
-            onClick={() => void translationsQuery.refetch()}
-            type="button"
-          >
-            Try again
-          </button>
-        </div>
-      </FaqModalFrame>
-    );
-  }
+  const initialText = mode === "edit" ? (question?.text ?? "") : "";
+  const initialAnswer = mode === "edit" ? (question?.answer ?? "") : "";
 
   return (
     <FaqFormFields
-      initialAnswer={translationsQuery.data?.answer ?? getEmptyTranslations()}
-      initialText={translationsQuery.data?.text ?? getEmptyTranslations()}
-      key={`${mode}-${question?.id ?? "new"}-${Object.values(translationsQuery.data?.text ?? {}).join("|")}`}
+      initialAnswer={initialAnswer}
+      initialText={initialText}
+      key={`${mode}-${question?.id ?? "new"}`}
       mode={mode}
       onClose={onClose}
       question={question}
@@ -374,8 +309,8 @@ function FaqFormFields({
   onClose,
   question,
 }: {
-  initialAnswer: FaqTranslations;
-  initialText: FaqTranslations;
+  initialAnswer: string;
+  initialText: string;
   mode: "create" | "edit";
   onClose: () => void;
   question?: FaqQuestion;
@@ -390,42 +325,19 @@ function FaqFormFields({
   const submitMutation = isEdit ? updateMutation : createMutation;
   const submitError = getErrorText(submitMutation.error, "");
 
-  function updateTranslation(
-    group: "text" | "answer",
-    language: FaqLanguage,
-    value: string,
-  ) {
-    if (group === "text") {
-      setText((current) => ({
-        ...current,
-        [language]: value,
-      }));
-      return;
-    }
-
-    setAnswer((current) => ({
-      ...current,
-      [language]: value,
-    }));
-  }
-
-  function hasBlankValues(values: FaqTranslations) {
-    return languages.some((item) => !values[item.value].trim());
-  }
-
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setFieldError("");
 
-    if (hasBlankValues(text) || hasBlankValues(answer)) {
-      setFieldError("All translated questions and answers are required.");
+    if (!text.trim() || !answer.trim()) {
+      setFieldError("Both question text and answer are required.");
       return;
     }
 
     const values: FaqFormValues = {
       id: question?.id,
-      text,
-      answer,
+      text: text.trim(),
+      answer: answer.trim(),
     };
 
     submitMutation.mutate(values, {
@@ -442,44 +354,34 @@ function FaqFormFields({
       title={isEdit ? `FAQ ${question?.id}` : "Add FAQ"}
     >
       <form className="space-y-5 p-5" onSubmit={handleSubmit}>
-        <div className="grid gap-4 md:grid-cols-2">
-          {languages.map((item) => (
-            <label className="block" key={`text-${item.value}`}>
-              <span className="mb-2 block text-sm font-semibold text-[var(--color-deep-ocean)]">
-                Text.{item.displayCode}{" "}
-                <span className="text-red-600">*</span>
-              </span>
-              <input
-                className="h-11 w-full rounded-lg border border-black/10 px-3 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
-                onChange={(event) =>
-                  updateTranslation("text", item.value, event.target.value)
-                }
-                placeholder={`${item.label} question`}
-                required
-                value={text[item.value]}
-              />
-            </label>
-          ))}
+        <div>
+          <label className="block">
+            <span className="mb-2 block text-sm font-semibold text-[var(--color-deep-ocean)]">
+              Question <span className="text-red-600">*</span>
+            </span>
+            <input
+              className="h-11 w-full rounded-lg border border-black/10 px-3 text-sm outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
+              onChange={(event) => setText(event.target.value)}
+              placeholder="e.g. What is the cancellation policy?"
+              required
+              value={text}
+            />
+          </label>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2">
-          {languages.map((item) => (
-            <label className="block" key={`answer-${item.value}`}>
-              <span className="mb-2 block text-sm font-semibold text-[var(--color-deep-ocean)]">
-                Answer.{item.displayCode}{" "}
-                <span className="text-red-600">*</span>
-              </span>
-              <textarea
-                className="min-h-28 w-full resize-y rounded-lg border border-black/10 px-3 py-3 text-sm leading-[1.6] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-[rgba(0,105,147,0.12)]"
-                onChange={(event) =>
-                  updateTranslation("answer", item.value, event.target.value)
-                }
-                placeholder={`${item.label} answer`}
-                required
-                value={answer[item.value]}
-              />
-            </label>
-          ))}
+        <div>
+          <label className="block">
+            <span className="mb-2 block text-sm font-semibold text-[var(--color-deep-ocean)]">
+              Answer <span className="text-red-600">*</span>
+            </span>
+            <textarea
+              className="min-h-32 w-full resize-y rounded-lg border border-black/10 px-3 py-3 text-sm leading-[1.6] outline-none transition focus:border-[var(--color-ocean)] focus:ring-4 focus:ring-orange-500/15"
+              onChange={(event) => setAnswer(event.target.value)}
+              placeholder="Detailed answer for travelers..."
+              required
+              value={answer}
+            />
+          </label>
         </div>
 
         {fieldError || submitError ? (

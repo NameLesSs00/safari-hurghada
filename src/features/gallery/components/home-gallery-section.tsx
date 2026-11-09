@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { AppImage } from "@/src/shared/components/app-image";
 import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
@@ -137,7 +138,7 @@ export function HomeGallerySection() {
               onClick={() => openLightbox(displayImages[0])}
               className="group relative lg:col-span-3 h-full cursor-pointer overflow-hidden rounded-[24px] bg-gray-100 shadow-[0_8px_24px_-6px_rgba(16,24,40,0.08)] transition-all hover:shadow-[0_18px_36px_-8px_rgba(16,24,40,0.18)]"
             >
-              <Image
+              <AppImage
                 src={displayImages[0].imageUrl}
                 alt=""
                 fill
@@ -164,7 +165,7 @@ export function HomeGallerySection() {
                     onClick={() => openLightbox(img)}
                     className="group relative h-full cursor-pointer overflow-hidden rounded-[24px] bg-gray-100 shadow-[0_8px_24px_-6px_rgba(16,24,40,0.08)] transition-all hover:shadow-[0_18px_36px_-8px_rgba(16,24,40,0.18)]"
                   >
-                    <Image
+                    <AppImage
                       src={img.imageUrl}
                       alt=""
                       fill
@@ -191,7 +192,7 @@ export function HomeGallerySection() {
                     onClick={() => openLightbox(img)}
                     className="group relative h-full cursor-pointer overflow-hidden rounded-[24px] bg-gray-100 shadow-[0_8px_24px_-6px_rgba(16,24,40,0.08)] transition-all hover:shadow-[0_18px_36px_-8px_rgba(16,24,40,0.18)]"
                   >
-                    <Image
+                    <AppImage
                       src={img.imageUrl}
                       alt=""
                       fill
@@ -216,7 +217,7 @@ export function HomeGallerySection() {
               onClick={() => openLightbox(displayImages[6])}
               className="group relative lg:col-span-3 h-full cursor-pointer overflow-hidden rounded-[24px] bg-gray-100 shadow-[0_8px_24px_-6px_rgba(16,24,40,0.08)] transition-all hover:shadow-[0_18px_36px_-8px_rgba(16,24,40,0.18)]"
             >
-              <Image
+              <AppImage
                 src={displayImages[6].imageUrl}
                 alt=""
                 fill
@@ -242,7 +243,7 @@ export function HomeGallerySection() {
                 onClick={() => openLightbox(img)}
                 className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-[24px] bg-gray-100 shadow-[0_8px_24px_-6px_rgba(16,24,40,0.08)] transition-all hover:shadow-[0_18px_36px_-8px_rgba(16,24,40,0.18)]"
               >
-                <Image
+                <AppImage
                   src={img.imageUrl}
                   alt=""
                   fill
@@ -256,30 +257,35 @@ export function HomeGallerySection() {
 
         {/* ─── MOBILE & TABLET RESPONSIVE GRID (< lg) ─── */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:hidden">
-          {displayImages.slice(0, 6).map((img, i) => (
-            <motion.div
-              key={img.id}
-              variants={cardVariants}
-              whileHover={{ y: -3 }}
-              onClick={() => openLightbox(img)}
-              className={`group relative cursor-pointer overflow-hidden rounded-[20px] bg-gray-100 shadow-sm ${
-                i === 0 ? "col-span-2 aspect-[16/9]" : "aspect-[4/3]"
-              }`}
-            >
-              <Image
-                src={img.imageUrl}
-                alt=""
-                fill
-                sizes="(max-width: 768px) 50vw, 33vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20 flex items-center justify-center">
-                <span className="size-9 rounded-full bg-white/90 text-[#1E232A] flex items-center justify-center opacity-0 scale-90 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 shadow-md">
-                  <Maximize2 className="size-4 text-[#F36F21]" />
-                </span>
-              </div>
-            </motion.div>
-          ))}
+          {displayImages.slice(0, 6).map((img, i, arr) => {
+            const isFullWidth = i === 0 || i === arr.length - 1;
+            return (
+              <motion.div
+                key={img.id}
+                variants={cardVariants}
+                whileHover={{ y: -3 }}
+                onClick={() => openLightbox(img)}
+                className={`group relative cursor-pointer overflow-hidden rounded-[20px] bg-gray-100 shadow-sm ${
+                  isFullWidth
+                    ? "col-span-2 aspect-[16/9] sm:aspect-[21/9]"
+                    : "aspect-[4/3]"
+                }`}
+              >
+                <AppImage
+                  src={img.imageUrl}
+                  alt=""
+                  fill
+                  sizes={isFullWidth ? "100vw" : "(max-width: 768px) 50vw, 33vw"}
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20 flex items-center justify-center">
+                  <span className="size-9 rounded-full bg-white/90 text-[#1E232A] flex items-center justify-center opacity-0 scale-90 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 shadow-md">
+                    <Maximize2 className="size-4 text-[#F36F21]" />
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* View Full Gallery CTA Button */}
@@ -288,7 +294,7 @@ export function HomeGallerySection() {
           className="mt-12 sm:mt-14 flex justify-center"
         >
           <Link
-            href={`/${locale}/gallery`}
+            href="/gallery"
             className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-7 py-3 text-sm font-bold text-[#1E232A] shadow-sm transition-all hover:border-[#F36F21] hover:text-[#F36F21] hover:shadow-md active:scale-95"
           >
             <span>{t("viewMore")}</span>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { BlogSection } from "@/src/features/admin/blogs/types";
 
 interface MobileTableOfContentsProps {
@@ -10,17 +11,18 @@ interface MobileTableOfContentsProps {
 
 export function MobileTableOfContents({ sections }: MobileTableOfContentsProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations("BlogDetail.toc");
 
   const scrollToSection = (sectionId: number) => {
     const element = document.getElementById(`section-${sectionId}`);
     if (element) {
-      const offset = 100;
+      const offset = 90;
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
       window.scrollTo({
         top: elementPosition - offset,
         behavior: "smooth",
       });
-      setIsOpen(false); // Close after clicking
+      setIsOpen(false);
     }
   };
 
@@ -34,43 +36,42 @@ export function MobileTableOfContents({ sections }: MobileTableOfContentsProps) 
   }
 
   return (
-    <div className="rounded-[20px] shadow-sm" style={{ backgroundColor: '#F5FCFF' }}>
+    <div className="rounded-2xl border border-gray-100 bg-white shadow-xs overflow-hidden">
       {/* Header Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between p-4 text-left"
+        className="flex w-full items-center justify-between p-4 text-left transition-colors hover:bg-slate-50 cursor-pointer"
       >
-        <span className="font-semibold text-[var(--color-deep-ocean)]">
-          Table of Contents
+        <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+          {t("title")}
         </span>
         {isOpen ? (
-          <ChevronUp className="text-[var(--color-ocean)]" size={20} />
+          <ChevronUp className="text-[#F36F21]" size={18} />
         ) : (
-          <ChevronDown className="text-[var(--color-ocean)]" size={20} />
+          <ChevronDown className="text-slate-400" size={18} />
         )}
       </button>
 
       {/* Dropdown Content */}
       {isOpen && (
-        <nav className="border-t border-gray-100 p-4">
-          <ul className="space-y-3">
-            {/* Introduction */}
+        <nav className="border-t border-gray-100 p-4 bg-slate-50/40">
+          <ul className="space-y-2">
             <li>
               <button
                 onClick={scrollToTop}
-                className="w-full text-left text-sm text-[#6d7280] transition-colors hover:text-[var(--color-ocean)]"
+                className="w-full text-left text-xs sm:text-sm font-medium text-slate-600 hover:text-[#F36F21] cursor-pointer"
               >
-                Introduction
+                {t("intro")}
               </button>
             </li>
 
-            {/* Dynamic Sections */}
-            {sections.map((section) => (
+            {sections.map((section, idx) => (
               <li key={section.id}>
                 <button
                   onClick={() => scrollToSection(section.id)}
-                  className="w-full text-left text-sm text-[#6d7280] transition-colors hover:text-[var(--color-ocean)]"
+                  className="w-full text-left text-xs sm:text-sm text-slate-600 hover:text-[#F36F21] cursor-pointer"
                 >
+                  <span className="text-slate-400 mr-1.5">{idx + 1}.</span>
                   {section.title.replace(/^\d+\.\s*/, "")}
                 </button>
               </li>

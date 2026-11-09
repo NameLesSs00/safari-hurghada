@@ -9,7 +9,8 @@
     "logoHome": "Logoipsum accueil",
     "openCart": "Ouvrir le panier",
     "openMenu": "Ouvrir le menu",
-    "closeMenu": "Fermer le menu"
+    "closeMenu": "Fermer le menu",
+    "bookNow": "Réserver"
   },
   "LocaleSwitcher": {
     "label": "Changer de langue",
@@ -61,7 +62,11 @@
     "loading": "Chargement des catégories...",
     "error": "Échec du chargement des catégories",
     "goTo": "Aller à {destination}",
-    "exploreTrips": "Explorer les voyages"
+    "exploreTrips": "Explorer les voyages",
+    "titlePrefix": "Trouvez votre prochaine",
+    "titleHighlight": "Aventure",
+    "scrollLeft": "Défiler vers la gauche",
+    "scrollRight": "Défiler vers la droite"
   },
   "Tours": {
     "eyebrow": "NOS CIRCUITS LES PLUS VENDUS",
@@ -79,7 +84,9 @@
     "bookNow": "Réserver maintenant",
     "addToCart": "Ajouter au panier",
     "saveTrip": "Enregistrer le circuit",
-    "unsaveTrip": "Retirer des favoris"
+    "unsaveTrip": "Retirer des favoris",
+    "contactForPrice": "Prix sur demande",
+    "defaultDescription": "Vivez une aventure inoubliable avec des excursions guidées à Hurghada."
   },
   "PopularDestinations": {
     "eyebrow": "DESTINATIONS PRINCIPALES",
@@ -133,13 +140,28 @@
     "viewMore": "Voir plus",
     "readMore": "Lire la suite",
     "error": "Échec du chargement des blogs. Veuillez réessayer plus tard.",
-    "empty": "Aucun article disponible pour le moment."
+    "empty": "Aucun article disponible pour le moment.",
+    "defaultDescription": "Découvrez des idées de voyage et des conseils d'initiés pour votre prochaine aventure à Hurghada."
   },
   "FAQ": {
     "eyebrow": "FAQS",
     "title": "Questions fréquemment posées",
     "subtitle": "Trouvez des réponses rapides aux questions les plus courantes sur nos excursions et services.",
-    "viewAll": "Voir toutes les FAQ →"
+    "viewAll": "Voir toutes les FAQ →",
+    "defaults": {
+      "q1": "Quels types d'excursions et d'activités proposez-vous à Hurghada ?",
+      "a1": "Nous proposons une large gamme d'expériences à Hurghada, notamment des sorties plongée, du snorkeling, des safaris dans le désert, des promenades en bateau, des visites d'îles et bien d'autres activités passionnantes.",
+      "q2": "Faut-il avoir de l'expérience en plongée pour participer à une sortie ?",
+      "a2": "Non. Nous proposons des sorties pour débutants et plongeurs confirmés. Les débutants bénéficient d'un encadrement professionnel et d'un briefing de sécurité avant d'entrer dans l'eau.",
+      "q3": "Que comprend une excursion safari dans le désert ?",
+      "a3": "Selon le safari choisi, l'expérience peut inclure le transport, des activités dans le désert, la visite d'un village bédouin, un repas traditionnel et une belle aventure. Les inclusions exactes sont détaillées avec chaque tour.",
+      "q4": "Puis-je réserver une excursion ou un circuit privé ?",
+      "a4": "Oui. Des visites privées peuvent être organisées pour des personnes seules, couples, familles ou groupes. Contactez-nous pour convenir de vos activités, horaires et préférences.",
+      "q5": "Comment réserver une excursion à Hurghada ?",
+      "a5": "La réservation est simple. Choisissez votre excursion préférée et contactez-nous en indiquant la date souhaitée et le nombre de participants. Nous confirmerons la disponibilité rapidement.",
+      "q6": "Puis-je annuler ou modifier ma réservation ?",
+      "a6": "Oui, vous pouvez facilement annuler ou reporter. La plupart des excursions permettent des modifications gratuites si elles sont demandées à l'avance. Contactez notre support disponible 24h/24 et 7j/7 sur WhatsApp."
+    }
   },
   "Footer": {
     "companyDescription": "Votre partenaire de voyage de confiance à Hurghada pour les safaris dans le désert, excursions en mer, plongée avec tuba et aventures inoubliables.",
@@ -148,16 +170,23 @@
     "contactUs": "Contactez-nous",
     "address": "Hurghada, Mer Rouge, Égypte",
     "chatOnWhatsApp": "Discuter sur WhatsApp",
-    "privacyPolicy": "Politique de confidentialité",
     "termsConditions": "Conditions générales",
     "poweredBy": "Propulsé par",
-    "allRightsReserved": "Tous droits réservés."
+    "allRightsReserved": "Tous droits réservés.",
+    "categories": {
+      "desertSafari": "Safari dans le désert",
+      "seaTrips": "Excursions en mer",
+      "snorkeling": "Plongée avec tuba",
+      "scubaDiving": "Plongée sous-marine",
+      "waterSports": "Sports nautiques",
+      "historicalTours": "Circuits historiques"
+    }
   },
   "DestinationsPage": {
     "hero": {
-      "subtitle": "Explorer l Égypte",
-      "title": "Découvrez des destinations qui inspirent chaque voyage",
-      "imageAlt": "Art en mots de la destination Hurghada"
+      "subtitle": "Des eaux turquoise d'Hurghada aux merveilles éternelles du Caire, de Louxor et d'Assouan — découvrez votre prochain voyage inoubliable.",
+      "title": "Explorez les destinations les plus emblématiques d'Égypte",
+      "imageAlt": "Destinations de voyage en Égypte"
     },
     "breadcrumb": {
       "home": "Accueil",
@@ -166,17 +195,19 @@
     "card": {
       "trips": "{count} voyages",
       "tripsSingular": "{count} voyage",
-      "destinationAlt": "Destination {name}"
+      "destinationAlt": "Destination {name}",
+      "exploreTours": "Explorer les Excursions"
     }
   },
   "TripsPage": {
     "hero": {
-      "subtitle": "Explorer l Égypte",
-      "title": "Trouvez votre prochaine aventure"
+      "subtitle": "De la plongée en Mer Rouge et safaris dans le désert aux voyages historiques vers Le Caire, Louxor et Assouan — réservez votre aventure aujourd'hui.",
+      "title": "Excursions et Circuits Inoubliables en Égypte",
+      "imageAlt": "Circuits en Égypte et pyramides"
     },
     "breadcrumb": {
       "home": "Accueil",
-      "explore": "Explorer"
+      "explore": "Excursions"
     },
     "toolbar": {
       "tripsFound": "{count} voyages trouvés",
@@ -229,9 +260,9 @@
   },
   "BlogsPage": {
     "hero": {
-      "subtitle": "Explorer les articles",
-      "title": "Découvrez des histoires, des guides & des conseils de voyage",
-      "imageAlt": "Découvrez des histoires, des guides & des conseils de voyage"
+      "subtitle": "Découvrez des récits de voyage inspirants, des conseils d'initiés sur Hurghada, des guides de safari et des aventures en mer Rouge conçus par des experts locaux.",
+      "title": "Récits Inspirants & Guides Locaux pour l'Égypte",
+      "imageAlt": "Récits et guides de voyage SunnySide Tours"
     },
     "breadcrumb": {
       "home": "Accueil",
@@ -249,8 +280,9 @@
     },
     "grid": {
       "error": "Échec du chargement des blogs. Veuillez réessayer plus tard.",
-      "empty": "Aucun article trouvé correspondant à votre recherche.",
-      "seeMore": "Voir plus"
+      "empty": "Aucun article disponible pour le moment.",
+      "seeMore": "Voir plus",
+      "viewMore": "Afficher plus d'articles"
     }
   },
   "AboutPage": {
@@ -463,5 +495,33 @@
     "title": "Réservation créée avec succès !",
     "description": "Merci de nous avoir choisis. Nous avons reçu vos informations de réservation et nous vous contacterons prochainement.",
     "backHome": "Retour à l accueil"
+  },
+  "BlogDetail": {
+    "breadcrumb": {
+      "home": "Accueil",
+      "blogs": "Blogs",
+      "details": "Détails du blog"
+    },
+    "meta": {
+      "minRead": "min de lecture",
+      "publishedOn": "Publié le"
+    },
+    "toc": {
+      "title": "Table des matières",
+      "intro": "Introduction"
+    },
+    "recent": {
+      "title": "Articles récents"
+    },
+    "share": {
+      "shareArticle": "Partager cet article :",
+      "copyLink": "Copier le lien",
+      "copied": "Copié !"
+    },
+    "cta": {
+      "title": "Planifiez votre voyage avec des locaux",
+      "subtitle": "Besoin d'aide pour personnaliser votre aventure en Égypte ? Contactez-nous à tout moment.",
+      "whatsapp": "Discuter sur WhatsApp"
+    }
   }
 }

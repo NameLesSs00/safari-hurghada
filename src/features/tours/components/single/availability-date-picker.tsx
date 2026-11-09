@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, CalendarCheck } from "lucide-react";
 
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -97,6 +97,11 @@ export function AvailabilityDatePicker({
     return isSameDay(date, today);
   };
 
+  const availabilityText =
+    availableDays.length === 7
+      ? "Daily departures available"
+      : `Departs on ${availableDays.join(", ")}`;
+
   return (
     <div className="w-full select-none">
       {/* Month navigation */}
@@ -105,15 +110,17 @@ export function AvailabilityDatePicker({
           type="button"
           onClick={prevMonth}
           disabled={isPrevDisabled}
-          className="flex h-8 w-8 items-center justify-center rounded-full text-[#003A5A] transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-30"
+          className="flex h-8 w-8 items-center justify-center rounded-full text-slate-700 transition-colors hover:bg-orange-50 hover:text-[#F36F21] disabled:cursor-not-allowed disabled:opacity-30"
+          aria-label="Previous month"
         >
           <ChevronLeft size={18} />
         </button>
-        <span className="text-sm font-semibold text-[#111827]">{monthLabel}</span>
+        <span className="text-sm font-bold text-[#1E232A]">{monthLabel}</span>
         <button
           type="button"
           onClick={nextMonth}
-          className="flex h-8 w-8 items-center justify-center rounded-full text-[#003A5A] transition-colors hover:bg-gray-100"
+          className="flex h-8 w-8 items-center justify-center rounded-full text-slate-700 transition-colors hover:bg-orange-50 hover:text-[#F36F21]"
+          aria-label="Next month"
         >
           <ChevronRight size={18} />
         </button>
@@ -122,14 +129,14 @@ export function AvailabilityDatePicker({
       {/* Day headers */}
       <div className="mb-2 grid grid-cols-7 text-center">
         {DAY_NAMES.map((d) => (
-          <span key={d} className="text-xs font-semibold text-[#9CA3AF]">
+          <span key={d} className="text-xs font-bold uppercase tracking-wider text-slate-400">
             {d}
           </span>
         ))}
       </div>
 
       {/* Date cells */}
-      <div className="grid grid-cols-7 gap-y-1 text-center">
+      <div className="grid grid-cols-7 gap-y-1.5 text-center">
         {cells.map((day, idx) => {
           if (!day) {
             return <div key={`empty-${idx}`} />;
@@ -145,17 +152,36 @@ export function AvailabilityDatePicker({
               type="button"
               disabled={disabled}
               onClick={() => onDateSelect(new Date(year, month, day))}
-              className={`mx-auto flex h-9 w-9 items-center justify-center rounded-full text-sm font-medium transition-colors
-                ${selected ? "bg-[#003A5A] text-white" : ""}
-                ${!selected && todayCell ? "border border-[#003A5A] text-[#003A5A]" : ""}
-                ${!selected && !todayCell && !disabled ? "text-[#111827] hover:bg-[#EFF6FF]" : ""}
-                ${disabled ? "cursor-not-allowed text-gray-300" : ""}
+              className={`mx-auto flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full text-sm font-bold transition-all cursor-pointer
+                ${selected ? "bg-[#F36F21] text-white shadow-md shadow-orange-500/30 scale-105" : ""}
+                ${!selected && todayCell ? "border-2 border-[#F36F21] text-[#F36F21]" : ""}
+                ${!selected && !todayCell && !disabled ? "text-[#1E232A] hover:bg-orange-50 hover:text-[#F36F21] hover:scale-105" : ""}
+                ${disabled ? "cursor-not-allowed text-slate-300 font-normal line-through opacity-60" : ""}
               `}
             >
               {day}
             </button>
           );
         })}
+      </div>
+
+      {/* Legend & Availability note */}
+      <div className="mt-4 pt-3 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-slate-500">
+        <div className="flex items-center gap-1.5 text-[#00A3C4] font-medium">
+          <CalendarCheck size={14} className="text-[#00A3C4] shrink-0" />
+          <span className="truncate">{availabilityText}</span>
+        </div>
+
+        <div className="flex items-center gap-3 self-end sm:self-auto">
+          <span className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-[#F36F21]" />
+            <span>Selected</span>
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-slate-300 line-through" />
+            <span className="text-slate-400">Unavailable</span>
+          </span>
+        </div>
       </div>
     </div>
   );

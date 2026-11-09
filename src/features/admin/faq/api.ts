@@ -6,6 +6,7 @@ import type {
   FaqLanguage,
   FaqListParams,
   FaqQuestion,
+  FaqTranslations,
 } from "./types";
 
 function getJsonHeaders(language?: FaqLanguage) {
@@ -41,6 +42,14 @@ export async function getFaqQuestionById(id: number, language: FaqLanguage) {
   );
 }
 
+function mirrorTranslations(val: FaqTranslations | string): FaqTranslations {
+  if (typeof val === "string") {
+    const t = val.trim();
+    return { en: t, fr: t, ru: t, ro: t };
+  }
+  return val;
+}
+
 export async function createFaqQuestion(values: FaqFormValues) {
   const response = await adminFetch("/api/Questions", {
     method: "POST",
@@ -49,8 +58,8 @@ export async function createFaqQuestion(values: FaqFormValues) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      text: values.text,
-      answer: values.answer,
+      text: mirrorTranslations(values.text),
+      answer: mirrorTranslations(values.answer),
     }),
   });
 
@@ -69,8 +78,8 @@ export async function updateFaqQuestion(values: FaqFormValues) {
     },
     body: JSON.stringify({
       id: values.id,
-      text: values.text,
-      answer: values.answer,
+      text: mirrorTranslations(values.text),
+      answer: mirrorTranslations(values.answer),
     }),
   });
 

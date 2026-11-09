@@ -70,29 +70,29 @@ export function ForgotPasswordPage() {
         ) : null}
 
         {serverError ? (
-          <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-xs font-semibold text-rose-600">
             {serverError}
           </p>
         ) : null}
 
         <button
-          className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-ocean)] px-5 text-base font-bold text-white transition hover:bg-[var(--color-deep-ocean)] disabled:cursor-not-allowed disabled:opacity-70"
+          className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[#F36F21] px-5 text-sm font-bold text-white shadow-lg shadow-orange-500/25 transition-all hover:bg-[#d95c12] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
           disabled={forgotMutation.isPending}
           type="submit"
         >
           {forgotMutation.isPending ? (
-            <Loader2 className="animate-spin" size={20} />
+            <Loader2 className="animate-spin" size={18} />
           ) : (
-            <Mail size={20} />
+            <Mail size={18} />
           )}
-          <span>Send reset token</span>
+          <span>Send reset instructions</span>
         </button>
 
         <Link
-          className="block text-center text-sm font-semibold text-[var(--color-ocean)] transition hover:text-[var(--color-deep-ocean)]"
+          className="block text-center text-xs font-bold text-slate-500 transition hover:text-[#F36F21]"
           href="/admin/login"
         >
-          Back to sign in
+          ← Back to sign in
         </Link>
       </form>
     </AuthCard>
