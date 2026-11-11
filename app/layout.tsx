@@ -22,6 +22,15 @@ export const metadata: Metadata = {
   title: "Safari Hurghada - Excursions & Desert Tours",
   description:
     "Safari Hurghada - #1 Rated Tour Operator in Hurghada. Book VIP Desert Safaris, Quad Biking, Orange Bay Island, Submarine & Diving Excursions at best prices.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
