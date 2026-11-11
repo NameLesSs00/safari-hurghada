@@ -1,0 +1,217 @@
+{
+  "name": {
+    "en": "Paradise Island Luxury Day Cruise & Snorkeling Tour",
+    "fr": "Paradise Island Luxury Day Cruise & Snorkeling Tour",
+    "ru": "Paradise Island Luxury Day Cruise & Snorkeling Tour",
+    "ro": "Paradise Island Luxury Day Cruise & Snorkeling Tour"
+  },
+  "description": {
+    "en": "Discover true luxury and island relaxation on Paradise Island, the jewel of Giftun Island National Park. Featuring exclusive white-sand beaches, premium loungers with shade umbrellas, crystal-clear lagoons, and top-tier amenities, Paradise Island offers an elevated day trip experience for discerning travelers in Hurghada.\n\nCruise across the deep blue Red Sea aboard an elegant motor yacht. Along the journey, stop at two handpicked snorkeling sites renowned for healthy coral gardens and exceptional underwater visibility, where you can swim alongside clownfish, stingrays, and vibrant schools of reef fish under the supervision of professional guides.\n\nStep ashore onto Paradise Island's private beach for hours of pure bliss. Enjoy access to beach bars, music, oriental folklore performances, and a gourmet beachfront or onboard buffet lunch prepared by executive chefs. Conclude your voyage with thrilling banana boat and watersports rides before cruising back to the marina.",
+    "fr": "Discover true luxury and island relaxation on Paradise Island, the jewel of Giftun Island National Park. Featuring exclusive white-sand beaches, premium loungers with shade umbrellas, crystal-clear lagoons, and top-tier amenities, Paradise Island offers an elevated day trip experience for discerning travelers in Hurghada.\n\nCruise across the deep blue Red Sea aboard an elegant motor yacht. Along the journey, stop at two handpicked snorkeling sites renowned for healthy coral gardens and exceptional underwater visibility, where you can swim alongside clownfish, stingrays, and vibrant schools of reef fish under the supervision of professional guides.\n\nStep ashore onto Paradise Island's private beach for hours of pure bliss. Enjoy access to beach bars, music, oriental folklore performances, and a gourmet beachfront or onboard buffet lunch prepared by executive chefs. Conclude your voyage with thrilling banana boat and watersports rides before cruising back to the marina.",
+    "ru": "Discover true luxury and island relaxation on Paradise Island, the jewel of Giftun Island National Park. Featuring exclusive white-sand beaches, premium loungers with shade umbrellas, crystal-clear lagoons, and top-tier amenities, Paradise Island offers an elevated day trip experience for discerning travelers in Hurghada.\n\nCruise across the deep blue Red Sea aboard an elegant motor yacht. Along the journey, stop at two handpicked snorkeling sites renowned for healthy coral gardens and exceptional underwater visibility, where you can swim alongside clownfish, stingrays, and vibrant schools of reef fish under the supervision of professional guides.\n\nStep ashore onto Paradise Island's private beach for hours of pure bliss. Enjoy access to beach bars, music, oriental folklore performances, and a gourmet beachfront or onboard buffet lunch prepared by executive chefs. Conclude your voyage with thrilling banana boat and watersports rides before cruising back to the marina.",
+    "ro": "Discover true luxury and island relaxation on Paradise Island, the jewel of Giftun Island National Park. Featuring exclusive white-sand beaches, premium loungers with shade umbrellas, crystal-clear lagoons, and top-tier amenities, Paradise Island offers an elevated day trip experience for discerning travelers in Hurghada.\n\nCruise across the deep blue Red Sea aboard an elegant motor yacht. Along the journey, stop at two handpicked snorkeling sites renowned for healthy coral gardens and exceptional underwater visibility, where you can swim alongside clownfish, stingrays, and vibrant schools of reef fish under the supervision of professional guides.\n\nStep ashore onto Paradise Island's private beach for hours of pure bliss. Enjoy access to beach bars, music, oriental folklore performances, and a gourmet beachfront or onboard buffet lunch prepared by executive chefs. Conclude your voyage with thrilling banana boat and watersports rides before cruising back to the marina."
+  },
+  "highlights": [
+    {
+      "en": "VIP island excursion to the exclusive private beaches of Paradise Island (Giftun)",
+      "fr": "VIP island excursion to the exclusive private beaches of Paradise Island (Giftun)",
+      "ru": "VIP island excursion to the exclusive private beaches of Paradise Island (Giftun)",
+      "ro": "VIP island excursion to the exclusive private beaches of Paradise Island (Giftun)"
+    },
+    {
+      "en": "Relax in shaded wooden umbrellas, plush sunbeds, and crystal lagoons",
+      "fr": "Relax in shaded wooden umbrellas, plush sunbeds, and crystal lagoons",
+      "ru": "Relax in shaded wooden umbrellas, plush sunbeds, and crystal lagoons",
+      "ro": "Relax in shaded wooden umbrellas, plush sunbeds, and crystal lagoons"
+    },
+    {
+      "en": "2 premier offshore reef snorkeling stops with top-quality equipment",
+      "fr": "2 premier offshore reef snorkeling stops with top-quality equipment",
+      "ru": "2 premier offshore reef snorkeling stops with top-quality equipment",
+      "ro": "2 premier offshore reef snorkeling stops with top-quality equipment"
+    },
+    {
+      "en": "Sumptuous gourmet open-buffet lunch with fresh seafood, grilled meats, and salads",
+      "fr": "Sumptuous gourmet open-buffet lunch with fresh seafood, grilled meats, and salads",
+      "ru": "Sumptuous gourmet open-buffet lunch with fresh seafood, grilled meats, and salads",
+      "ro": "Sumptuous gourmet open-buffet lunch with fresh seafood, grilled meats, and salads"
+    },
+    {
+      "en": "Live island entertainment and folklore show on select departures",
+      "fr": "Live island entertainment and folklore show on select departures",
+      "ru": "Live island entertainment and folklore show on select departures",
+      "ro": "Live island entertainment and folklore show on select departures"
+    },
+    {
+      "en": "All-day refreshments: fruit juices, soft drinks, mineral water, coffee, and tea",
+      "fr": "All-day refreshments: fruit juices, soft drinks, mineral water, coffee, and tea",
+      "ru": "All-day refreshments: fruit juices, soft drinks, mineral water, coffee, and tea",
+      "ro": "All-day refreshments: fruit juices, soft drinks, mineral water, coffee, and tea"
+    },
+    {
+      "en": "Banana boat and water sofa rides included for the whole family",
+      "fr": "Banana boat and water sofa rides included for the whole family",
+      "ru": "Banana boat and water sofa rides included for the whole family",
+      "ro": "Banana boat and water sofa rides included for the whole family"
+    },
+    {
+      "en": "Full round-trip air-conditioned hotel transport",
+      "fr": "Full round-trip air-conditioned hotel transport",
+      "ru": "Full round-trip air-conditioned hotel transport",
+      "ro": "Full round-trip air-conditioned hotel transport"
+    }
+  ],
+  "includes": [
+    {
+      "en": "Hotel pickup and drop-off in Hurghada",
+      "fr": "Hotel pickup and drop-off in Hurghada",
+      "ru": "Hotel pickup and drop-off in Hurghada",
+      "ro": "Hotel pickup and drop-off in Hurghada"
+    },
+    {
+      "en": "Full-day luxury yacht cruise to Paradise Island",
+      "fr": "Full-day luxury yacht cruise to Paradise Island",
+      "ru": "Full-day luxury yacht cruise to Paradise Island",
+      "ro": "Full-day luxury yacht cruise to Paradise Island"
+    },
+    {
+      "en": "Paradise Island admission tickets, beach lounger, and umbrella access",
+      "fr": "Paradise Island admission tickets, beach lounger, and umbrella access",
+      "ru": "Paradise Island admission tickets, beach lounger, and umbrella access",
+      "ro": "Paradise Island admission tickets, beach lounger, and umbrella access"
+    },
+    {
+      "en": "2 guided snorkeling sessions with marine instructors",
+      "fr": "2 guided snorkeling sessions with marine instructors",
+      "ru": "2 guided snorkeling sessions with marine instructors",
+      "ro": "2 guided snorkeling sessions with marine instructors"
+    },
+    {
+      "en": "Full set of snorkeling equipment (masks, snorkels, fins, life jackets)",
+      "fr": "Full set of snorkeling equipment (masks, snorkels, fins, life jackets)",
+      "ru": "Full set of snorkeling equipment (masks, snorkels, fins, life jackets)",
+      "ro": "Full set of snorkeling equipment (masks, snorkels, fins, life jackets)"
+    },
+    {
+      "en": "Open-buffet lunch with seafood, chicken, pasta, and fresh salads",
+      "fr": "Open-buffet lunch with seafood, chicken, pasta, and fresh salads",
+      "ru": "Open-buffet lunch with seafood, chicken, pasta, and fresh salads",
+      "ro": "Open-buffet lunch with seafood, chicken, pasta, and fresh salads"
+    },
+    {
+      "en": "Unlimited soft drinks, mineral water, tea, and coffee onboard",
+      "fr": "Unlimited soft drinks, mineral water, tea, and coffee onboard",
+      "ru": "Unlimited soft drinks, mineral water, tea, and coffee onboard",
+      "ro": "Unlimited soft drinks, mineral water, tea, and coffee onboard"
+    },
+    {
+      "en": "Banana boat and water sport rides",
+      "fr": "Banana boat and water sport rides",
+      "ru": "Banana boat and water sport rides",
+      "ro": "Banana boat and water sport rides"
+    }
+  ],
+  "excludes": [
+    {
+      "en": "National Park entrance fee ($5 / €5 per guest)",
+      "fr": "National Park entrance fee ($5 / €5 per guest)",
+      "ru": "National Park entrance fee ($5 / €5 per guest)",
+      "ro": "National Park entrance fee ($5 / €5 per guest)"
+    },
+    {
+      "en": "Specialty cocktails and alcoholic beverages at the island beach bar",
+      "fr": "Specialty cocktails and alcoholic beverages at the island beach bar",
+      "ru": "Specialty cocktails and alcoholic beverages at the island beach bar",
+      "ro": "Specialty cocktails and alcoholic beverages at the island beach bar"
+    },
+    {
+      "en": "Professional photos and videography",
+      "fr": "Professional photos and videography",
+      "ru": "Professional photos and videography",
+      "ro": "Professional photos and videography"
+    },
+    {
+      "en": "Transfers from outlying resort zones (El Gouna, Makadi, Soma Bay)",
+      "fr": "Transfers from outlying resort zones (El Gouna, Makadi, Soma Bay)",
+      "ru": "Transfers from outlying resort zones (El Gouna, Makadi, Soma Bay)",
+      "ro": "Transfers from outlying resort zones (El Gouna, Makadi, Soma Bay)"
+    }
+  ],
+  "whatToBring": [
+    {
+      "en": "Swimsuits and beach towels",
+      "fr": "Swimsuits and beach towels",
+      "ru": "Swimsuits and beach towels",
+      "ro": "Swimsuits and beach towels"
+    },
+    {
+      "en": "High SPF sunscreen and sunglasses",
+      "fr": "High SPF sunscreen and sunglasses",
+      "ru": "High SPF sunscreen and sunglasses",
+      "ro": "High SPF sunscreen and sunglasses"
+    },
+    {
+      "en": "Waterproof phone bag or action camera",
+      "fr": "Waterproof phone bag or action camera",
+      "ru": "Waterproof phone bag or action camera",
+      "ro": "Waterproof phone bag or action camera"
+    },
+    {
+      "en": "Passports (mandatory for marina coastguard manifest)",
+      "fr": "Passports (mandatory for marina coastguard manifest)",
+      "ru": "Passports (mandatory for marina coastguard manifest)",
+      "ro": "Passports (mandatory for marina coastguard manifest)"
+    },
+    {
+      "en": "Cash for park fee, bar drinks, and tips",
+      "fr": "Cash for park fee, bar drinks, and tips",
+      "ru": "Cash for park fee, bar drinks, and tips",
+      "ro": "Cash for park fee, bar drinks, and tips"
+    }
+  ],
+  "destination": "Hurghada",
+  "destinationId": 2,
+  "tripTypeName": "Snorkelling",
+  "tripTypeId": 4,
+  "timeFrom": "08:30:00",
+  "durationValue": 7,
+  "durationType": 0,
+  "durationTypeName": "Hours",
+  "adultPrice": 45,
+  "childPrice": 25,
+  "currencyName": "EUR",
+  "availableDays": [],
+  "isActive": true,
+  "images": [
+    {
+      "file": "images/01.jpg",
+      "isPrimary": true,
+      "originalSrc": "https://safarihurghada.net/wp-content/uploads/2023/01/cb9abdfc-7128-4f16-8222-cd3beca7-2.jpg",
+      "alt": "cb9abdfc-7128-4f16-8222-cd3beca7"
+    }
+  ],
+  "_status": "curated",
+  "_source": {
+    "productId": 2151,
+    "slug": "paradise-island",
+    "originalName": "Paradise Island",
+    "url": "https://safarihurghada.net/product/paradise-island/",
+    "categorySlugs": [
+      "all-tours-trips"
+    ],
+    "priceRaw": "4500",
+    "collectedAt": "2026-11-11T19:28:22.719Z"
+  },
+  "_missing": [],
+  "availabilityDayNo": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "backendId": 51,
+  "uploadedAt": "2026-11-11T19:57:53.740Z"
+}

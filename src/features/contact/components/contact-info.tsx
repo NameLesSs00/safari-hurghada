@@ -4,6 +4,12 @@ import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { motion, type Variants } from "framer-motion";
 import { WhatsAppIcon } from "@/src/shared/components/icons";
+import {
+  SITE,
+  mailtoHref,
+  telHref,
+  whatsappUrl,
+} from "@/src/shared/config/site-config";
 
 const infoContainerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -30,9 +36,19 @@ export function ContactInfo() {
       iconColor: "bg-orange-50 text-[#F36F21]",
       hoverBorder: "hover:border-orange-200",
       label: t("phone.label"),
-      value: "+20 109 946 6832",
-      href: "tel:+201099466832",
+      value: SITE.contact.phones.primaryDisplay,
+      href: telHref(SITE.contact.phones.primary),
       badge: "Instant Call",
+    },
+    {
+      id: "phone-secondary",
+      icon: Phone,
+      iconColor: "bg-orange-50 text-[#F36F21]",
+      hoverBorder: "hover:border-orange-200",
+      label: t("phone.label"),
+      value: SITE.contact.phones.secondaryDisplay,
+      href: telHref(SITE.contact.phones.secondary),
+      badge: "Alt Line",
     },
     {
       id: "whatsapp",
@@ -40,8 +56,8 @@ export function ContactInfo() {
       iconColor: "bg-emerald-50 text-[#25D366]",
       hoverBorder: "hover:border-emerald-200",
       label: "WhatsApp Support",
-      value: "+20 109 946 6832",
-      href: "https://wa.me/201099466832",
+      value: SITE.contact.phones.primaryDisplay,
+      href: whatsappUrl(),
       badge: "Chat 24/7",
     },
     {
@@ -50,9 +66,19 @@ export function ContactInfo() {
       iconColor: "bg-cyan-50 text-[#00A3C4]",
       hoverBorder: "hover:border-cyan-200",
       label: t("email.label"),
-      value: "Safariihurghada@gmail.com",
-      href: "mailto:Safariihurghada@gmail.com",
+      value: SITE.contact.emails.primary,
+      href: mailtoHref(SITE.contact.emails.primary),
       badge: "Official Mail",
+    },
+    {
+      id: "email-secondary",
+      icon: Mail,
+      iconColor: "bg-cyan-50 text-[#00A3C4]",
+      hoverBorder: "hover:border-cyan-200",
+      label: t("email.label"),
+      value: SITE.contact.emails.secondary,
+      href: mailtoHref(SITE.contact.emails.secondary),
+      badge: "Bookings Mail",
     },
     {
       id: "location",
@@ -60,8 +86,8 @@ export function ContactInfo() {
       iconColor: "bg-amber-50 text-amber-600",
       hoverBorder: "hover:border-amber-200",
       label: t("location.label"),
-      value: "Al Kawthar Omar Ibn AlKhattab St. Bldg 136, Hurghada",
-      href: "https://share.google/OtOGSX2dOLonmufyR",
+      value: `${SITE.contact.address.street}, ${SITE.contact.address.city}`,
+      href: SITE.contact.mapsUrl,
       badge: "Main Office",
     },
   ];

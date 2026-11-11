@@ -20,6 +20,7 @@ import {
 import { WhatsAppIcon } from "@/src/shared/components/icons";
 import { useCartStore } from "@/src/store/use-cart-store";
 import type { AppLocale } from "@/src/i18n/locales";
+import { SITE } from "@/src/shared/config/site-config";
 
 export default function CheckoutSuccessPage() {
   const locale = useLocale() as AppLocale;
@@ -28,7 +29,7 @@ export default function CheckoutSuccessPage() {
 
   const handleWhatsAppClick = () => {
     const nl = "%0A";
-    let message = `Hello SunnySide Tours! I just made a reservation.${nl}${nl}`;
+    let message = `Hello Safari Hurghada Tours! I just made a reservation.${nl}${nl}`;
     if (lastBooking) {
       message += `*Lead Guest:* ${lastBooking.firstName} ${lastBooking.lastName}${nl}`;
       message += `*Email:* ${lastBooking.email}${nl}`;
@@ -43,7 +44,7 @@ export default function CheckoutSuccessPage() {
     }
     message += `Could you please confirm the pickup time and details for my trip?`;
 
-    window.open(`https://wa.me/201093943595?text=${message}`, "_blank");
+    window.open(`https://wa.me/${SITE.contact.whatsapp}?text=${message}`, "_blank");
   };
 
   return (
@@ -78,7 +79,7 @@ export default function CheckoutSuccessPage() {
             {/* Voucher Header Bar */}
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 bg-slate-50/70 px-6 py-4.5">
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-[#F36F21] text-base tracking-tight">SunnySide Tours</span>
+                <span className="font-extrabold text-[#F36F21] text-base tracking-tight">Safari Hurghada Tours</span>
                 <span className="text-slate-300">•</span>
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-600">Travel Voucher</span>
               </div>

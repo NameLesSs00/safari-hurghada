@@ -4,6 +4,7 @@ import Image from "next/image";
 import { AppImage } from "@/src/shared/components/app-image";
 import { Camera, Maximize2 } from "lucide-react";
 import type { GalleryImage } from "@/src/features/gallery/types/gallery";
+import { SITE } from "@/src/shared/config/site-config";
 
 interface GalleryCardProps {
   image: GalleryImage;
@@ -29,7 +30,7 @@ export function GalleryCard({ image, onExpand }: GalleryCardProps) {
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
         <AppImage
           src={image.imageUrl}
-          alt={`SunnySide Egypt travel photo #${image.id}`}
+          alt={`${SITE.brand.name} Egypt travel photo #${image.id}`}
           fill
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

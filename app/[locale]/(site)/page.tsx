@@ -16,17 +16,17 @@ export async function generateMetadata({
   const { locale } = await params;
 
   const titles: Record<string, string> = {
-    de: "SunnySide Tours - Gemeinsam Erinnerungen schaffen in Ägypten",
-    fr: "SunnySide Tours - Créez des souvenirs inoubliables en Égypte",
-    pl: "SunnySide Tours - Twórzmy wspomnienia razem w Egipcie",
-    en: "SunnySide Tours - Create Memories Together in Egypt",
+    de: "Safari Hurghada Tours - Gemeinsam Erinnerungen schaffen in Ägypten",
+    fr: "Safari Hurghada Tours - Créez des souvenirs inoubliables en Égypte",
+    pl: "Safari Hurghada Tours - Twórzmy wspomnienia razem w Egipcie",
+    en: "Safari Hurghada Tours - Create Memories Together in Egypt",
   };
 
   const descriptions: Record<string, string> = {
-    de: "Entdecken Sie Ägypten mit SunnySide Tours. Entdecken Sie Reiseziele, buchen Sie Touren und schaffen Sie unvergessliche Erinnerungen.",
-    fr: "Découvrez l'Égypte avec SunnySide Tours. Explorez les destinations, réservez des excursions et créez des souvenirs inoubliables.",
-    pl: "Odkryj Egipt z SunnySide Tours. Zwiedzaj najciekawsze miejsca, rezerwuj wycieczki i twórz niezapomniane wspomnienia.",
-    en: "Discover Egypt with SunnySide Tours. Explore destinations, book tours, and create unforgettable memories. Your trusted partner for Egyptian adventures.",
+    de: "Entdecken Sie Ägypten mit Safari Hurghada Tours. Entdecken Sie Reiseziele, buchen Sie Touren und schaffen Sie unvergessliche Erinnerungen.",
+    fr: "Découvrez l'Égypte avec Safari Hurghada Tours. Explorez les destinations, réservez des excursions et créez des souvenirs inoubliables.",
+    pl: "Odkryj Egipt z Safari Hurghada Tours. Zwiedzaj najciekawsze miejsca, rezerwuj wycieczki i twórz niezapomniane wspomnienia.",
+    en: "Discover Egypt with Safari Hurghada Tours. Explore destinations, book tours, and create unforgettable memories. Your trusted partner for Egyptian adventures.",
   };
 
   const title = titles[locale] || titles.en;

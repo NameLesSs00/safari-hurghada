@@ -24,17 +24,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const snippet = blog.content.substring(0, 160).replace(/[#*`~]/g, "") + "...";
 
     return {
-      title: `${blog.title} | SunnySide Tours`,
+      title: `${blog.title} | Safari Hurghada Tours`,
       description: snippet,
       openGraph: {
-        title: `${blog.title} | SunnySide Tours`,
+        title: `${blog.title} | Safari Hurghada Tours`,
         description: snippet,
         images: blog.imageUrl ? [{ url: blog.imageUrl }] : undefined,
       },
     };
   } catch {
     return {
-      title: "Blog Post | SunnySide Tours",
+      title: "Blog Post | Safari Hurghada Tours",
       description: "Read our latest travel stories and guides about Egypt.",
     };
   }

@@ -6,6 +6,7 @@ import { motion, type Variants } from "framer-motion";
 import { Compass, ArrowRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { WhatsAppIcon } from "@/src/shared/components/icons";
+import { whatsappUrl } from "@/src/shared/config/site-config";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -151,7 +152,7 @@ export function HeroSection() {
 
               {/* Secondary: WhatsApp */}
               <a
-                href="https://wa.me/201093943595"
+                href={whatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-full border border-gray-200 bg-white/95 px-6 py-3.5 text-base font-semibold text-[#1E232A] shadow-sm backdrop-blur-xs transition-all hover:bg-white hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5 active:scale-95"

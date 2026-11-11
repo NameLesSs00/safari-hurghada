@@ -4,9 +4,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Travel Guides & Tips - Egypt Blog",
   description:
-    "Read SunnySide Tours' travel guides, tips, and stories about Egypt. Plan your perfect Egyptian vacation with expert advice. Discover destinations and create memories together.",
+    "Read Safari Hurghada Tours' travel guides, tips, and stories about Egypt. Plan your perfect Egyptian vacation with expert advice. Discover destinations and create memories together.",
   openGraph: {
-    title: "Egypt Travel Blog | SunnySide Tours",
+    title: "Egypt Travel Blog | Safari Hurghada Tours",
     description: "Expert travel guides and tips for your Egyptian adventure.",
   },
 };

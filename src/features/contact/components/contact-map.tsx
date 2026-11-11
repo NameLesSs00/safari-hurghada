@@ -3,6 +3,7 @@
 import { MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { motion, type Variants } from "framer-motion";
+import { SITE } from "@/src/shared/config/site-config";
 
 const mapVariants: Variants = {
   hidden: { opacity: 0, y: 16 },
@@ -38,7 +39,7 @@ export function ContactMap() {
           <MapPin size={12} />
         </span>
         <span className="text-xs font-bold text-[#1E232A]">
-          SunnySide Tours • Hurghada, Egypt
+          {SITE.brand.name} • Hurghada, Egypt
         </span>
       </div>
     </motion.div>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import type { Blog } from "@/src/features/admin/blogs/types";
 import { WhatsAppIcon } from "@/src/shared/components/icons";
+import { whatsappUrl } from "@/src/shared/config/site-config";
 import { TableOfContents } from "./table-of-contents";
 
 interface BlogDetailSidebarProps {
@@ -60,9 +61,9 @@ export function BlogDetailSidebar({ blog }: BlogDetailSidebarProps) {
           </p>
 
           <a
-            href={`https://wa.me/201093943595?text=${encodeURIComponent(
+            href={whatsappUrl(
               `Hello! I am reading "${blog.title}" and would like to ask some questions.`
-            )}`}
+            )}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-3.5 py-2.5 text-xs font-semibold text-white shadow-xs transition-colors hover:bg-[#1ebe5d]"

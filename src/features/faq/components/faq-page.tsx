@@ -9,6 +9,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { useQuestionsQuery, type Question } from "@/src/features/faq/api/get-questions";
 import { WhatsAppIcon } from "@/src/shared/components/icons";
+import { whatsappUrl } from "@/src/shared/config/site-config";
 
 function FaqSkeleton() {
   return (
@@ -275,7 +276,7 @@ export function FaqPage() {
               </div>
 
               <a
-                href="https://wa.me/201093943595?text=Hello!%20I%20have%20a%20question%20about%20your%20tours%20and%20activities."
+                href={whatsappUrl("Hello! I have a question about your tours and activities.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex shrink-0 items-center justify-center gap-2.5 rounded-full bg-[#25D366] px-6 py-3.5 text-sm font-bold text-white shadow-md shadow-emerald-500/20 transition-all hover:bg-[#1ebe5d] hover:shadow-lg hover:scale-105 active:scale-95"

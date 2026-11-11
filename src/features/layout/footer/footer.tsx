@@ -6,14 +6,13 @@ import { useLocale, useTranslations } from "next-intl";
 import { MapPin, Phone, Mail } from "lucide-react";
 
 import { useTripTypesQuery } from "@/src/features/categories/api/get-trip-types";
+import { WhatsAppIcon } from "@/src/shared/components/icons";
 import {
-  FacebookIcon,
-  InstagramIcon,
-  TikTokIcon,
-  TripAdvisorIcon,
-  WhatsAppIcon,
-  YoutubeIcon,
-} from "@/src/shared/components/icons";
+  SITE,
+  mailtoHref,
+  telHref,
+  whatsappUrl,
+} from "@/src/shared/config/site-config";
 import type { AppLocale } from "@/src/i18n/locales";
 
 export function Footer() {
@@ -116,7 +115,7 @@ export function Footer() {
             <Link href={getLocalizedHref("/")} className="inline-block">
               <Image
                 src="/Logo_white.png"
-                alt="SunnySide Tours"
+                alt={SITE.brand.name}
                 width={220}
                 height={52}
                 className="h-auto w-[180px] sm:w-[210px] select-none"
@@ -130,45 +129,21 @@ export function Footer() {
 
             {/* Circular Social Buttons */}
             <div className="flex items-center gap-2.5">
-              <Link
-                href="https://www.tripadvisor.com/Attraction_Review-g297549-d25306692-Reviews-Safari_Hurghada-Hurghada_Red_Sea_and_Sinai.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="TripAdvisor"
-                className="size-9 rounded-full bg-white/10 hover:bg-[#00AA6C] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
-              >
-                <TripAdvisorIcon className="size-4.5" />
-              </Link>
-
-              <Link
-                href="https://www.facebook.com/SafariHurghada/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="size-9 rounded-full bg-white/10 hover:bg-[#1877F2] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
-              >
-                <FacebookIcon className="size-4" />
-              </Link>
-
-              <Link
-                href="https://www.instagram.com/safarihurghada/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="size-9 rounded-full bg-white/10 hover:bg-[#E4405F] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
-              >
-                <InstagramIcon className="size-4" />
-              </Link>
-
-              <Link
-                href="https://wa.me/201099466832"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp"
-                className="size-9 rounded-full bg-white/10 hover:bg-[#25D366] text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
-              >
-                <WhatsAppIcon className="size-4" />
-              </Link>
+              {SITE.social.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={item.name}
+                    className={`size-9 rounded-full bg-white/10 ${item.hoverBg} text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm`}
+                  >
+                    <Icon className="size-4" />
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
@@ -219,34 +194,58 @@ export function Footer() {
                 <span className="flex size-7 sm:size-8 shrink-0 items-center justify-center rounded-full bg-[#F36F21] text-white shadow-sm">
                   <MapPin size={15} />
                 </span>
-                <span className="text-sm text-slate-300">Al Kawthar Omar Ibn AlKhattab St. Bldg 136, Hurghada</span>
+                <span className="text-sm text-slate-300">
+                  {SITE.contact.address.street}, {SITE.contact.address.city}
+                </span>
               </div>
 
-              {/* Phone */}
+              {/* Phone (primary) */}
               <a
-                href="tel:+201099466832"
+                href={telHref(SITE.contact.phones.primary)}
                 className="group flex items-center gap-3 text-slate-300 transition-colors hover:text-white"
               >
                 <span className="flex size-7 sm:size-8 shrink-0 items-center justify-center rounded-full bg-[#F36F21] text-white shadow-sm transition-transform duration-200 group-hover:scale-105">
                   <Phone size={15} />
                 </span>
-                <span className="text-sm font-medium">+20 109 946 6832</span>
+                <span className="text-sm font-medium">{SITE.contact.phones.primaryDisplay}</span>
               </a>
 
-              {/* Email */}
+              {/* Phone (secondary) */}
               <a
-                href="mailto:Safariihurghada@gmail.com"
+                href={telHref(SITE.contact.phones.secondary)}
+                className="group flex items-center gap-3 text-slate-300 transition-colors hover:text-white"
+              >
+                <span className="flex size-7 sm:size-8 shrink-0 items-center justify-center rounded-full bg-[#F36F21] text-white shadow-sm transition-transform duration-200 group-hover:scale-105">
+                  <Phone size={15} />
+                </span>
+                <span className="text-sm font-medium">{SITE.contact.phones.secondaryDisplay}</span>
+              </a>
+
+              {/* Email (primary) */}
+              <a
+                href={mailtoHref(SITE.contact.emails.primary)}
                 className="group flex items-center gap-3 text-slate-300 transition-colors hover:text-white"
               >
                 <span className="flex size-7 sm:size-8 shrink-0 items-center justify-center rounded-full bg-[#F36F21] text-white shadow-sm transition-transform duration-200 group-hover:scale-105">
                   <Mail size={15} />
                 </span>
-                <span className="text-sm">Safariihurghada@gmail.com</span>
+                <span className="text-sm">{SITE.contact.emails.primary}</span>
+              </a>
+
+              {/* Email (secondary) */}
+              <a
+                href={mailtoHref(SITE.contact.emails.secondary)}
+                className="group flex items-center gap-3 text-slate-300 transition-colors hover:text-white"
+              >
+                <span className="flex size-7 sm:size-8 shrink-0 items-center justify-center rounded-full bg-[#F36F21] text-white shadow-sm transition-transform duration-200 group-hover:scale-105">
+                  <Mail size={15} />
+                </span>
+                <span className="text-sm">{SITE.contact.emails.secondary}</span>
               </a>
 
               {/* WhatsApp */}
               <a
-                href="https://wa.me/201099466832"
+                href={whatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-3 text-slate-300 transition-colors hover:text-[#25D366]"

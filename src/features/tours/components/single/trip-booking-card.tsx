@@ -5,6 +5,7 @@ import { Clock, User, Users, Calendar, ShieldCheck, Zap, Sparkles } from "lucide
 import type { Trip } from "@/src/features/tours/types/trip";
 import { formatPrice } from "@/src/features/tours/utils/format-price";
 import { WhatsAppIcon } from "@/src/shared/components/icons";
+import { SITE, whatsappUrl } from "@/src/shared/config/site-config";
 import { AvailabilityModal } from "./availability-modal";
 
 interface TripBookingCardProps {
@@ -14,9 +15,7 @@ interface TripBookingCardProps {
 export function TripBookingCard({ trip }: TripBookingCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const whatsappMessage = encodeURIComponent(
-    `Hello SunnySide Tours! I am interested in booking "${trip.name}". Could you please check availability and pricing for me?`
-  );
+  const whatsappMessage = `Hello ${SITE.brand.name}! I am interested in booking "${trip.name}". Could you please check availability and pricing for me?`;
 
   return (
     <>
@@ -113,7 +112,7 @@ export function TripBookingCard({ trip }: TripBookingCardProps) {
 
           {/* WhatsApp Instant Inquiry */}
           <a
-            href={`https://wa.me/201093943595?text=${whatsappMessage}`}
+            href={whatsappUrl(whatsappMessage)}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full rounded-2xl border border-emerald-200 bg-emerald-50/70 py-3 text-center text-sm font-bold text-emerald-700 transition-all hover:bg-emerald-100 hover:border-emerald-300 flex items-center justify-center gap-2"

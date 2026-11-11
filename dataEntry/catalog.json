@@ -1,0 +1,330 @@
+{
+  "source": "https://safarihurghada.net/wp-json/wc/store/v1/products?per_page=100",
+  "collectedAt": "2026-11-11T19:41:27.856Z",
+  "tripCount": 15,
+  "totalImages": 89,
+  "totals": {
+    "downloaded": 0,
+    "skipped": 89,
+    "failures": 0,
+    "curated": 15,
+    "firstPass": 0
+  },
+  "trips": [
+    {
+      "slug": "hula-hula-island-trip",
+      "name": "Hula Hula Island Trip",
+      "adultPrice": 27,
+      "currencyName": "EUR",
+      "destination": "Hurghada",
+      "tripType": "Sea & Islands",
+      "imageCount": 10,
+      "status": "uploaded",
+      "backendId": 52,
+      "childPrice": 15,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "slug": "adventour-submarine",
+      "name": "Adventour Submarine & Magawish Island Cruise",
+      "adultPrice": 30,
+      "currencyName": "EUR",
+      "destination": "Hurghada",
+      "tripType": "Sea & Islands",
+      "imageCount": 6,
+      "status": "uploaded",
+      "backendId": 53,
+      "childPrice": 18,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "slug": "horse-riding-on-the-beach",
+      "name": "Horse Riding on the Beach",
+      "adultPrice": 20,
+      "currencyName": "EUR",
+      "destination": "Hurghada",
+      "tripType": "Beach Activities",
+      "imageCount": 6,
+      "status": "uploaded",
+      "backendId": 49,
+      "childPrice": 12,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "slug": "alpha-sea-trip",
+      "name": "Alpha Sea Trip",
+      "adultPrice": 30,
+      "currencyName": "EUR",
+      "destination": "Hurghada",
+      "tripType": "Sea & Islands",
+      "imageCount": 10,
+      "status": "uploaded",
+      "backendId": 54,
+      "childPrice": 18,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "slug": "parasailing",
+      "name": "Parasailing",
+      "adultPrice": 15,
+      "currencyName": "EUR",
+      "destination": "Hurghada",
+      "tripType": "Water Sports",
+      "imageCount": 3,
+      "status": "uploaded",
+      "backendId": 58,
+      "childPrice": 12,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "slug": "sub-marine",
+      "name": "Sea Scope Semi-Submarine",
+      "adultPrice": 15,
+      "currencyName": "EUR",
+      "destination": "Hurghada",
+      "tripType": "Diving & Snorkeling",
+      "imageCount": 1,
+      "status": "uploaded",
+      "backendId": 55,
+      "childPrice": 8,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "slug": "dolphin-house",
+      "name": "Dolphin House",
+      "adultPrice": 23,
+      "currencyName": "EUR",
+      "destination": "Hurghada",
+      "tripType": "Marine Life",
+      "imageCount": 5,
+      "status": "uploaded",
+      "backendId": 56,
+      "childPrice": 13,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "slug": "orange-bay",
+      "name": "Orange Bay Island Trip",
+      "adultPrice": 25,
+      "currencyName": "EUR",
+      "destination": "Hurghada",
+      "tripType": "Sea & Islands",
+      "imageCount": 7,
+      "status": "uploaded",
+      "backendId": 50,
+      "childPrice": 15,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "slug": "paradise-island",
+      "name": "Paradise Island",
+      "adultPrice": 45,
+      "currencyName": "EUR",
+      "destination": "Hurghada",
+      "tripType": "Sea & Islands",
+      "imageCount": 1,
+      "status": "uploaded",
+      "backendId": 51,
+      "childPrice": 25,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "slug": "scuba-diving",
+      "name": "Scuba Diving",
+      "adultPrice": 25,
+      "currencyName": "EUR",
+      "destination": "Hurghada",
+      "tripType": "Diving & Snorkeling",
+      "imageCount": 6,
+      "status": "uploaded",
+      "backendId": 59,
+      "childPrice": 18,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "slug": "moto_safari",
+      "name": "Moto Safari",
+      "adultPrice": 20,
+      "currencyName": "EUR",
+      "destination": "Hurghada",
+      "tripType": "Desert Safari",
+      "imageCount": 8,
+      "status": "uploaded",
+      "backendId": 47,
+      "childPrice": 10,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "slug": "super_desert_safari",
+      "name": "Super Desert Safari",
+      "adultPrice": 25,
+      "currencyName": "EUR",
+      "destination": "Hurghada",
+      "tripType": "Desert Safari",
+      "imageCount": 9,
+      "status": "uploaded",
+      "backendId": 48,
+      "childPrice": 15,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "slug": "dolphin_show",
+      "name": "Dolphin Show",
+      "adultPrice": 17,
+      "currencyName": "EUR",
+      "destination": "Hurghada",
+      "tripType": "Marine Life",
+      "imageCount": 4,
+      "status": "uploaded",
+      "backendId": 57,
+      "childPrice": 10,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "slug": "cairo",
+      "name": "Cairo Day Trip",
+      "adultPrice": 75,
+      "currencyName": "EUR",
+      "destination": "Cairo",
+      "tripType": "City & Culture",
+      "imageCount": 8,
+      "status": "uploaded",
+      "backendId": 60,
+      "childPrice": 45,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "slug": "luxor_country",
+      "name": "Luxor Country",
+      "adultPrice": 65,
+      "currencyName": "EUR",
+      "destination": "Luxor",
+      "tripType": "City & Culture",
+      "imageCount": 5,
+      "status": "uploaded",
+      "backendId": 61,
+      "childPrice": 40,
+      "availableDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  ]
+}

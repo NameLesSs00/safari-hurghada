@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Bulk Media Deletion Script for SunnySide Tours
+ * Bulk Media Deletion Script for Safari Hurghada
  * Deletes:
  * 1. All Gallery images (/api/Gallery/DeleteImage/{id})
  * 2. All Trip images across all trips (/api/Trips/{tripId}/image/{imageId})
@@ -191,7 +191,7 @@ async function fetchAllTripTypes() {
 
 async function main() {
   console.log("=================================================");
-  console.log("       SunnySide Tours - Bulk Media Deletion     ");
+  console.log("       Safari Hurghada - Bulk Media Deletion     ");
   console.log("=================================================");
   if (isDryRun) {
     console.log("🔍 DRY RUN MODE ACTIVATED - No items will be deleted.\n");

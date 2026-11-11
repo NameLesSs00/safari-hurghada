@@ -4,9 +4,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "FAQ - Frequently Asked Questions",
   description:
-    "Find answers to common questions about SunnySide Tours - bookings, payments, cancellations, and travel tips for Egypt. Get the information you need to create memories together.",
+    "Find answers to common questions about Safari Hurghada Tours - bookings, payments, cancellations, and travel tips for Egypt. Get the information you need to create memories together.",
   openGraph: {
-    title: "FAQ | SunnySide Tours",
+    title: "FAQ | Safari Hurghada Tours",
     description: "Answers to your questions about booking and traveling with us.",
   },
 };

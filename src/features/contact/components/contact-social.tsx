@@ -4,14 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { motion, type Variants } from "framer-motion";
 
-import {
-  FacebookIcon,
-  InstagramIcon,
-  TikTokIcon,
-  TripAdvisorIcon,
-  WhatsAppIcon,
-  YoutubeIcon,
-} from "@/src/shared/components/icons";
+import { SITE } from "@/src/shared/config/site-config";
 
 const socialContainerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -31,32 +24,7 @@ const socialItemVariants: Variants = {
 export function ContactSocial() {
   const t = useTranslations("ContactPage.social");
 
-  const socialLinks = [
-    {
-      name: "TripAdvisor",
-      href: "https://www.tripadvisor.com/Attraction_Review-g297549-d25306692-Reviews-Safari_Hurghada-Hurghada_Red_Sea_and_Sinai.html",
-      icon: TripAdvisorIcon,
-      hoverBg: "hover:bg-[#00AA6C]",
-    },
-    {
-      name: "Facebook",
-      href: "https://www.facebook.com/SafariHurghada/",
-      icon: FacebookIcon,
-      hoverBg: "hover:bg-[#1877F2]",
-    },
-    {
-      name: "Instagram",
-      href: "https://www.instagram.com/safarihurghada/",
-      icon: InstagramIcon,
-      hoverBg: "hover:bg-[#E4405F]",
-    },
-    {
-      name: "WhatsApp",
-      href: "https://wa.me/201099466832",
-      icon: WhatsAppIcon,
-      hoverBg: "hover:bg-[#25D366]",
-    },
-  ];
+  const socialLinks = SITE.social;
 
   return (
     <div className="rounded-3xl border border-gray-200/80 bg-white p-5 sm:p-6 shadow-xs">

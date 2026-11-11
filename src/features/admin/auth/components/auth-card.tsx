@@ -20,7 +20,7 @@ export function AuthCard({
         {/* Real Hero Image */}
         <Image
           src="/Hero/Hero.png"
-          alt="SunnySide Tours Red Sea Experience"
+          alt="Safari Hurghada Tours Red Sea Experience"
           fill
           priority
           sizes="55vw"
@@ -35,7 +35,7 @@ export function AuthCard({
           <Link href="/" className="inline-block transition-opacity hover:opacity-90">
             <Image
               src="/Logo_white.png"
-              alt="SunnySide Tours"
+              alt="Safari Hurghada Tours"
               width={180}
               height={40}
               priority
@@ -91,7 +91,7 @@ export function AuthCard({
             <Link href="/">
               <Image
                 src="/Logo.png"
-                alt="SunnySide Tours"
+                alt="Safari Hurghada Tours"
                 width={160}
                 height={35}
                 className="h-auto w-[150px]"

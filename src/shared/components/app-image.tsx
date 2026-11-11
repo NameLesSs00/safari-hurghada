@@ -3,6 +3,8 @@
 import Image, { type ImageProps } from "next/image";
 import { useState, useEffect } from "react";
 
+import { SITE } from "@/src/shared/config/site-config";
+
 export interface AppImageProps extends Omit<ImageProps, "onError" | "src"> {
   src?: ImageProps["src"] | null;
   fallbackVariant?: "light" | "white";
@@ -47,7 +49,7 @@ export function LogoPlaceholder({
       <div className="relative flex flex-col items-center justify-center p-3 text-center transition-transform duration-300">
         <Image
           src={logoSrc}
-          alt="SunnySide Tours"
+          alt={SITE.brand.name}
           width={140}
           height={48}
           className="max-h-16 w-auto max-w-[70%] object-contain opacity-75 transition-opacity hover:opacity-90"
@@ -93,7 +95,7 @@ export function AppImage({
   return (
     <Image
       src={src}
-      alt={alt || "SunnySide Tours"}
+      alt={alt || SITE.brand.name}
       className={className}
       fill={fill}
       width={width}

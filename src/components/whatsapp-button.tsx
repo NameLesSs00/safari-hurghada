@@ -2,13 +2,11 @@
 
 import { useTranslations } from "next-intl";
 import { WhatsAppIcon } from "@/src/shared/components/icons";
+import { whatsappUrl } from "@/src/shared/config/site-config";
 
 export function WhatsAppButton() {
   const headerT = useTranslations("Header");
   const footerT = useTranslations("Footer");
-  const phoneNumber = "+201099466832";
-  // Remove any spaces or pluses for the WhatsApp URL
-  const cleanPhone = phoneNumber.replace(/[^0-9]/g, "");
   
   return (
     <div className="fixed bottom-6 right-6 z-50 flex items-center gap-4 sm:bottom-8 sm:right-8">
@@ -20,7 +18,7 @@ export function WhatsAppButton() {
       </div>
 
       <a
-        href={`https://wa.me/${cleanPhone}`}
+        href={whatsappUrl()}
         target="_blank"
         rel="noopener noreferrer"
         className="flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-110 sm:size-16"

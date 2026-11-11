@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { motion, type Variants } from "framer-motion";
 import { MessageSquare, Phone, Send, User } from "lucide-react";
 import { WhatsAppIcon } from "@/src/shared/components/icons";
+import { SITE, whatsappUrl } from "@/src/shared/config/site-config";
 
 const formVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -23,10 +24,8 @@ export function ContactForm() {
     e.preventDefault();
     if (!form.name.trim() || !form.whatsapp.trim() || !form.message.trim()) return;
 
-    const text = encodeURIComponent(
-      `Hello SunnySide Tours!\n\nNew Inquiry from Website:\n• Name: ${form.name.trim()}\n• WhatsApp: ${form.whatsapp.trim()}\n• Message: ${form.message.trim()}`
-    );
-    window.open(`https://wa.me/201093943595?text=${text}`, "_blank");
+    const message = `Hello ${SITE.brand.name}!\n\nNew Inquiry from Website:\n• Name: ${form.name.trim()}\n• WhatsApp: ${form.whatsapp.trim()}\n• Message: ${form.message.trim()}`;
+    window.open(whatsappUrl(message), "_blank");
   };
 
   return (
