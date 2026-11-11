@@ -11,7 +11,10 @@
     "openSavedTrips": "Saved trips",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "bookNow": "Book Now"
+    "bookNow": "Book Now",
+    "planMyTrip": "Plan My Trip",
+    "takeAction": "Take Action",
+    "menu": "MENU"
   },
   "LocaleSwitcher": {
     "label": "Change language",

@@ -1,12 +1,24 @@
 "use client";
 
-import { CalendarCheck, Check, ChevronDown, Heart, MapPin, Menu, X } from "lucide-react";
+import {
+  ArrowRight,
+  CalendarCheck,
+  Check,
+  ChevronDown,
+  ChevronRight,
+  Heart,
+  MapPin,
+  MoreHorizontal,
+  X,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
+import { TopHeaderBar } from "./top-header-bar";
 
 import { navItems } from "@/src/features/layout/constants/navigation";
 import { CartIcon } from "@/src/shared/components/icons";
@@ -144,7 +156,10 @@ export function Header() {
           : "border-b border-gray-100"
       }`}
     >
-      <div className="mx-auto flex h-[76px] w-full max-w-[1340px] items-center justify-between px-4 sm:px-6 lg:h-[84px] lg:px-8">
+      {/* Desktop TopBar with Address, Phone, Email & Social Icons (hidden on mobile) */}
+      <TopHeaderBar />
+
+      <div className="mx-auto flex h-[72px] w-full max-w-[1340px] items-center justify-between px-4 sm:px-6 lg:h-[80px] lg:px-8">
         {/* Logo */}
         <Link
           href={getLocalizedHref("/")}
@@ -199,7 +214,7 @@ export function Header() {
                     {isActive && (
                       <motion.span
                         layoutId="activeNavUnderline"
-                        className="absolute bottom-1 left-0 h-[3px] w-full rounded-full bg-[#F36F21]"
+                        className="absolute bottom-1 left-0 h-[2.5px] w-full rounded-full bg-[#84CC16]"
                       />
                     )}
                   </button>
@@ -262,7 +277,7 @@ export function Header() {
                 {isActive && (
                   <motion.span
                     layoutId="activeNavUnderline"
-                    className="absolute bottom-1 left-0 h-[3px] w-full rounded-full bg-[#F36F21]"
+                    className="absolute bottom-1 left-0 h-[2.5px] w-full rounded-full bg-[#84CC16]"
                   />
                 )}
               </Link>
@@ -388,27 +403,43 @@ export function Header() {
             </AnimatePresence>
           </Link>
 
-          {/* Book Now Button */}
+          {/* Plan My Trip Button (Desktop - matching Mockup 1) */}
           <Link
             href={getLocalizedHref("/trips")}
-            className="hidden md:inline-flex items-center gap-2 rounded-full bg-[#F36F21] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-[#df5d10] hover:shadow-lg active:scale-95"
+            className="hidden md:inline-flex items-center gap-2 rounded-xl bg-[#F36F21] px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-orange-500/20 transition-all hover:bg-[#df5d10] hover:shadow-lg active:scale-95"
           >
-            <CalendarCheck size={16} strokeWidth={2.3} />
-            <span>{headerT("bookNow")}</span>
+            <span>{headerT("planMyTrip")}</span>
+            <ArrowRight size={16} strokeWidth={2.4} />
           </Link>
 
-          {/* Mobile Hamburger Toggle */}
+          {/* Mobile Menu Toggle (matching Mockup 2: MENU •••) */}
           <button
-            className="grid size-10 place-items-center rounded-full border border-gray-200 bg-white text-[#1E232A] sm:size-10 lg:hidden cursor-pointer transition hover:border-gray-300 active:scale-95"
+            className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-bold text-[#1E232A] transition hover:bg-gray-100 lg:hidden cursor-pointer"
             type="button"
             aria-label={isOpen ? headerT("closeMenu") : headerT("openMenu")}
             aria-controls="mobile-navigation"
             aria-expanded={isOpen}
             onClick={() => setIsOpen((current) => !current)}
           >
-            {isOpen ? <X size={22} /> : <Menu size={22} />}
+            <span className="text-sm font-bold tracking-wider">{headerT("menu")}</span>
+            {isOpen ? (
+              <X size={20} />
+            ) : (
+              <MoreHorizontal size={22} className="text-[#1E232A]" />
+            )}
           </button>
         </div>
+      </div>
+
+      {/* Mobile Action Bar (matching Mockup 2 - hidden on desktop) */}
+      <div className="px-4 pb-3 md:hidden">
+        <Link
+          href={getLocalizedHref("/trips")}
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#F36F21] py-3 text-center text-sm font-bold text-white shadow-md shadow-orange-500/20 transition-all hover:bg-[#df5d10] active:scale-[0.98]"
+        >
+          <span>{headerT("planMyTrip")}</span>
+          <ChevronRight size={18} strokeWidth={2.4} />
+        </Link>
       </div>
 
       {/* Mobile Navigation Drawer */}

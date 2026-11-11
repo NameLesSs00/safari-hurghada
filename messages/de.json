@@ -8,9 +8,13 @@
   "Header": {
     "logoHome": "Logoipsum Startseite",
     "openCart": "Warenkorb öffnen",
+    "openSavedTrips": "Gespeicherte Reisen",
     "openMenu": "Menü öffnen",
     "closeMenu": "Menü schließen",
-    "bookNow": "Jetzt buchen"
+    "bookNow": "Jetzt buchen",
+    "planMyTrip": "Reise planen",
+    "takeAction": "Jetzt buchen",
+    "menu": "MENU"
   },
   "LocaleSwitcher": {
     "label": "Sprache ändern",
