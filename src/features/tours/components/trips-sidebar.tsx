@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { ChevronDown, MapPin, SlidersHorizontal, Tags } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
@@ -31,6 +32,12 @@ export function TripsSidebar({
   setFilters,
   onClearFilters,
 }: TripsSidebarProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Fetch all destinations (not just featured)
   const { data: destinations } = useDestinationsQuery(false);
   const { data: tripTypes } = useTripTypesQuery();
@@ -76,6 +83,7 @@ export function TripsSidebar({
         </label>
         <div className="relative">
           <select
+            suppressHydrationWarning
             value={filters.destinationId || ""}
             onChange={(e) =>
               setFilters((prev) => ({
@@ -88,11 +96,12 @@ export function TripsSidebar({
             className="w-full appearance-none rounded-2xl border border-gray-200 bg-gray-50/60 py-3 pl-4 pr-10 text-sm font-medium text-[#1E232A] outline-none transition-all focus:border-[#F36F21] focus:bg-white focus:ring-4 focus:ring-[#F36F21]/10 cursor-pointer"
           >
             <option value="">{t("anyDestination")}</option>
-            {destinations?.map((dest) => (
-              <option key={dest.id} value={dest.id}>
-                {dest.name.trim()}
-              </option>
-            ))}
+            {mounted &&
+              destinations?.map((dest) => (
+                <option key={dest.id} value={dest.id}>
+                  {dest.name.trim()}
+                </option>
+              ))}
           </select>
           <ChevronDown
             size={16}
@@ -167,26 +176,27 @@ export function TripsSidebar({
             )}
           </button>
 
-          {tripTypes?.map((type) => {
-            const isSelected = filters.typeId === type.id;
-            return (
-              <button
-                key={type.id}
-                type="button"
-                onClick={() => setFilters((prev) => ({ ...prev, typeId: type.id }))}
-                className={`flex w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-xs font-semibold transition-all cursor-pointer ${
-                  isSelected
-                    ? "bg-orange-50 text-[#F36F21] border border-orange-200/70"
-                    : "text-slate-600 hover:bg-gray-50 hover:text-[#1E232A]"
-                }`}
-              >
-                <span className="truncate pr-2">{type.name.trim()}</span>
-                {isSelected && (
-                  <span className="size-2 shrink-0 rounded-full bg-[#F36F21]" />
-                )}
-              </button>
-            );
-          })}
+          {mounted &&
+            tripTypes?.map((type) => {
+              const isSelected = filters.typeId === type.id;
+              return (
+                <button
+                  key={type.id}
+                  type="button"
+                  onClick={() => setFilters((prev) => ({ ...prev, typeId: type.id }))}
+                  className={`flex w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-xs font-semibold transition-all cursor-pointer ${
+                    isSelected
+                      ? "bg-orange-50 text-[#F36F21] border border-orange-200/70"
+                      : "text-slate-600 hover:bg-gray-50 hover:text-[#1E232A]"
+                  }`}
+                >
+                  <span className="truncate pr-2">{type.name.trim()}</span>
+                  {isSelected && (
+                    <span className="size-2 shrink-0 rounded-full bg-[#F36F21]" />
+                  )}
+                </button>
+              );
+            })}
         </div>
       </div>
     </motion.div>

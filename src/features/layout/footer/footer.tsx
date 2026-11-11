@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
@@ -20,6 +21,11 @@ export function Footer() {
   const footerT = useTranslations("Footer");
   const navT = useTranslations("Navigation");
   const { data: tripTypes } = useTripTypesQuery();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   function getLocalizedHref(href: string) {
     return href;
@@ -47,8 +53,8 @@ export function Footer() {
   ];
 
   const categoriesToDisplay =
-    tripTypes && tripTypes.length > 0
-      ? tripTypes.slice(0, 6).map((cat) => ({ id: cat.id, name: cat.name.trim() }))
+    mounted && tripTypes && tripTypes.length > 0
+      ? tripTypes.map((cat) => ({ id: cat.id, name: cat.name.trim() }))
       : defaultCategories;
 
   return (
@@ -174,7 +180,7 @@ export function Footer() {
               {categoriesToDisplay.map((cat, idx) => (
                 <Link
                   key={`${cat.id}-${idx}`}
-                  href={getLocalizedHref(`/trips?tripTypeId=${cat.id}`)}
+                  href={getLocalizedHref(`/trips?typeId=${cat.id}`)}
                   className="w-fit text-sm sm:text-[14.5px] text-slate-300 transition-colors hover:text-[#00A3C4]"
                 >
                   {cat.name}
@@ -259,10 +265,21 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright & Links */}
+        {/* Bottom Bar: Copyright & Powered by Tech Gear Solutions */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <p>
             © {new Date().getFullYear()} Safari Hurghada. {footerT("allRightsReserved")}
+          </p>
+          <p className="flex items-center gap-1.5 text-slate-400">
+            <span>Powered by</span>
+            <a
+              href="https://tech-gear.net/en"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-slate-200 transition-colors hover:text-[#F36F21] underline decoration-white/20 underline-offset-4"
+            >
+              Tech Gear Solutions
+            </a>
           </p>
         </div>
       </div>

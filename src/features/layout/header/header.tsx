@@ -5,7 +5,6 @@ import {
   CalendarCheck,
   Check,
   ChevronDown,
-  ChevronRight,
   Heart,
   MapPin,
   MoreHorizontal,
@@ -429,17 +428,6 @@ export function Header() {
             )}
           </button>
         </div>
-      </div>
-
-      {/* Mobile Action Bar (matching Mockup 2 - hidden on desktop) */}
-      <div className="px-4 pb-3 md:hidden">
-        <Link
-          href={getLocalizedHref("/trips")}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#F36F21] py-3 text-center text-sm font-bold text-white shadow-md shadow-orange-500/20 transition-all hover:bg-[#df5d10] active:scale-[0.98]"
-        >
-          <span>{headerT("planMyTrip")}</span>
-          <ChevronRight size={18} strokeWidth={2.4} />
-        </Link>
       </div>
 
       {/* Mobile Navigation Drawer */}
