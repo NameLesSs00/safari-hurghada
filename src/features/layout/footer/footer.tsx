@@ -196,14 +196,19 @@ export function Footer() {
             </h3>
             <div className="flex flex-col gap-3.5">
               {/* Address */}
-              <div className="flex items-center gap-3">
-                <span className="flex size-7 sm:size-8 shrink-0 items-center justify-center rounded-full bg-[#F36F21] text-white shadow-sm">
+              <a
+                href={SITE.contact.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 text-slate-300 transition-colors hover:text-white"
+              >
+                <span className="flex size-7 sm:size-8 shrink-0 items-center justify-center rounded-full bg-[#F36F21] text-white shadow-sm transition-transform duration-200 group-hover:scale-105">
                   <MapPin size={15} />
                 </span>
-                <span className="text-sm text-slate-300">
+                <span className="text-sm">
                   {SITE.contact.address.street}, {SITE.contact.address.city}
                 </span>
-              </div>
+              </a>
 
               {/* Phone (primary) */}
               <a

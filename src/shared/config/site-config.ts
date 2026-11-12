@@ -71,10 +71,10 @@ export const SITE = {
       countryCode: "EG",
       full: "Al Kawthar Omar Ibn AlKhattab Street Building 136, Hurghada, Red Sea, Egypt",
     },
-    mapsUrl: "https://share.google/OtOGSX2dOLonmufyR",
+    mapsUrl: "https://maps.app.goo.gl/CZ6HquhdrCaNMAMF7?g_st=aw",
     geo: {
-      latitude: 27.1852,
-      longitude: 33.8248,
+      latitude: 27.2236544,
+      longitude: 33.816576,
     },
   },
   social: [
@@ -92,7 +92,7 @@ export const SITE = {
     },
     {
       name: "TripAdvisor",
-      href: "https://www.tripadvisor.com/Attraction_Review-g297549-d25306692-Reviews-Safari_Hurghada-Hurghada_Red_Sea_and_Sinai.html",
+      href: "https://ar.tripadvisor.com/Attraction_Review-g27118717-d34383266-Reviews-Safarihurghada-Hurghada_1_Hurghada_Red_Sea_and_Sinai.html",
       icon: TripAdvisorIcon,
       hoverBg: "hover:bg-[#00AA6C]",
     },
