@@ -2,6 +2,7 @@
 
 import { useTripQuery } from "@/src/features/tours/api/get-trip";
 import { useTripReviewsQuery } from "@/src/features/tours/api/get-reviews";
+import type { Trip } from "@/src/features/tours/types/trip";
 import { extractIdFromSlug, generateSlug } from "@/src/features/tours/utils/slugify";
 import { useEffect } from "react";
 
@@ -17,16 +18,18 @@ import { TripReviews } from "./trip-reviews";
 
 interface TripDetailsPageProps {
   slug: string;
+  initialTrip?: Trip | null;
 }
 
-export function TripDetailsPage({ slug }: TripDetailsPageProps) {
+export function TripDetailsPage({ slug, initialTrip }: TripDetailsPageProps) {
   const tripId = extractIdFromSlug(slug);
 
   const { data: trip, isLoading: isTripLoading, error: tripError } = useTripQuery(
-    tripId as number
+    tripId as number,
+    initialTrip ?? undefined
   );
   
-  const { data: reviews = [], isLoading: isReviewsLoading } = useTripReviewsQuery(
+  const { data: reviews = [] } = useTripReviewsQuery(
     tripId as number
   );
 
@@ -49,7 +52,7 @@ export function TripDetailsPage({ slug }: TripDetailsPageProps) {
     );
   }
 
-  if (isTripLoading || isReviewsLoading) {
+  if (isTripLoading && !trip) {
     return (
       <div className="flex min-h-[70vh] flex-col items-center justify-center gap-3 bg-[#FAFAFA]">
         <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#F36F21] border-t-transparent" />

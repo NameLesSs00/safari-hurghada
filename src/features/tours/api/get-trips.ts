@@ -2,11 +2,8 @@ import { useQuery, keepPreviousData, useInfiniteQuery } from "@tanstack/react-qu
 import { useLocale } from "next-intl";
 
 import type { Trip, TripsResponse } from "@/src/features/tours/types/trip";
-import {
-  getApiUrl,
-  getImageUrl,
-  getLanguageHeaders,
-} from "@/src/shared/config/api";
+import { normalizeTrip } from "@/src/features/tours/utils/normalize-trip";
+import { getApiUrl, getLanguageHeaders } from "@/src/shared/config/api";
 import type { AppLocale } from "@/src/i18n/locales";
 
 export interface UseTripsQueryOptions {
@@ -60,39 +57,8 @@ export async function fetchTrips({
     throw new Error(json.message || "Failed to load trips");
   }
 
-  const DESTINATION_NAMES: Record<number, string> = {
-    2: "Hurghada",
-    3: "Giza",
-    4: "Aswan",
-    5: "Cairo",
-    6: "Luxor",
-    7: "El Gouna",
-  };
-
   // Prepend base URL to all image URLs and fill in destination name fallback if backend returns null
-  return json.data.map((trip) => {
-    const destId = trip.destinationInfo?.id;
-    const resolvedName =
-      trip.destinationInfo?.name ||
-      (destId ? DESTINATION_NAMES[destId] : undefined) ||
-      trip.destination ||
-      "Hurghada";
-
-    return {
-      ...trip,
-      destinationInfo: {
-        ...trip.destinationInfo,
-        id: destId ?? 2,
-        name: resolvedName,
-        imageUrl: trip.destinationInfo?.imageUrl ?? "",
-        isFeatured: trip.destinationInfo?.isFeatured ?? false,
-      },
-      images: (trip.images || []).map((img) => ({
-        ...img,
-        imageUrl: getImageUrl(img.imageUrl),
-      })),
-    };
-  });
+  return json.data.map(normalizeTrip);
 }
 
 export function useTripsInfiniteQuery(options: UseTripsQueryOptions = {}) {

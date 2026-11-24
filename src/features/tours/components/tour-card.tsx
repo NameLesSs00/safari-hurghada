@@ -1,9 +1,9 @@
 "use client";
 
 import { MapPin, Clock, Heart, ShoppingCart } from "lucide-react";
-import Image from "next/image";
+import { useQueryClient } from "@tanstack/react-query";
 import { AppImage } from "@/src/shared/components/app-image";
-import { useRouter } from "next/navigation";
+import { Link } from "@/src/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
 
@@ -19,7 +19,7 @@ interface TourCardProps {
 }
 
 export function TourCard({ trip }: TourCardProps) {
-  const router = useRouter();
+  const queryClient = useQueryClient();
   const locale = useLocale() as AppLocale;
   const t = useTranslations("Tours");
 
@@ -58,10 +58,8 @@ export function TourCard({ trip }: TourCardProps) {
     setIsAvailabilityOpen(true);
   };
 
-  const handleBookNow = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    router.push(tripUrl);
+  const seedTripCache = () => {
+    queryClient.setQueryData(["trip", locale, trip.id], trip);
   };
 
   const formattedPrice =
@@ -69,10 +67,14 @@ export function TourCard({ trip }: TourCardProps) {
 
   return (
     <>
-      <div
-        onClick={() => router.push(tripUrl)}
-        className="group flex flex-col h-full w-full cursor-pointer overflow-hidden rounded-[24px] bg-white border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] transition-all duration-300"
-      >
+      <div className="group relative flex flex-col h-full w-full cursor-pointer overflow-hidden rounded-[24px] bg-white border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] transition-all duration-300">
+        <Link
+          href={tripUrl}
+          onClick={seedTripCache}
+          onMouseEnter={seedTripCache}
+          aria-label={trip.name}
+          className="absolute inset-0 z-10"
+        />
         {/* Top Image Container */}
         <div className="relative h-[220px] sm:h-[230px] w-full shrink-0 overflow-hidden bg-gray-100">
           <AppImage
@@ -97,7 +99,7 @@ export function TourCard({ trip }: TourCardProps) {
             aria-label={
               mounted && isSaved ? t("unsaveTrip") : t("saveTrip")
             }
-            className="absolute top-3.5 right-3.5 z-10 size-9 rounded-full bg-black/25 backdrop-blur-[2px] flex items-center justify-center text-white transition-all hover:bg-black/40 hover:scale-110 active:scale-95"
+            className="absolute top-3.5 right-3.5 z-20 size-9 rounded-full bg-black/25 backdrop-blur-[2px] flex items-center justify-center text-white transition-all hover:bg-black/40 hover:scale-110 active:scale-95"
           >
             <Heart
               className={`size-5 transition-colors ${
@@ -161,7 +163,7 @@ export function TourCard({ trip }: TourCardProps) {
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="relative z-20 flex items-center gap-2">
               {/* Add to Cart Icon Button */}
               <button
                 type="button"
@@ -180,15 +182,16 @@ export function TourCard({ trip }: TourCardProps) {
                 )}
               </button>
 
-              {/* Book Now Button */}
-              <button
-                type="button"
-                onClick={handleBookNow}
+              {/* Book Now Link */}
+              <Link
+                href={tripUrl}
+                onClick={seedTripCache}
+                onMouseEnter={seedTripCache}
                 className="inline-flex items-center gap-1.5 rounded-full bg-[#F36F21] px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-sm transition-all duration-200 hover:bg-[#df5d10] hover:shadow-md active:scale-95 cursor-pointer"
               >
                 <span>{t("bookNow")}</span>
                 <span className="text-base leading-none">→</span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
