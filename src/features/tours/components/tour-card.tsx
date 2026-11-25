@@ -63,7 +63,7 @@ export function TourCard({ trip }: TourCardProps) {
   };
 
   const formattedPrice =
-    trip.adultPrice > 0 ? `$${trip.adultPrice}` : null;
+    trip.adultPrice > 0 ? `€${trip.adultPrice}` : null;
 
   return (
     <>
