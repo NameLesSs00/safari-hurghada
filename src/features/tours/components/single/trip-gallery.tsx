@@ -55,7 +55,7 @@ export function TripGallery({ images }: TripGalleryProps) {
             alt="Trip photo"
             fill
             priority
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="object-cover object-[center_60%] transition-transform duration-700 group-hover:scale-105"
             sizes="(max-width: 1440px) 100vw, 1440px"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
@@ -96,7 +96,7 @@ export function TripGallery({ images }: TripGalleryProps) {
             alt="Featured trip experience"
             fill
             priority
-            className="object-cover transition-all duration-500 group-hover:scale-105"
+            className="object-cover object-[center_60%] transition-all duration-500 group-hover:scale-105"
             sizes="(max-width: 1024px) 100vw, 68vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
@@ -147,7 +147,7 @@ export function TripGallery({ images }: TripGalleryProps) {
                   src={img.imageUrl}
                   alt="Trip thumbnail"
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="object-cover object-[center_60%] transition-transform duration-500 group-hover:scale-110"
                   sizes="(max-width: 1024px) 25vw, 15vw"
                 />
                 <div
