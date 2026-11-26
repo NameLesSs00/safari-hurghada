@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     fr: "Safari Hurghada - Safaris dans le Désert, Excursions Mer Rouge & Circuits en Égypte",
     pl: "Safari Hurghada - Safari na Pustyni, Wycieczki nad Morze Czerwone i Egipt",
   };
-
+ 
   const descriptions: Record<string, string> = {
     en: "Book top-rated desert safaris, quad biking, Orange Bay boat trips, diving, and Luxor & Cairo excursions in Hurghada. Trusted local experts with best-price guarantee.",
     de: "Buchen Sie erstklassige Wüstensafaris, Quad-Touren, Orange Bay Bootsausflüge, Tauchen sowie Luxor- & Kairo-Ausflüge ab Hurghada. Lokale Experten mit Bestpreisgarantie.",
