@@ -11,11 +11,17 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
 
   const titles: Record<string, string> = {
-    en: "Safari Hurghada - Excursions & Desert Tours | #1 Rated Tour Operator",
+    en: "Safari Hurghada - Desert Safaris, Red Sea Excursions & Egypt Tours",
+    de: "Safari Hurghada - Wüstensafaris, Rotes Meer Ausflüge & Ägypten Touren",
+    fr: "Safari Hurghada - Safaris dans le Désert, Excursions Mer Rouge & Circuits en Égypte",
+    pl: "Safari Hurghada - Safari na Pustyni, Wycieczki nad Morze Czerwone i Egipt",
   };
 
   const descriptions: Record<string, string> = {
-    en: "Safari Hurghada - #1 Rated Tour Operator in Hurghada. Best prices for VIP Desert Safaris, Quad Biking, Orange Bay Island, Submarine & Diving Excursions. Book your adventure now!",
+    en: "Book top-rated desert safaris, quad biking, Orange Bay boat trips, diving, and Luxor & Cairo excursions in Hurghada. Trusted local experts with best-price guarantee.",
+    de: "Buchen Sie erstklassige Wüstensafaris, Quad-Touren, Orange Bay Bootsausflüge, Tauchen sowie Luxor- & Kairo-Ausflüge ab Hurghada. Lokale Experten mit Bestpreisgarantie.",
+    fr: "Réservez les meilleurs safaris dans le désert, sorties quad, excursions à Orange Bay, plongée et circuits à Louxor et au Caire depuis Hurghada. Experts locaux au meilleur prix.",
+    pl: "Zarezerwuj najlepsze safari po pustyni, quady, rejsy na Orange Bay, nurkowanie oraz wycieczki do Luksoru i Kairu z Hurghady. Lokalni eksperci i gwarancja najlepszej ceny.",
   };
 
   const titleText = titles[locale] || titles.en;
@@ -23,6 +29,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
   const ogLocales: Record<string, { locale: string; alternate?: string[] }> = {
     en: { locale: "en_US" },
+    de: { locale: "de_DE" },
+    fr: { locale: "fr_FR" },
+    pl: { locale: "pl_PL" },
   };
 
   const ogLocaleInfo = ogLocales[locale] || ogLocales.en;

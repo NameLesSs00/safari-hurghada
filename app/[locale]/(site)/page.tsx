@@ -16,24 +16,26 @@ export async function generateMetadata({
   const { locale } = await params;
 
   const titles: Record<string, string> = {
-    de: "Safari Hurghada Tours - Gemeinsam Erinnerungen schaffen in Ägypten",
-    fr: "Safari Hurghada Tours - Créez des souvenirs inoubliables en Égypte",
-    pl: "Safari Hurghada Tours - Twórzmy wspomnienia razem w Egipcie",
-    en: "Safari Hurghada Tours - Create Memories Together in Egypt",
+    en: "Safari Hurghada - Desert Safaris, Red Sea Excursions & Egypt Tours",
+    de: "Safari Hurghada - Wüstensafaris, Rotes Meer Ausflüge & Ägypten Touren",
+    fr: "Safari Hurghada - Safaris dans le Désert, Excursions Mer Rouge & Circuits en Égypte",
+    pl: "Safari Hurghada - Safari na Pustyni, Wycieczki nad Morze Czerwone i Egipt",
   };
 
   const descriptions: Record<string, string> = {
-    de: "Entdecken Sie Ägypten mit Safari Hurghada Tours. Entdecken Sie Reiseziele, buchen Sie Touren und schaffen Sie unvergessliche Erinnerungen.",
-    fr: "Découvrez l'Égypte avec Safari Hurghada Tours. Explorez les destinations, réservez des excursions et créez des souvenirs inoubliables.",
-    pl: "Odkryj Egipt z Safari Hurghada Tours. Zwiedzaj najciekawsze miejsca, rezerwuj wycieczki i twórz niezapomniane wspomnienia.",
-    en: "Discover Egypt with Safari Hurghada Tours. Explore destinations, book tours, and create unforgettable memories. Your trusted partner for Egyptian adventures.",
+    en: "Book top-rated desert safaris, quad biking, Orange Bay boat trips, diving, and Luxor & Cairo excursions in Hurghada. Trusted local experts with best-price guarantee.",
+    de: "Buchen Sie erstklassige Wüstensafaris, Quad-Touren, Orange Bay Bootsausflüge, Tauchen sowie Luxor- & Kairo-Ausflüge ab Hurghada. Lokale Experten mit Bestpreisgarantie.",
+    fr: "Réservez les meilleurs safaris dans le désert, sorties quad, excursions à Orange Bay, plongée et circuits à Louxor et au Caire depuis Hurghada. Experts locaux au meilleur prix.",
+    pl: "Zarezerwuj najlepsze safari po pustyni, quady, rejsy na Orange Bay, nurkowanie oraz wycieczki do Luksoru i Kairu z Hurghady. Lokalni eksperci i gwarancja najlepszej ceny.",
   };
 
   const title = titles[locale] || titles.en;
   const description = descriptions[locale] || descriptions.en;
 
   return {
-    title,
+    title: {
+      absolute: title,
+    },
     description,
     openGraph: {
       title,
